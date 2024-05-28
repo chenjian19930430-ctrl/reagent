@@ -10,3 +10,4 @@
 - 2024-05-23 16:34:00 [刘子秋] chore: update dependencies
 - 2024-05-24 18:06:00 [曾俞鸿] docs: add inline comments
 - 2024-05-27 18:39:00 [刘子秋] style: fix linting warnings
+- 2024-05-28 15:11:00 [曾俞鸿] docs: update api documentation
