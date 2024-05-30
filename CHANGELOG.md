@@ -12,3 +12,4 @@
 - 2024-05-27 18:39:00 [刘子秋] style: fix linting warnings
 - 2024-05-28 15:11:00 [曾俞鸿] docs: update api documentation
 - 2024-05-29 12:30:00 [刘子秋] style: format code according to project standards
+- 2024-05-30 10:13:00 [曾俞鸿] refactor: code cleanup and optimization
