@@ -15,3 +15,4 @@
 - 2024-05-30 10:13:00 [曾俞鸿] refactor: code cleanup and optimization
 - 2024-05-31 17:45:00 [刘子秋] ci: update workflow configuration
 - 2024-06-03 16:02:00 [陈苏丹] docs: update api documentation
+- 2024-06-04 09:54:00 [李佳勉] test: add unit tests for 文档
