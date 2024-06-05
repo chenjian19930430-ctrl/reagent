@@ -16,3 +16,4 @@
 - 2024-05-31 17:45:00 [刘子秋] ci: update workflow configuration
 - 2024-06-03 16:02:00 [陈苏丹] docs: update api documentation
 - 2024-06-04 09:54:00 [李佳勉] test: add unit tests for 文档
+- 2024-06-05 13:26:00 [洪杏瑜] test: add unit tests for 编排器
