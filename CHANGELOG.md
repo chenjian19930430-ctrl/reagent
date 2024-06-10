@@ -19,3 +19,4 @@
 - 2024-06-05 13:26:00 [洪杏瑜] test: add unit tests for 编排器
 - 2024-06-06 17:41:00 [张永泉] test: add unit tests for 数据层
 - 2024-06-07 11:34:00 [许潮榕] docs: add inline comments
+- 2024-06-10 13:46:00 [陈苏丹] test: integration tests for 视频引擎
