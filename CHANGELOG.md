@@ -20,3 +20,4 @@
 - 2024-06-06 17:41:00 [张永泉] test: add unit tests for 数据层
 - 2024-06-07 11:34:00 [许潮榕] docs: add inline comments
 - 2024-06-10 13:46:00 [陈苏丹] test: integration tests for 视频引擎
+- 2024-06-11 16:57:00 [李佳勉] perf: optimize query performance
