@@ -22,3 +22,4 @@
 - 2024-06-10 13:46:00 [陈苏丹] test: integration tests for 视频引擎
 - 2024-06-11 16:57:00 [李佳勉] perf: optimize query performance
 - 2024-06-12 13:05:00 [洪杏瑜] fix: minor bug fixes and stability improvements
+- 2024-06-13 15:52:00 [张永泉] docs: update api documentation
