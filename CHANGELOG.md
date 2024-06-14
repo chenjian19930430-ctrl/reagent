@@ -23,3 +23,4 @@
 - 2024-06-11 16:57:00 [李佳勉] perf: optimize query performance
 - 2024-06-12 13:05:00 [洪杏瑜] fix: minor bug fixes and stability improvements
 - 2024-06-13 15:52:00 [张永泉] docs: update api documentation
+- 2024-06-14 18:46:00 [许潮榕] refactor: code cleanup and optimization
