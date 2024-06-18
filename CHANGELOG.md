@@ -25,3 +25,4 @@
 - 2024-06-13 15:52:00 [张永泉] docs: update api documentation
 - 2024-06-14 18:46:00 [许潮榕] refactor: code cleanup and optimization
 - 2024-06-17 09:37:00 [陈苏丹] refactor: extract common utilities
+- 2024-06-18 13:47:00 [李佳勉] docs: update api documentation
