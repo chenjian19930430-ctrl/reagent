@@ -27,3 +27,4 @@
 - 2024-06-17 09:37:00 [陈苏丹] refactor: extract common utilities
 - 2024-06-18 13:47:00 [李佳勉] docs: update api documentation
 - 2024-06-19 18:33:00 [洪杏瑜] fix: resolve edge case in 线索引擎
+- 2024-06-20 16:29:00 [张永泉] fix: resolve edge case in 配置管理
