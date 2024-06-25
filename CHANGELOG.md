@@ -30,3 +30,4 @@
 - 2024-06-20 16:29:00 [张永泉] fix: resolve edge case in 配置管理
 - 2024-06-21 12:44:00 [许潮榕] perf: optimize query performance
 - 2024-06-24 16:11:00 [陈苏丹] fix: minor bug fixes and stability improvements
+- 2024-06-25 13:58:00 [李佳勉] chore: update config files
