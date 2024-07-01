@@ -34,3 +34,4 @@
 - 2024-06-26 14:16:00 [洪杏瑜] refactor: extract common utilities
 - 2024-06-27 10:54:00 [张永泉] perf: optimize query performance
 - 2024-06-28 10:51:00 [许潮榕] style: format code according to project standards
+- 2024-07-01 16:33:00 [陈苏丹] perf: optimize query performance
