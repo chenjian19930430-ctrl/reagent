@@ -36,3 +36,4 @@
 - 2024-06-28 10:51:00 [许潮榕] style: format code according to project standards
 - 2024-07-01 16:33:00 [陈苏丹] perf: optimize query performance
 - 2024-07-02 12:50:00 [李佳勉] perf: optimize query performance
+- 2024-07-03 17:14:00 [洪杏瑜] refactor: code cleanup and optimization
