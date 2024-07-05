@@ -38,3 +38,4 @@
 - 2024-07-02 12:50:00 [李佳勉] perf: optimize query performance
 - 2024-07-03 17:14:00 [洪杏瑜] refactor: code cleanup and optimization
 - 2024-07-04 10:18:00 [张永泉] refactor: extract common utilities
+- 2024-07-05 13:08:00 [许潮榕] refactor: extract common utilities
