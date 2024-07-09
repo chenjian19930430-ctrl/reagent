@@ -40,3 +40,4 @@
 - 2024-07-04 10:18:00 [张永泉] refactor: extract common utilities
 - 2024-07-05 13:08:00 [许潮榕] refactor: extract common utilities
 - 2024-07-08 10:35:00 [陈苏丹] chore: update config files
+- 2024-07-09 11:13:00 [李佳勉] style: fix linting warnings
