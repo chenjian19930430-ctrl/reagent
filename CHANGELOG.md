@@ -41,3 +41,4 @@
 - 2024-07-05 13:08:00 [许潮榕] refactor: extract common utilities
 - 2024-07-08 10:35:00 [陈苏丹] chore: update config files
 - 2024-07-09 11:13:00 [李佳勉] style: fix linting warnings
+- 2024-07-10 16:23:00 [洪杏瑜] ci: update workflow configuration
