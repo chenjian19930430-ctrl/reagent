@@ -42,3 +42,4 @@
 - 2024-07-08 10:35:00 [陈苏丹] chore: update config files
 - 2024-07-09 11:13:00 [李佳勉] style: fix linting warnings
 - 2024-07-10 16:23:00 [洪杏瑜] ci: update workflow configuration
+- 2024-07-11 12:22:00 [张永泉] chore: bump version to 2024.7.11
