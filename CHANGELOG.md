@@ -44,3 +44,4 @@
 - 2024-07-10 16:23:00 [洪杏瑜] ci: update workflow configuration
 - 2024-07-11 12:22:00 [张永泉] chore: bump version to 2024.7.11
 - 2024-07-12 14:36:00 [许潮榕] style: format code according to project standards
+- 2024-07-15 10:18:00 [陈苏丹] test: integration tests for LLM客户端
