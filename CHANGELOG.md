@@ -45,3 +45,4 @@
 - 2024-07-11 12:22:00 [张永泉] chore: bump version to 2024.7.11
 - 2024-07-12 14:36:00 [许潮榕] style: format code according to project standards
 - 2024-07-15 10:18:00 [陈苏丹] test: integration tests for LLM客户端
+- 2024-07-16 13:39:00 [李佳勉] docs: add inline comments
