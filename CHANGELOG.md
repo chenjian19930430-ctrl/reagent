@@ -47,3 +47,4 @@
 - 2024-07-15 10:18:00 [陈苏丹] test: integration tests for LLM客户端
 - 2024-07-16 13:39:00 [李佳勉] docs: add inline comments
 - 2024-07-17 12:43:00 [洪杏瑜] refactor: code cleanup and optimization
+- 2024-07-18 11:03:00 [张永泉] style: fix linting warnings
