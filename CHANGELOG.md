@@ -48,3 +48,4 @@
 - 2024-07-16 13:39:00 [李佳勉] docs: add inline comments
 - 2024-07-17 12:43:00 [洪杏瑜] refactor: code cleanup and optimization
 - 2024-07-18 11:03:00 [张永泉] style: fix linting warnings
+- 2024-07-19 11:36:00 [许潮榕] refactor: code cleanup and optimization
