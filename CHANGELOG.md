@@ -51,3 +51,4 @@
 - 2024-07-19 11:36:00 [许潮榕] refactor: code cleanup and optimization
 - 2024-07-22 10:39:00 [陈苏丹] style: fix linting warnings
 - 2024-07-23 15:07:00 [李佳勉] chore: bump version to 2024.7.23
+- 2024-07-24 14:17:00 [洪杏瑜] fix: resolve edge case in 数据层
