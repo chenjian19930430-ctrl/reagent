@@ -52,3 +52,4 @@
 - 2024-07-22 10:39:00 [陈苏丹] style: fix linting warnings
 - 2024-07-23 15:07:00 [李佳勉] chore: bump version to 2024.7.23
 - 2024-07-24 14:17:00 [洪杏瑜] fix: resolve edge case in 数据层
+- 2024-07-25 11:06:00 [张永泉] style: format code according to project standards
