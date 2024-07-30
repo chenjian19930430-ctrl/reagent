@@ -55,3 +55,4 @@
 - 2024-07-25 11:06:00 [张永泉] style: format code according to project standards
 - 2024-07-26 17:55:00 [许潮榕] style: fix linting warnings
 - 2024-07-29 15:22:00 [陈苏丹] fix: resolve edge case in LLM客户端
+- 2024-07-30 13:40:00 [李佳勉] chore: update dependencies
