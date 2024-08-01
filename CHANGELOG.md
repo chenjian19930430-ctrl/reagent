@@ -57,3 +57,4 @@
 - 2024-07-29 15:22:00 [陈苏丹] fix: resolve edge case in LLM客户端
 - 2024-07-30 13:40:00 [李佳勉] chore: update dependencies
 - 2024-07-31 18:00:00 [洪杏瑜] style: fix linting warnings
+- 2024-08-01 17:33:00 [陈苏丹] style: fix linting warnings
