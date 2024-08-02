@@ -58,3 +58,4 @@
 - 2024-07-30 13:40:00 [李佳勉] chore: update dependencies
 - 2024-07-31 18:00:00 [洪杏瑜] style: fix linting warnings
 - 2024-08-01 17:33:00 [陈苏丹] style: fix linting warnings
+- 2024-08-02 14:58:00 [李佳勉] style: format code according to project standards
