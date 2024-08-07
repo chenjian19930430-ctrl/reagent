@@ -61,3 +61,4 @@
 - 2024-08-02 14:58:00 [李佳勉] style: format code according to project standards
 - 2024-08-05 15:34:00 [洪杏瑜] chore: update dependencies
 - 2024-08-06 15:34:00 [张永泉] chore: update dependencies
+- 2024-08-07 18:44:00 [许潮榕] test: integration tests for API层
