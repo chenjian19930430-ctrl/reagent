@@ -64,3 +64,4 @@
 - 2024-08-07 18:44:00 [许潮榕] test: integration tests for API层
 - 2024-08-08 15:56:00 [陈苏丹] test: integration tests for API层
 - 2024-08-09 18:24:00 [李佳勉] test: add unit tests for CI/CD
+- 2024-08-12 12:03:00 [洪杏瑜] refactor: extract common utilities
