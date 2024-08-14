@@ -66,3 +66,4 @@
 - 2024-08-09 18:24:00 [李佳勉] test: add unit tests for CI/CD
 - 2024-08-12 12:03:00 [洪杏瑜] refactor: extract common utilities
 - 2024-08-13 12:04:00 [张永泉] test: integration tests for 部署脚本
+- 2024-08-14 17:40:00 [许潮榕] style: fix linting warnings
