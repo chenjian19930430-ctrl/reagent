@@ -68,3 +68,4 @@
 - 2024-08-13 12:04:00 [张永泉] test: integration tests for 部署脚本
 - 2024-08-14 17:40:00 [许潮榕] style: fix linting warnings
 - 2024-08-15 09:16:00 [陈苏丹] docs: add inline comments
+- 2024-08-16 15:47:00 [李佳勉] perf: optimize query performance
