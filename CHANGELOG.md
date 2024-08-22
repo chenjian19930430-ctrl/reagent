@@ -72,3 +72,4 @@
 - 2024-08-19 17:17:00 [洪杏瑜] fix: minor bug fixes and stability improvements
 - 2024-08-20 09:57:00 [张永泉] chore: update dependencies
 - 2024-08-21 09:10:00 [许潮榕] refactor: code cleanup and optimization
+- 2024-08-22 15:38:00 [陈苏丹] chore: bump version to 2024.8.22
