@@ -75,3 +75,4 @@
 - 2024-08-22 15:38:00 [陈苏丹] chore: bump version to 2024.8.22
 - 2024-08-23 14:21:00 [李佳勉] docs: add inline comments
 - 2024-08-26 16:39:00 [洪杏瑜] refactor: code cleanup and optimization
+- 2024-08-27 15:57:00 [张永泉] fix: resolve edge case in 客服模块
