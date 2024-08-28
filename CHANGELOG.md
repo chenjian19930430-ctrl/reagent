@@ -76,3 +76,4 @@
 - 2024-08-23 14:21:00 [李佳勉] docs: add inline comments
 - 2024-08-26 16:39:00 [洪杏瑜] refactor: code cleanup and optimization
 - 2024-08-27 15:57:00 [张永泉] fix: resolve edge case in 客服模块
+- 2024-08-28 13:03:00 [许潮榕] test: integration tests for API层
