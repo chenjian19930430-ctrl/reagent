@@ -78,3 +78,4 @@
 - 2024-08-27 15:57:00 [张永泉] fix: resolve edge case in 客服模块
 - 2024-08-28 13:03:00 [许潮榕] test: integration tests for API层
 - 2024-08-29 09:56:00 [陈苏丹] fix: minor bug fixes and stability improvements
+- 2024-08-30 09:41:00 [李佳勉] refactor: extract common utilities
