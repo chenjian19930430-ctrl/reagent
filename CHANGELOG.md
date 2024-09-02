@@ -79,3 +79,4 @@
 - 2024-08-28 13:03:00 [许潮榕] test: integration tests for API层
 - 2024-08-29 09:56:00 [陈苏丹] fix: minor bug fixes and stability improvements
 - 2024-08-30 09:41:00 [李佳勉] refactor: extract common utilities
+- 2024-09-02 15:21:00 [陈苏丹] refactor: extract common utilities
