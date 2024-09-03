@@ -80,3 +80,4 @@
 - 2024-08-29 09:56:00 [陈苏丹] fix: minor bug fixes and stability improvements
 - 2024-08-30 09:41:00 [李佳勉] refactor: extract common utilities
 - 2024-09-02 15:21:00 [陈苏丹] refactor: extract common utilities
+- 2024-09-03 15:53:00 [李佳勉] test: integration tests for 编排器
