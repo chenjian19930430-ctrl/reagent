@@ -84,3 +84,4 @@
 - 2024-09-04 18:06:00 [洪杏瑜] fix: resolve edge case in 文档
 - 2024-09-05 12:22:00 [张永泉] chore: update dependencies
 - 2024-09-06 17:32:00 [许潮榕] style: fix linting warnings
+- 2024-09-09 16:47:00 [陈苏丹] ci: update workflow configuration
