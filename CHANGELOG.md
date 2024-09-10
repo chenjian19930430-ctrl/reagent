@@ -85,3 +85,4 @@
 - 2024-09-05 12:22:00 [张永泉] chore: update dependencies
 - 2024-09-06 17:32:00 [许潮榕] style: fix linting warnings
 - 2024-09-09 16:47:00 [陈苏丹] ci: update workflow configuration
+- 2024-09-10 09:49:00 [李佳勉] chore: update config files
