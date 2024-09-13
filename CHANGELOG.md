@@ -88,3 +88,4 @@
 - 2024-09-10 09:49:00 [李佳勉] chore: update config files
 - 2024-09-11 09:52:00 [洪杏瑜] test: integration tests for API层
 - 2024-09-12 18:24:00 [张永泉] fix: resolve edge case in 视频引擎
+- 2024-09-13 16:36:00 [许潮榕] test: add unit tests for LLM客户端
