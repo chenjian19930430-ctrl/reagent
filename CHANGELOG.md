@@ -90,3 +90,4 @@
 - 2024-09-12 18:24:00 [张永泉] fix: resolve edge case in 视频引擎
 - 2024-09-13 16:36:00 [许潮榕] test: add unit tests for LLM客户端
 - 2024-09-16 09:25:00 [陈苏丹] perf: optimize query performance
+- 2024-09-17 18:30:00 [李佳勉] style: fix linting warnings
