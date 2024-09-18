@@ -91,3 +91,4 @@
 - 2024-09-13 16:36:00 [许潮榕] test: add unit tests for LLM客户端
 - 2024-09-16 09:25:00 [陈苏丹] perf: optimize query performance
 - 2024-09-17 18:30:00 [李佳勉] style: fix linting warnings
+- 2024-09-18 12:59:00 [洪杏瑜] test: add unit tests for 客服模块
