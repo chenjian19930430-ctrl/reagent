@@ -92,3 +92,4 @@
 - 2024-09-16 09:25:00 [陈苏丹] perf: optimize query performance
 - 2024-09-17 18:30:00 [李佳勉] style: fix linting warnings
 - 2024-09-18 12:59:00 [洪杏瑜] test: add unit tests for 客服模块
+- 2024-09-19 18:33:00 [张永泉] style: format code according to project standards
