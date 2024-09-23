@@ -94,3 +94,4 @@
 - 2024-09-18 12:59:00 [洪杏瑜] test: add unit tests for 客服模块
 - 2024-09-19 18:33:00 [张永泉] style: format code according to project standards
 - 2024-09-20 09:32:00 [许潮榕] chore: update config files
+- 2024-09-23 14:48:00 [陈苏丹] fix: resolve edge case in 视频引擎
