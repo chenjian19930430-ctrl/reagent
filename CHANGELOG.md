@@ -95,3 +95,4 @@
 - 2024-09-19 18:33:00 [张永泉] style: format code according to project standards
 - 2024-09-20 09:32:00 [许潮榕] chore: update config files
 - 2024-09-23 14:48:00 [陈苏丹] fix: resolve edge case in 视频引擎
+- 2024-09-24 13:44:00 [李佳勉] fix: resolve edge case in 测试套件
