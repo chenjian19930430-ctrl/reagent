@@ -96,3 +96,4 @@
 - 2024-09-20 09:32:00 [许潮榕] chore: update config files
 - 2024-09-23 14:48:00 [陈苏丹] fix: resolve edge case in 视频引擎
 - 2024-09-24 13:44:00 [李佳勉] fix: resolve edge case in 测试套件
+- 2024-09-25 15:43:00 [洪杏瑜] chore: update dependencies
