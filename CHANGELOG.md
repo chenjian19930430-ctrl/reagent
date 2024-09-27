@@ -98,3 +98,4 @@
 - 2024-09-24 13:44:00 [李佳勉] fix: resolve edge case in 测试套件
 - 2024-09-25 15:43:00 [洪杏瑜] chore: update dependencies
 - 2024-09-26 14:04:00 [张永泉] style: format code according to project standards
+- 2024-09-27 18:30:00 [许潮榕] chore: update config files
