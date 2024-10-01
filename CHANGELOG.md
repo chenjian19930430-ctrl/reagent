@@ -100,3 +100,4 @@
 - 2024-09-26 14:04:00 [张永泉] style: format code according to project standards
 - 2024-09-27 18:30:00 [许潮榕] chore: update config files
 - 2024-09-30 11:40:00 [陈苏丹] style: fix linting warnings
+- 2024-10-01 18:59:00 [许潮榕] chore: bump version to 2024.10.1
