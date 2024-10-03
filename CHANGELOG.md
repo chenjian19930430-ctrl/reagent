@@ -102,3 +102,4 @@
 - 2024-09-30 11:40:00 [陈苏丹] style: fix linting warnings
 - 2024-10-01 18:59:00 [许潮榕] chore: bump version to 2024.10.1
 - 2024-10-02 15:57:00 [许潮榕] docs: update api documentation
+- 2024-10-03 10:49:00 [许潮榕] fix: minor bug fixes and stability improvements
