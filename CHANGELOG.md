@@ -105,3 +105,4 @@
 - 2024-10-03 10:49:00 [许潮榕] fix: minor bug fixes and stability improvements
 - 2024-10-04 17:06:00 [许潮榕] docs: add inline comments
 - 2024-10-07 10:50:00 [许潮榕] perf: optimize query performance
+- 2024-10-08 11:49:00 [许潮榕] docs: update api documentation
