@@ -106,3 +106,4 @@
 - 2024-10-04 17:06:00 [许潮榕] docs: add inline comments
 - 2024-10-07 10:50:00 [许潮榕] perf: optimize query performance
 - 2024-10-08 11:49:00 [许潮榕] docs: update api documentation
+- 2024-10-09 09:48:00 [许潮榕] docs: update api documentation
