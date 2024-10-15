@@ -110,3 +110,4 @@
 - 2024-10-10 18:46:00 [许潮榕] fix: resolve edge case in 视频引擎
 - 2024-10-11 15:31:00 [许潮榕] chore: bump version to 2024.10.11
 - 2024-10-14 11:57:00 [许潮榕] ci: update workflow configuration
+- 2024-10-15 18:06:00 [许潮榕] test: add unit tests for 文档
