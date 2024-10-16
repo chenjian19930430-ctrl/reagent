@@ -111,3 +111,4 @@
 - 2024-10-11 15:31:00 [许潮榕] chore: bump version to 2024.10.11
 - 2024-10-14 11:57:00 [许潮榕] ci: update workflow configuration
 - 2024-10-15 18:06:00 [许潮榕] test: add unit tests for 文档
+- 2024-10-16 09:45:00 [许潮榕] perf: optimize query performance
