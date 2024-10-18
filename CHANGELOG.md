@@ -113,3 +113,4 @@
 - 2024-10-15 18:06:00 [许潮榕] test: add unit tests for 文档
 - 2024-10-16 09:45:00 [许潮榕] perf: optimize query performance
 - 2024-10-17 15:51:00 [许潮榕] style: fix linting warnings
+- 2024-10-18 11:05:00 [许潮榕] refactor: extract common utilities
