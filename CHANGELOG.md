@@ -119,3 +119,4 @@
 - 2024-10-23 10:28:00 [许潮榕] style: fix linting warnings
 - 2024-10-24 11:57:00 [许潮榕] refactor: extract common utilities
 - 2024-10-25 10:35:00 [许潮榕] ci: update workflow configuration
+- 2024-10-28 16:28:00 [许潮榕] refactor: extract common utilities
