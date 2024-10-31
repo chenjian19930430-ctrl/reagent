@@ -122,3 +122,4 @@
 - 2024-10-28 16:28:00 [许潮榕] refactor: extract common utilities
 - 2024-10-29 12:04:00 [许潮榕] docs: update api documentation
 - 2024-10-30 12:25:00 [许潮榕] refactor: code cleanup and optimization
+- 2024-10-31 15:16:00 [许潮榕] ci: update workflow configuration
