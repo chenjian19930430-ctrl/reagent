@@ -125,3 +125,4 @@
 - 2024-10-31 15:16:00 [许潮榕] ci: update workflow configuration
 - 2024-11-01 12:14:00 [张永泉] fix: minor bug fixes and stability improvements
 - 2024-11-04 18:09:00 [张永泉] chore: update dependencies
+- 2024-11-05 13:28:00 [张永泉] fix: minor bug fixes and stability improvements
