@@ -126,3 +126,4 @@
 - 2024-11-01 12:14:00 [张永泉] fix: minor bug fixes and stability improvements
 - 2024-11-04 18:09:00 [张永泉] chore: update dependencies
 - 2024-11-05 13:28:00 [张永泉] fix: minor bug fixes and stability improvements
+- 2024-11-06 14:35:00 [张永泉] docs: update api documentation
