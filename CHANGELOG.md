@@ -131,3 +131,4 @@
 - 2024-11-08 17:42:00 [张永泉] chore: update config files
 - 2024-11-11 15:39:00 [张永泉] test: integration tests for 数据层
 - 2024-11-12 11:24:00 [张永泉] refactor: code cleanup and optimization
+- 2024-11-13 16:08:00 [张永泉] fix: minor bug fixes and stability improvements
