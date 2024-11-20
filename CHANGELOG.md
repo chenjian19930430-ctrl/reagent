@@ -136,3 +136,4 @@
 - 2024-11-15 16:55:00 [张永泉] refactor: code cleanup and optimization
 - 2024-11-18 15:49:00 [张永泉] chore: bump version to 2024.11.18
 - 2024-11-19 14:06:00 [张永泉] chore: update config files
+- 2024-11-20 18:29:00 [张永泉] perf: optimize query performance
