@@ -137,3 +137,4 @@
 - 2024-11-18 15:49:00 [张永泉] chore: bump version to 2024.11.18
 - 2024-11-19 14:06:00 [张永泉] chore: update config files
 - 2024-11-20 18:29:00 [张永泉] perf: optimize query performance
+- 2024-11-21 14:07:00 [张永泉] chore: bump version to 2024.11.21
