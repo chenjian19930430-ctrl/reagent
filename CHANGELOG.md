@@ -140,3 +140,4 @@
 - 2024-11-21 14:07:00 [张永泉] chore: bump version to 2024.11.21
 - 2024-11-22 11:53:00 [张永泉] fix: resolve edge case in AI编程
 - 2024-11-25 14:41:00 [张永泉] test: add unit tests for 文档
+- 2024-11-26 15:43:00 [张永泉] test: add unit tests for 视频引擎
