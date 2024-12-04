@@ -146,3 +146,4 @@
 - 2024-11-29 10:31:00 [张永泉] refactor: extract common utilities
 - 2024-12-02 15:34:00 [张永泉] chore: update dependencies
 - 2024-12-03 11:50:00 [陈谋东] docs: update api documentation
+- 2024-12-04 18:48:00 [陈小娟] perf: optimize query performance
