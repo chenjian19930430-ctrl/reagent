@@ -147,3 +147,4 @@
 - 2024-12-02 15:34:00 [张永泉] chore: update dependencies
 - 2024-12-03 11:50:00 [陈谋东] docs: update api documentation
 - 2024-12-04 18:48:00 [陈小娟] perf: optimize query performance
+- 2024-12-05 15:07:00 [张永泉] style: fix linting warnings
