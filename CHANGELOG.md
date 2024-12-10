@@ -150,3 +150,4 @@
 - 2024-12-05 15:07:00 [张永泉] style: fix linting warnings
 - 2024-12-06 11:21:00 [陈谋东] chore: update dependencies
 - 2024-12-09 17:49:00 [陈小娟] docs: add inline comments
+- 2024-12-10 14:52:00 [张永泉] test: integration tests for API层
