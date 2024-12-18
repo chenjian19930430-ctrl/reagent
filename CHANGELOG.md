@@ -156,3 +156,4 @@
 - 2024-12-13 11:05:00 [张永泉] test: add unit tests for 前端组件
 - 2024-12-16 10:26:00 [陈谋东] ci: update workflow configuration
 - 2024-12-17 12:40:00 [陈小娟] fix: minor bug fixes and stability improvements
+- 2024-12-18 16:54:00 [张永泉] chore: bump version to 2024.12.18
