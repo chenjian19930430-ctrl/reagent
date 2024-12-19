@@ -157,3 +157,4 @@
 - 2024-12-16 10:26:00 [陈谋东] ci: update workflow configuration
 - 2024-12-17 12:40:00 [陈小娟] fix: minor bug fixes and stability improvements
 - 2024-12-18 16:54:00 [张永泉] chore: bump version to 2024.12.18
+- 2024-12-19 11:12:00 [陈谋东] docs: update api documentation
