@@ -160,3 +160,4 @@
 - 2024-12-19 11:12:00 [陈谋东] docs: update api documentation
 - 2024-12-20 10:09:00 [陈小娟] test: integration tests for API层
 - 2024-12-23 14:18:00 [张永泉] style: fix linting warnings
+- 2024-12-24 09:45:00 [陈谋东] chore: update config files
