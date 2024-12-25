@@ -161,3 +161,4 @@
 - 2024-12-20 10:09:00 [陈小娟] test: integration tests for API层
 - 2024-12-23 14:18:00 [张永泉] style: fix linting warnings
 - 2024-12-24 09:45:00 [陈谋东] chore: update config files
+- 2024-12-25 14:38:00 [陈小娟] fix: minor bug fixes and stability improvements
