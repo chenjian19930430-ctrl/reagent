@@ -163,3 +163,4 @@
 - 2024-12-24 09:45:00 [陈谋东] chore: update config files
 - 2024-12-25 14:38:00 [陈小娟] fix: minor bug fixes and stability improvements
 - 2024-12-26 11:32:00 [张永泉] refactor: extract common utilities
+- 2024-12-27 17:58:00 [陈谋东] ci: update workflow configuration
