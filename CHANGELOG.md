@@ -165,3 +165,4 @@
 - 2024-12-26 11:32:00 [张永泉] refactor: extract common utilities
 - 2024-12-27 17:58:00 [陈谋东] ci: update workflow configuration
 - 2024-12-30 13:16:00 [陈小娟] test: integration tests for 线索引擎
+- 2024-12-31 10:12:00 [张永泉] chore: update dependencies
