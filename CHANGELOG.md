@@ -168,3 +168,4 @@
 - 2024-12-31 10:12:00 [张永泉] chore: update dependencies
 - 2025-01-01 15:59:00 [张永泉] chore: update config files
 - 2025-01-02 18:22:00 [陈谋东] fix: minor bug fixes and stability improvements
+- 2025-01-03 10:53:00 [陈小娟] style: format code according to project standards
