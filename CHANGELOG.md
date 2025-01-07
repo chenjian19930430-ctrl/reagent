@@ -170,3 +170,4 @@
 - 2025-01-02 18:22:00 [陈谋东] fix: minor bug fixes and stability improvements
 - 2025-01-03 10:53:00 [陈小娟] style: format code according to project standards
 - 2025-01-06 16:08:00 [张永泉] chore: bump version to 2025.1.6
+- 2025-01-07 13:45:00 [陈谋东] docs: update api documentation
