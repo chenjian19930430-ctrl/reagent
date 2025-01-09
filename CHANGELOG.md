@@ -172,3 +172,4 @@
 - 2025-01-06 16:08:00 [张永泉] chore: bump version to 2025.1.6
 - 2025-01-07 13:45:00 [陈谋东] docs: update api documentation
 - 2025-01-08 09:39:00 [陈小娟] refactor: extract common utilities
+- 2025-01-09 10:01:00 [张永泉] perf: optimize query performance
