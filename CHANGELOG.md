@@ -175,3 +175,4 @@
 - 2025-01-09 10:01:00 [张永泉] perf: optimize query performance
 - 2025-01-10 16:50:00 [陈谋东] fix: resolve edge case in AI文员
 - 2025-01-13 17:04:00 [陈小娟] style: fix linting warnings
+- 2025-01-14 18:56:00 [张永泉] style: format code according to project standards
