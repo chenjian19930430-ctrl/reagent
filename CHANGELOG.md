@@ -180,3 +180,4 @@
 - 2025-01-16 11:47:00 [陈小娟] style: format code according to project standards
 - 2025-01-17 10:27:00 [张永泉] style: format code according to project standards
 - 2025-01-20 15:00:00 [陈谋东] refactor: code cleanup and optimization
+- 2025-01-21 12:18:00 [陈小娟] chore: bump version to 2025.1.21
