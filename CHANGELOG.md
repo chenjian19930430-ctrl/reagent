@@ -182,3 +182,4 @@
 - 2025-01-20 15:00:00 [陈谋东] refactor: code cleanup and optimization
 - 2025-01-21 12:18:00 [陈小娟] chore: bump version to 2025.1.21
 - 2025-01-22 14:00:00 [张永泉] fix: resolve edge case in 视频引擎
+- 2025-01-23 12:18:00 [陈谋东] test: add unit tests for 前端组件
