@@ -185,3 +185,4 @@
 - 2025-01-23 12:18:00 [陈谋东] test: add unit tests for 前端组件
 - 2025-01-24 15:16:00 [陈小娟] docs: update api documentation
 - 2025-01-27 18:55:00 [张永泉] docs: add inline comments
+- 2025-01-28 18:50:00 [陈谋东] ci: update workflow configuration
