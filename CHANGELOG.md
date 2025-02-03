@@ -189,3 +189,4 @@
 - 2025-01-29 10:19:00 [陈小娟] ci: update workflow configuration
 - 2025-01-30 11:26:00 [张永泉] fix: minor bug fixes and stability improvements
 - 2025-01-31 11:38:00 [陈谋东] chore: bump version to 2025.1.31
+- 2025-02-03 11:26:00 [张永泉] perf: optimize query performance
