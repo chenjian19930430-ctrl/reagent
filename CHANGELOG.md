@@ -190,3 +190,4 @@
 - 2025-01-30 11:26:00 [张永泉] fix: minor bug fixes and stability improvements
 - 2025-01-31 11:38:00 [陈谋东] chore: bump version to 2025.1.31
 - 2025-02-03 11:26:00 [张永泉] perf: optimize query performance
+- 2025-02-04 11:48:00 [陈谋东] style: format code according to project standards
