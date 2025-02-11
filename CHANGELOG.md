@@ -195,3 +195,4 @@
 - 2025-02-06 13:16:00 [陈谋东] refactor: extract common utilities
 - 2025-02-07 10:10:00 [张永泉] style: fix linting warnings
 - 2025-02-10 18:39:00 [陈谋东] test: add unit tests for AI编程
+- 2025-02-11 15:36:00 [张永泉] chore: update dependencies
