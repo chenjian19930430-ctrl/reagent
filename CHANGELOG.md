@@ -198,3 +198,4 @@
 - 2025-02-11 15:36:00 [张永泉] chore: update dependencies
 - 2025-02-12 10:08:00 [陈谋东] chore: bump version to 2025.2.12
 - 2025-02-13 16:54:00 [张永泉] style: fix linting warnings
+- 2025-02-14 11:14:00 [陈谋东] fix: minor bug fixes and stability improvements
