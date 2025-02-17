@@ -199,3 +199,4 @@
 - 2025-02-12 10:08:00 [陈谋东] chore: bump version to 2025.2.12
 - 2025-02-13 16:54:00 [张永泉] style: fix linting warnings
 - 2025-02-14 11:14:00 [陈谋东] fix: minor bug fixes and stability improvements
+- 2025-02-17 17:27:00 [张永泉] perf: optimize query performance
