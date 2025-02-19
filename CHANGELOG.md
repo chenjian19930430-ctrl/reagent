@@ -201,3 +201,4 @@
 - 2025-02-14 11:14:00 [陈谋东] fix: minor bug fixes and stability improvements
 - 2025-02-17 17:27:00 [张永泉] perf: optimize query performance
 - 2025-02-18 12:39:00 [陈谋东] chore: update dependencies
+- 2025-02-19 09:17:00 [张永泉] test: add unit tests for 浏览器自动化
