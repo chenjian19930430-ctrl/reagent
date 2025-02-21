@@ -203,3 +203,4 @@
 - 2025-02-18 12:39:00 [陈谋东] chore: update dependencies
 - 2025-02-19 09:17:00 [张永泉] test: add unit tests for 浏览器自动化
 - 2025-02-20 17:16:00 [陈谋东] chore: update config files
+- 2025-02-21 09:32:00 [张永泉] chore: update dependencies
