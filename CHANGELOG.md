@@ -209,3 +209,4 @@
 - 2025-02-26 16:13:00 [陈谋东] ci: update workflow configuration
 - 2025-02-27 15:49:00 [张永泉] refactor: code cleanup and optimization
 - 2025-02-28 17:43:00 [陈谋东] fix: minor bug fixes and stability improvements
+- 2025-03-03 17:59:00 [张永泉] style: format code according to project standards
