@@ -212,3 +212,4 @@
 - 2025-03-03 17:59:00 [张永泉] style: format code according to project standards
 - 2025-03-04 14:23:00 [陈谋东] refactor: code cleanup and optimization
 - 2025-03-05 11:46:00 [黄桃红] refactor: extract common utilities
+- 2025-03-06 15:17:00 [张永泉] chore: update dependencies
