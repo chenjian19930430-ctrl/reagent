@@ -214,3 +214,4 @@
 - 2025-03-05 11:46:00 [黄桃红] refactor: extract common utilities
 - 2025-03-06 15:17:00 [张永泉] chore: update dependencies
 - 2025-03-07 12:52:00 [陈谋东] fix: minor bug fixes and stability improvements
+- 2025-03-10 15:43:00 [黄桃红] test: integration tests for 部署脚本
