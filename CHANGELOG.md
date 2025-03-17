@@ -219,3 +219,4 @@
 - 2025-03-12 11:23:00 [陈谋东] fix: resolve edge case in AI编程
 - 2025-03-13 16:55:00 [黄桃红] style: format code according to project standards
 - 2025-03-14 15:39:00 [张永泉] refactor: extract common utilities
+- 2025-03-17 09:38:00 [陈谋东] chore: update config files
