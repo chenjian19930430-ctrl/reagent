@@ -223,3 +223,4 @@
 - 2025-03-18 11:24:00 [黄桃红] refactor: code cleanup and optimization
 - 2025-03-19 15:21:00 [张永泉] style: format code according to project standards
 - 2025-03-20 11:45:00 [陈谋东] style: format code according to project standards
+- 2025-03-21 09:46:00 [黄桃红] style: fix linting warnings
