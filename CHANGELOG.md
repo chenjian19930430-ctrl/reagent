@@ -225,3 +225,4 @@
 - 2025-03-20 11:45:00 [陈谋东] style: format code according to project standards
 - 2025-03-21 09:46:00 [黄桃红] style: fix linting warnings
 - 2025-03-24 17:25:00 [张永泉] test: integration tests for 视频引擎
+- 2025-03-25 11:53:00 [陈谋东] chore: update dependencies
