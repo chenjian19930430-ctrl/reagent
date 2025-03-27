@@ -227,3 +227,4 @@
 - 2025-03-24 17:25:00 [张永泉] test: integration tests for 视频引擎
 - 2025-03-25 11:53:00 [陈谋东] chore: update dependencies
 - 2025-03-26 14:46:00 [黄桃红] refactor: extract common utilities
+- 2025-03-27 17:50:00 [张永泉] test: add unit tests for 部署脚本
