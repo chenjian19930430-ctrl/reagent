@@ -228,3 +228,4 @@
 - 2025-03-25 11:53:00 [陈谋东] chore: update dependencies
 - 2025-03-26 14:46:00 [黄桃红] refactor: extract common utilities
 - 2025-03-27 17:50:00 [张永泉] test: add unit tests for 部署脚本
+- 2025-03-28 18:32:00 [陈谋东] chore: bump version to 2025.3.28
