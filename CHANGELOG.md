@@ -230,3 +230,4 @@
 - 2025-03-27 17:50:00 [张永泉] test: add unit tests for 部署脚本
 - 2025-03-28 18:32:00 [陈谋东] chore: bump version to 2025.3.28
 - 2025-03-31 12:29:00 [黄桃红] docs: add inline comments
+- 2025-04-01 14:17:00 [黄桃红] refactor: code cleanup and optimization
