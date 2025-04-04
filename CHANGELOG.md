@@ -233,3 +233,4 @@
 - 2025-04-01 14:17:00 [黄桃红] refactor: code cleanup and optimization
 - 2025-04-02 11:02:00 [游奕萍] chore: bump version to 2025.4.2
 - 2025-04-03 11:44:00 [刘仪] refactor: extract common utilities
+- 2025-04-04 17:14:00 [黄桃红] test: integration tests for 视频引擎
