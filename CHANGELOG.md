@@ -237,3 +237,4 @@
 - 2025-04-07 13:57:00 [游奕萍] test: integration tests for API层
 - 2025-04-08 13:41:00 [刘仪] refactor: extract common utilities
 - 2025-04-09 13:24:00 [黄桃红] style: format code according to project standards
+- 2025-04-10 14:49:00 [游奕萍] refactor: extract common utilities
