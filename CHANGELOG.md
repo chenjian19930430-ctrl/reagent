@@ -239,3 +239,4 @@
 - 2025-04-09 13:24:00 [黄桃红] style: format code according to project standards
 - 2025-04-10 14:49:00 [游奕萍] refactor: extract common utilities
 - 2025-04-11 13:24:00 [刘仪] refactor: extract common utilities
+- 2025-04-14 16:15:00 [黄桃红] docs: add inline comments
