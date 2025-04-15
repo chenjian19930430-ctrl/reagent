@@ -240,3 +240,4 @@
 - 2025-04-10 14:49:00 [游奕萍] refactor: extract common utilities
 - 2025-04-11 13:24:00 [刘仪] refactor: extract common utilities
 - 2025-04-14 16:15:00 [黄桃红] docs: add inline comments
+- 2025-04-15 16:36:00 [游奕萍] test: integration tests for 部署脚本
