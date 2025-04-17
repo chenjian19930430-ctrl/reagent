@@ -242,3 +242,4 @@
 - 2025-04-14 16:15:00 [黄桃红] docs: add inline comments
 - 2025-04-15 16:36:00 [游奕萍] test: integration tests for 部署脚本
 - 2025-04-16 18:55:00 [刘仪] chore: bump version to 2025.4.16
+- 2025-04-17 16:17:00 [黄桃红] perf: optimize query performance
