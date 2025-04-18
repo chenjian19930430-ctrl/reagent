@@ -243,3 +243,4 @@
 - 2025-04-15 16:36:00 [游奕萍] test: integration tests for 部署脚本
 - 2025-04-16 18:55:00 [刘仪] chore: bump version to 2025.4.16
 - 2025-04-17 16:17:00 [黄桃红] perf: optimize query performance
+- 2025-04-18 11:36:00 [游奕萍] fix: minor bug fixes and stability improvements
