@@ -246,3 +246,4 @@
 - 2025-04-18 11:36:00 [游奕萍] fix: minor bug fixes and stability improvements
 - 2025-04-21 15:34:00 [刘仪] fix: minor bug fixes and stability improvements
 - 2025-04-22 16:12:00 [黄桃红] style: fix linting warnings
+- 2025-04-23 12:01:00 [游奕萍] docs: add inline comments
