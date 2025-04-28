@@ -249,3 +249,4 @@
 - 2025-04-23 12:01:00 [游奕萍] docs: add inline comments
 - 2025-04-24 11:43:00 [刘仪] refactor: code cleanup and optimization
 - 2025-04-25 11:10:00 [黄桃红] chore: bump version to 2025.4.25
+- 2025-04-28 11:04:00 [游奕萍] style: fix linting warnings
