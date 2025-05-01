@@ -252,3 +252,4 @@
 - 2025-04-28 11:04:00 [游奕萍] style: fix linting warnings
 - 2025-04-29 15:31:00 [刘仪] chore: update config files
 - 2025-04-30 13:56:00 [黄桃红] test: add unit tests for 线索引擎
+- 2025-05-01 09:31:00 [黄桃红] fix: minor bug fixes and stability improvements
