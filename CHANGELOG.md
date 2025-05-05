@@ -254,3 +254,4 @@
 - 2025-04-30 13:56:00 [黄桃红] test: add unit tests for 线索引擎
 - 2025-05-01 09:31:00 [黄桃红] fix: minor bug fixes and stability improvements
 - 2025-05-02 16:28:00 [刘仪] docs: update api documentation
+- 2025-05-05 15:57:00 [黄桃红] test: add unit tests for 编排器
