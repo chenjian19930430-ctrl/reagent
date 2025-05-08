@@ -257,3 +257,4 @@
 - 2025-05-05 15:57:00 [黄桃红] test: add unit tests for 编排器
 - 2025-05-06 14:02:00 [刘仪] style: fix linting warnings
 - 2025-05-07 14:34:00 [黄桃红] docs: update api documentation
+- 2025-05-08 16:18:00 [刘仪] fix: minor bug fixes and stability improvements
