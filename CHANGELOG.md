@@ -259,3 +259,4 @@
 - 2025-05-07 14:34:00 [黄桃红] docs: update api documentation
 - 2025-05-08 16:18:00 [刘仪] fix: minor bug fixes and stability improvements
 - 2025-05-09 10:08:00 [黄桃红] test: integration tests for 前端组件
+- 2025-05-12 09:10:00 [刘仪] test: add unit tests for 前端组件
