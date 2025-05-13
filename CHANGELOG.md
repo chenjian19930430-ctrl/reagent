@@ -260,3 +260,4 @@
 - 2025-05-08 16:18:00 [刘仪] fix: minor bug fixes and stability improvements
 - 2025-05-09 10:08:00 [黄桃红] test: integration tests for 前端组件
 - 2025-05-12 09:10:00 [刘仪] test: add unit tests for 前端组件
+- 2025-05-13 14:17:00 [黄桃红] style: format code according to project standards
