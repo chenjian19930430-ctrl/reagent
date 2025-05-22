@@ -267,3 +267,4 @@
 - 2025-05-19 10:59:00 [黄桃红] refactor: extract common utilities
 - 2025-05-20 11:01:00 [刘仪] fix: minor bug fixes and stability improvements
 - 2025-05-21 18:17:00 [黄桃红] chore: update config files
+- 2025-05-22 12:22:00 [刘仪] refactor: extract common utilities
