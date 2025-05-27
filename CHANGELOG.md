@@ -270,3 +270,4 @@
 - 2025-05-22 12:22:00 [刘仪] refactor: extract common utilities
 - 2025-05-23 10:53:00 [黄桃红] chore: bump version to 2025.5.23
 - 2025-05-26 13:30:00 [刘仪] docs: update api documentation
+- 2025-05-27 17:23:00 [黄桃红] fix: resolve edge case in 测试套件
