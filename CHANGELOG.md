@@ -273,3 +273,4 @@
 - 2025-05-27 17:23:00 [黄桃红] fix: resolve edge case in 测试套件
 - 2025-05-28 10:48:00 [刘仪] ci: update workflow configuration
 - 2025-05-29 13:05:00 [黄桃红] fix: minor bug fixes and stability improvements
+- 2025-05-30 14:35:00 [刘仪] ci: update workflow configuration
