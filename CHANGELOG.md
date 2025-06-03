@@ -275,3 +275,4 @@
 - 2025-05-29 13:05:00 [黄桃红] fix: minor bug fixes and stability improvements
 - 2025-05-30 14:35:00 [刘仪] ci: update workflow configuration
 - 2025-06-02 15:52:00 [黄桃红] docs: update api documentation
+- 2025-06-03 10:18:00 [刘仪] chore: bump version to 2025.6.3
