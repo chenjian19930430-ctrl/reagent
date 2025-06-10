@@ -280,3 +280,4 @@
 - 2025-06-05 13:32:00 [刘仪] test: add unit tests for 文档
 - 2025-06-06 12:23:00 [黄桃红] docs: update api documentation
 - 2025-06-09 10:08:00 [刘仪] ci: update workflow configuration
+- 2025-06-10 17:41:00 [黄桃红] refactor: extract common utilities
