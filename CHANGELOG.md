@@ -284,3 +284,4 @@
 - 2025-06-11 18:49:00 [刘仪] chore: bump version to 2025.6.11
 - 2025-06-12 18:03:00 [黄桃红] docs: add inline comments
 - 2025-06-13 15:58:00 [刘仪] refactor: code cleanup and optimization
+- 2025-06-16 10:50:00 [黄桃红] test: add unit tests for 线索引擎
