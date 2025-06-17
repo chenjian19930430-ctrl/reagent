@@ -285,3 +285,4 @@
 - 2025-06-12 18:03:00 [黄桃红] docs: add inline comments
 - 2025-06-13 15:58:00 [刘仪] refactor: code cleanup and optimization
 - 2025-06-16 10:50:00 [黄桃红] test: add unit tests for 线索引擎
+- 2025-06-17 15:03:00 [刘仪] docs: update api documentation
