@@ -288,3 +288,4 @@
 - 2025-06-17 15:03:00 [刘仪] docs: update api documentation
 - 2025-06-18 16:30:00 [黄桃红] perf: optimize query performance
 - 2025-06-19 18:02:00 [刘仪] perf: optimize query performance
+- 2025-06-20 18:13:00 [黄桃红] style: format code according to project standards
