@@ -290,3 +290,4 @@
 - 2025-06-19 18:02:00 [刘仪] perf: optimize query performance
 - 2025-06-20 18:13:00 [黄桃红] style: format code according to project standards
 - 2025-06-23 09:11:00 [刘仪] refactor: code cleanup and optimization
+- 2025-06-24 10:42:00 [黄桃红] docs: update api documentation
