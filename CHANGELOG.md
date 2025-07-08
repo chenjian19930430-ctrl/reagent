@@ -300,3 +300,4 @@
 - 2025-07-03 15:38:00 [黄桃红] chore: update dependencies
 - 2025-07-04 12:36:00 [黄桃红] chore: bump version to 2025.7.4
 - 2025-07-07 10:05:00 [黄桃红] docs: add inline comments
+- 2025-07-08 09:25:00 [黄桃红] ci: update workflow configuration
