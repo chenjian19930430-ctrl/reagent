@@ -302,3 +302,4 @@
 - 2025-07-07 10:05:00 [黄桃红] docs: add inline comments
 - 2025-07-08 09:25:00 [黄桃红] ci: update workflow configuration
 - 2025-07-09 14:23:00 [黄桃红] test: integration tests for 数据层
+- 2025-07-10 09:15:00 [黄桃红] fix: resolve edge case in 数据层
