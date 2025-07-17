@@ -307,3 +307,4 @@
 - 2025-07-14 17:12:00 [黄桃红] test: add unit tests for 文档
 - 2025-07-15 17:16:00 [黄桃红] chore: update config files
 - 2025-07-16 15:42:00 [黄桃红] fix: resolve edge case in API层
+- 2025-07-17 12:05:00 [黄桃红] perf: optimize query performance
