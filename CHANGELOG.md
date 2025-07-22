@@ -310,3 +310,4 @@
 - 2025-07-17 12:05:00 [黄桃红] perf: optimize query performance
 - 2025-07-18 12:41:00 [黄桃红] chore: bump version to 2025.7.18
 - 2025-07-21 14:41:00 [黄桃红] perf: optimize query performance
+- 2025-07-22 13:58:00 [黄桃红] chore: update dependencies
