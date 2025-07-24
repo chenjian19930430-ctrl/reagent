@@ -312,3 +312,4 @@
 - 2025-07-21 14:41:00 [黄桃红] perf: optimize query performance
 - 2025-07-22 13:58:00 [黄桃红] chore: update dependencies
 - 2025-07-23 15:01:00 [黄桃红] ci: update workflow configuration
+- 2025-07-24 18:22:00 [黄桃红] test: integration tests for 浏览器自动化
