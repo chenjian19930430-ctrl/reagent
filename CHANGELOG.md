@@ -313,3 +313,4 @@
 - 2025-07-22 13:58:00 [黄桃红] chore: update dependencies
 - 2025-07-23 15:01:00 [黄桃红] ci: update workflow configuration
 - 2025-07-24 18:22:00 [黄桃红] test: integration tests for 浏览器自动化
+- 2025-07-25 12:39:00 [黄桃红] fix: resolve edge case in 测试套件
