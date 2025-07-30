@@ -316,3 +316,4 @@
 - 2025-07-25 12:39:00 [黄桃红] fix: resolve edge case in 测试套件
 - 2025-07-28 10:42:00 [黄桃红] fix: minor bug fixes and stability improvements
 - 2025-07-29 15:39:00 [黄桃红] style: format code according to project standards
+- 2025-07-30 09:49:00 [黄桃红] ci: update workflow configuration
