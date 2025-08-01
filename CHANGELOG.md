@@ -318,3 +318,4 @@
 - 2025-07-29 15:39:00 [黄桃红] style: format code according to project standards
 - 2025-07-30 09:49:00 [黄桃红] ci: update workflow configuration
 - 2025-07-31 10:38:00 [黄桃红] docs: update api documentation
+- 2025-08-01 11:39:00 [黄桃红] chore: bump version to 2025.8.1
