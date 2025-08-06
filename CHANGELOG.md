@@ -321,3 +321,4 @@
 - 2025-08-01 11:39:00 [黄桃红] chore: bump version to 2025.8.1
 - 2025-08-04 09:29:00 [张哲钧] perf: optimize query performance
 - 2025-08-05 12:22:00 [刘帅] style: format code according to project standards
+- 2025-08-06 17:03:00 [黄桃红] fix: resolve edge case in LLM客户端
