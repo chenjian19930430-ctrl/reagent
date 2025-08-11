@@ -324,3 +324,4 @@
 - 2025-08-06 17:03:00 [黄桃红] fix: resolve edge case in LLM客户端
 - 2025-08-07 12:47:00 [张哲钧] chore: update config files
 - 2025-08-08 11:04:00 [刘帅] docs: add inline comments
+- 2025-08-11 13:48:00 [黄桃红] ci: update workflow configuration
