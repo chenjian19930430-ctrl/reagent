@@ -326,3 +326,4 @@
 - 2025-08-08 11:04:00 [刘帅] docs: add inline comments
 - 2025-08-11 13:48:00 [黄桃红] ci: update workflow configuration
 - 2025-08-12 10:33:00 [张哲钧] chore: bump version to 2025.8.12
+- 2025-08-13 15:31:00 [刘帅] style: fix linting warnings
