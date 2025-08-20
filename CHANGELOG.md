@@ -331,3 +331,4 @@
 - 2025-08-15 11:25:00 [张哲钧] docs: update api documentation
 - 2025-08-18 09:55:00 [刘帅] test: integration tests for 配置管理
 - 2025-08-19 14:52:00 [黄桃红] test: add unit tests for CI/CD
+- 2025-08-20 12:12:00 [张哲钧] chore: update config files
