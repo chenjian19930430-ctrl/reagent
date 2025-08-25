@@ -334,3 +334,4 @@
 - 2025-08-20 12:12:00 [张哲钧] chore: update config files
 - 2025-08-21 15:33:00 [刘帅] test: add unit tests for 文档
 - 2025-08-22 09:49:00 [黄桃红] docs: update api documentation
+- 2025-08-25 14:03:00 [张哲钧] fix: resolve edge case in 文档
