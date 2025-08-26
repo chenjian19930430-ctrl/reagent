@@ -335,3 +335,4 @@
 - 2025-08-21 15:33:00 [刘帅] test: add unit tests for 文档
 - 2025-08-22 09:49:00 [黄桃红] docs: update api documentation
 - 2025-08-25 14:03:00 [张哲钧] fix: resolve edge case in 文档
+- 2025-08-26 10:38:00 [刘帅] style: fix linting warnings
