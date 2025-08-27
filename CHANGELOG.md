@@ -336,3 +336,4 @@
 - 2025-08-22 09:49:00 [黄桃红] docs: update api documentation
 - 2025-08-25 14:03:00 [张哲钧] fix: resolve edge case in 文档
 - 2025-08-26 10:38:00 [刘帅] style: fix linting warnings
+- 2025-08-27 11:44:00 [黄桃红] style: format code according to project standards
