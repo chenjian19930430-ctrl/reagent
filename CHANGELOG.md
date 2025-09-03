@@ -341,3 +341,4 @@
 - 2025-08-29 15:31:00 [刘帅] refactor: code cleanup and optimization
 - 2025-09-01 13:44:00 [黄桃红] test: integration tests for 编排器
 - 2025-09-02 16:40:00 [张哲钧] fix: minor bug fixes and stability improvements
+- 2025-09-03 16:32:00 [刘帅] perf: optimize query performance
