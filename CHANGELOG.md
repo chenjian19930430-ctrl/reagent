@@ -342,3 +342,4 @@
 - 2025-09-01 13:44:00 [黄桃红] test: integration tests for 编排器
 - 2025-09-02 16:40:00 [张哲钧] fix: minor bug fixes and stability improvements
 - 2025-09-03 16:32:00 [刘帅] perf: optimize query performance
+- 2025-09-04 11:27:00 [吴宝玲] test: integration tests for 视频引擎
