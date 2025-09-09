@@ -345,3 +345,4 @@
 - 2025-09-04 11:27:00 [吴宝玲] test: integration tests for 视频引擎
 - 2025-09-05 16:14:00 [黄桃红] chore: update dependencies
 - 2025-09-08 15:05:00 [张哲钧] perf: optimize query performance
+- 2025-09-09 15:53:00 [刘帅] test: add unit tests for 线索引擎
