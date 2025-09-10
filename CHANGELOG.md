@@ -346,3 +346,4 @@
 - 2025-09-05 16:14:00 [黄桃红] chore: update dependencies
 - 2025-09-08 15:05:00 [张哲钧] perf: optimize query performance
 - 2025-09-09 15:53:00 [刘帅] test: add unit tests for 线索引擎
+- 2025-09-10 18:54:00 [吴宝玲] chore: bump version to 2025.9.10
