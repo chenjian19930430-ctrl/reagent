@@ -348,3 +348,4 @@
 - 2025-09-09 15:53:00 [刘帅] test: add unit tests for 线索引擎
 - 2025-09-10 18:54:00 [吴宝玲] chore: bump version to 2025.9.10
 - 2025-09-11 18:57:00 [黄桃红] docs: update api documentation
+- 2025-09-12 18:35:00 [张哲钧] ci: update workflow configuration
