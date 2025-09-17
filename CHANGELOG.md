@@ -351,3 +351,4 @@
 - 2025-09-12 18:35:00 [张哲钧] ci: update workflow configuration
 - 2025-09-15 14:40:00 [刘帅] chore: bump version to 2025.9.15
 - 2025-09-16 13:13:00 [吴宝玲] test: add unit tests for 数据层
+- 2025-09-17 13:55:00 [黄桃红] docs: update api documentation
