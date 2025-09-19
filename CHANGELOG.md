@@ -353,3 +353,4 @@
 - 2025-09-16 13:13:00 [吴宝玲] test: add unit tests for 数据层
 - 2025-09-17 13:55:00 [黄桃红] docs: update api documentation
 - 2025-09-18 09:45:00 [张哲钧] fix: minor bug fixes and stability improvements
+- 2025-09-19 15:54:00 [刘帅] docs: update api documentation
