@@ -356,3 +356,4 @@
 - 2025-09-19 15:54:00 [刘帅] docs: update api documentation
 - 2025-09-22 10:37:00 [吴宝玲] chore: update dependencies
 - 2025-09-23 18:53:00 [黄桃红] fix: resolve edge case in 配置管理
+- 2025-09-24 13:03:00 [张哲钧] docs: add inline comments
