@@ -357,3 +357,4 @@
 - 2025-09-22 10:37:00 [吴宝玲] chore: update dependencies
 - 2025-09-23 18:53:00 [黄桃红] fix: resolve edge case in 配置管理
 - 2025-09-24 13:03:00 [张哲钧] docs: add inline comments
+- 2025-09-25 16:20:00 [刘帅] fix: resolve edge case in 前端组件
