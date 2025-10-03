@@ -363,3 +363,4 @@
 - 2025-09-30 14:07:00 [张哲钧] refactor: extract common utilities
 - 2025-10-01 16:23:00 [黄桃红] docs: add inline comments
 - 2025-10-02 15:43:00 [张哲钧] refactor: extract common utilities
+- 2025-10-03 17:11:00 [刘帅] refactor: code cleanup and optimization
