@@ -367,3 +367,4 @@
 - 2025-10-06 12:19:00 [吴宝玲] refactor: code cleanup and optimization
 - 2025-10-07 11:47:00 [黄桃红] perf: optimize query performance
 - 2025-10-08 14:16:00 [张哲钧] chore: update config files
+- 2025-10-09 10:06:00 [刘帅] style: format code according to project standards
