@@ -370,3 +370,4 @@
 - 2025-10-09 10:06:00 [刘帅] style: format code according to project standards
 - 2025-10-10 14:21:00 [吴宝玲] refactor: code cleanup and optimization
 - 2025-10-13 10:02:00 [黄桃红] refactor: extract common utilities
+- 2025-10-14 16:53:00 [张哲钧] fix: minor bug fixes and stability improvements
