@@ -372,3 +372,4 @@
 - 2025-10-13 10:02:00 [黄桃红] refactor: extract common utilities
 - 2025-10-14 16:53:00 [张哲钧] fix: minor bug fixes and stability improvements
 - 2025-10-15 15:24:00 [刘帅] fix: resolve edge case in LLM客户端
+- 2025-10-16 18:59:00 [吴宝玲] perf: optimize query performance
