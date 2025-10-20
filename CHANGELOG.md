@@ -374,3 +374,4 @@
 - 2025-10-15 15:24:00 [刘帅] fix: resolve edge case in LLM客户端
 - 2025-10-16 18:59:00 [吴宝玲] perf: optimize query performance
 - 2025-10-17 09:10:00 [黄桃红] test: add unit tests for AI文员
+- 2025-10-20 10:56:00 [张哲钧] refactor: extract common utilities
