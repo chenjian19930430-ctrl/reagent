@@ -376,3 +376,4 @@
 - 2025-10-17 09:10:00 [黄桃红] test: add unit tests for AI文员
 - 2025-10-20 10:56:00 [张哲钧] refactor: extract common utilities
 - 2025-10-21 15:36:00 [刘帅] fix: minor bug fixes and stability improvements
+- 2025-10-22 09:59:00 [吴宝玲] docs: update api documentation
