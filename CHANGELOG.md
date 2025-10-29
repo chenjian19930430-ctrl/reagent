@@ -381,3 +381,4 @@
 - 2025-10-24 12:54:00 [张哲钧] fix: minor bug fixes and stability improvements
 - 2025-10-27 15:56:00 [刘帅] chore: update dependencies
 - 2025-10-28 16:33:00 [吴宝玲] chore: update config files
+- 2025-10-29 13:46:00 [黄桃红] chore: bump version to 2025.10.29
