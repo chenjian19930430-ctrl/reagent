@@ -385,3 +385,4 @@
 - 2025-10-30 11:39:00 [张哲钧] refactor: code cleanup and optimization
 - 2025-10-31 09:20:00 [刘帅] docs: update api documentation
 - 2025-11-03 09:23:00 [黄桃红] chore: update dependencies
+- 2025-11-04 18:07:00 [张哲钧] ci: update workflow configuration
