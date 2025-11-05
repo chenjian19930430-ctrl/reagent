@@ -386,3 +386,4 @@
 - 2025-10-31 09:20:00 [刘帅] docs: update api documentation
 - 2025-11-03 09:23:00 [黄桃红] chore: update dependencies
 - 2025-11-04 18:07:00 [张哲钧] ci: update workflow configuration
+- 2025-11-05 13:24:00 [刘帅] refactor: extract common utilities
