@@ -391,3 +391,4 @@
 - 2025-11-07 12:08:00 [李春菊] refactor: extract common utilities
 - 2025-11-10 12:34:00 [黄桃红] style: format code according to project standards
 - 2025-11-11 14:05:00 [张哲钧] style: fix linting warnings
+- 2025-11-12 10:33:00 [刘帅] refactor: code cleanup and optimization
