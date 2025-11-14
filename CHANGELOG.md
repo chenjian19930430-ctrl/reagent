@@ -393,3 +393,4 @@
 - 2025-11-11 14:05:00 [张哲钧] style: fix linting warnings
 - 2025-11-12 10:33:00 [刘帅] refactor: code cleanup and optimization
 - 2025-11-13 15:37:00 [吴宝玲] refactor: extract common utilities
+- 2025-11-14 09:29:00 [李春菊] test: integration tests for 配置管理
