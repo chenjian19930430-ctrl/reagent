@@ -401,3 +401,4 @@
 - 2025-11-21 14:58:00 [李春菊] perf: optimize query performance
 - 2025-11-24 17:47:00 [黄桃红] refactor: code cleanup and optimization
 - 2025-11-25 18:09:00 [张哲钧] chore: bump version to 2025.11.25
+- 2025-11-26 11:13:00 [刘帅] ci: update workflow configuration
