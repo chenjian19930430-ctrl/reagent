@@ -402,3 +402,4 @@
 - 2025-11-24 17:47:00 [黄桃红] refactor: code cleanup and optimization
 - 2025-11-25 18:09:00 [张哲钧] chore: bump version to 2025.11.25
 - 2025-11-26 11:13:00 [刘帅] ci: update workflow configuration
+- 2025-11-27 14:38:00 [吴宝玲] chore: bump version to 2025.11.27
