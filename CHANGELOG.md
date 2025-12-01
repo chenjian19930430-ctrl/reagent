@@ -404,3 +404,4 @@
 - 2025-11-26 11:13:00 [刘帅] ci: update workflow configuration
 - 2025-11-27 14:38:00 [吴宝玲] chore: bump version to 2025.11.27
 - 2025-11-28 16:22:00 [李春菊] docs: update api documentation
+- 2025-12-01 14:01:00 [黄桃红] fix: minor bug fixes and stability improvements
