@@ -407,3 +407,4 @@
 - 2025-12-01 14:01:00 [黄桃红] fix: minor bug fixes and stability improvements
 - 2025-12-02 10:58:00 [张哲钧] ci: update workflow configuration
 - 2025-12-03 13:46:00 [刘帅] docs: update api documentation
+- 2025-12-04 12:02:00 [吴宝玲] docs: update api documentation
