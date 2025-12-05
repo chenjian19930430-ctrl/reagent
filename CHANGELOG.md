@@ -408,3 +408,4 @@
 - 2025-12-02 10:58:00 [张哲钧] ci: update workflow configuration
 - 2025-12-03 13:46:00 [刘帅] docs: update api documentation
 - 2025-12-04 12:02:00 [吴宝玲] docs: update api documentation
+- 2025-12-05 12:10:00 [李春菊] docs: update api documentation
