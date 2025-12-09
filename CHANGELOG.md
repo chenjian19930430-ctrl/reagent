@@ -410,3 +410,4 @@
 - 2025-12-04 12:02:00 [吴宝玲] docs: update api documentation
 - 2025-12-05 12:10:00 [李春菊] docs: update api documentation
 - 2025-12-08 12:23:00 [黄桃红] refactor: code cleanup and optimization
+- 2025-12-09 17:24:00 [张哲钧] test: integration tests for AI文员
