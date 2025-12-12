@@ -413,3 +413,4 @@
 - 2025-12-09 17:24:00 [张哲钧] test: integration tests for AI文员
 - 2025-12-10 13:06:00 [刘帅] refactor: code cleanup and optimization
 - 2025-12-11 16:08:00 [吴宝玲] chore: update config files
+- 2025-12-12 16:17:00 [李春菊] chore: update dependencies
