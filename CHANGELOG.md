@@ -416,3 +416,4 @@
 - 2025-12-12 16:17:00 [李春菊] chore: update dependencies
 - 2025-12-15 17:23:00 [黄桃红] fix: minor bug fixes and stability improvements
 - 2025-12-16 11:55:00 [张哲钧] ci: update workflow configuration
+- 2025-12-17 18:28:00 [刘帅] chore: update dependencies
