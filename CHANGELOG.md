@@ -418,3 +418,4 @@
 - 2025-12-16 11:55:00 [张哲钧] ci: update workflow configuration
 - 2025-12-17 18:28:00 [刘帅] chore: update dependencies
 - 2025-12-18 10:11:00 [吴宝玲] ci: update workflow configuration
+- 2025-12-19 17:18:00 [李春菊] chore: update config files
