@@ -421,3 +421,4 @@
 - 2025-12-19 17:18:00 [李春菊] chore: update config files
 - 2025-12-22 11:10:00 [黄桃红] test: add unit tests for 文档
 - 2025-12-23 15:11:00 [张哲钧] chore: update config files
+- 2025-12-24 12:04:00 [刘帅] test: add unit tests for 配置管理
