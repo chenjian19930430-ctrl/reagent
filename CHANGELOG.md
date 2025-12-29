@@ -424,3 +424,4 @@
 - 2025-12-24 12:04:00 [刘帅] test: add unit tests for 配置管理
 - 2025-12-25 13:14:00 [吴宝玲] docs: update api documentation
 - 2025-12-26 17:17:00 [李春菊] fix: minor bug fixes and stability improvements
+- 2025-12-29 17:11:00 [黄桃红] test: integration tests for 视频引擎
