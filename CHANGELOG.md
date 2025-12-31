@@ -426,3 +426,4 @@
 - 2025-12-26 17:17:00 [李春菊] fix: minor bug fixes and stability improvements
 - 2025-12-29 17:11:00 [黄桃红] test: integration tests for 视频引擎
 - 2025-12-30 13:07:00 [张哲钧] perf: optimize query performance
+- 2025-12-31 16:42:00 [刘帅] fix: resolve edge case in API层
