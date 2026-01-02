@@ -428,3 +428,4 @@
 - 2025-12-30 13:07:00 [张哲钧] perf: optimize query performance
 - 2025-12-31 16:42:00 [刘帅] fix: resolve edge case in API层
 - 2026-01-01 16:43:00 [张哲钧] fix: minor bug fixes and stability improvements
+- 2026-01-02 16:12:00 [刘帅] chore: update config files
