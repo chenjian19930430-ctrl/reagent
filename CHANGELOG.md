@@ -430,3 +430,4 @@
 - 2026-01-01 16:43:00 [张哲钧] fix: minor bug fixes and stability improvements
 - 2026-01-02 16:12:00 [刘帅] chore: update config files
 - 2026-01-05 13:11:00 [张哲钧] test: add unit tests for 浏览器自动化
+- 2026-01-06 12:02:00 [刘帅] ci: update workflow configuration
