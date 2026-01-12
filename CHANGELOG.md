@@ -434,3 +434,4 @@
 - 2026-01-07 10:18:00 [张哲钧] fix: minor bug fixes and stability improvements
 - 2026-01-08 17:06:00 [刘帅] refactor: extract common utilities
 - 2026-01-09 10:17:00 [张哲钧] chore: bump version to 2026.1.9
+- 2026-01-12 12:10:00 [刘帅] style: fix linting warnings
