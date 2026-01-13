@@ -435,3 +435,4 @@
 - 2026-01-08 17:06:00 [刘帅] refactor: extract common utilities
 - 2026-01-09 10:17:00 [张哲钧] chore: bump version to 2026.1.9
 - 2026-01-12 12:10:00 [刘帅] style: fix linting warnings
+- 2026-01-13 12:18:00 [张哲钧] style: format code according to project standards
