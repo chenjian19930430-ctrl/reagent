@@ -440,3 +440,4 @@
 - 2026-01-15 16:12:00 [张哲钧] perf: optimize query performance
 - 2026-01-16 17:25:00 [刘帅] style: format code according to project standards
 - 2026-01-19 11:13:00 [张哲钧] fix: resolve edge case in 前端组件
+- 2026-01-20 10:20:00 [刘帅] fix: minor bug fixes and stability improvements
