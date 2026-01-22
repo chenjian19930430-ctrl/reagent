@@ -442,3 +442,4 @@
 - 2026-01-19 11:13:00 [张哲钧] fix: resolve edge case in 前端组件
 - 2026-01-20 10:20:00 [刘帅] fix: minor bug fixes and stability improvements
 - 2026-01-21 13:40:00 [张哲钧] docs: update api documentation
+- 2026-01-22 17:44:00 [刘帅] chore: update config files
