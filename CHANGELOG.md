@@ -443,3 +443,4 @@
 - 2026-01-20 10:20:00 [刘帅] fix: minor bug fixes and stability improvements
 - 2026-01-21 13:40:00 [张哲钧] docs: update api documentation
 - 2026-01-22 17:44:00 [刘帅] chore: update config files
+- 2026-01-23 15:27:00 [张哲钧] style: format code according to project standards
