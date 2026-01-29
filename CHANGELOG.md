@@ -447,3 +447,4 @@
 - 2026-01-26 14:52:00 [刘帅] perf: optimize query performance
 - 2026-01-27 10:01:00 [张哲钧] perf: optimize query performance
 - 2026-01-28 18:07:00 [刘帅] perf: optimize query performance
+- 2026-01-29 17:20:00 [张哲钧] style: format code according to project standards
