@@ -449,3 +449,4 @@
 - 2026-01-28 18:07:00 [刘帅] perf: optimize query performance
 - 2026-01-29 17:20:00 [张哲钧] style: format code according to project standards
 - 2026-01-30 18:12:00 [刘帅] fix: resolve edge case in 测试套件
+- 2026-02-02 12:39:00 [张哲钧] fix: minor bug fixes and stability improvements
