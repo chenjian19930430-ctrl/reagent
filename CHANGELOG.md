@@ -453,3 +453,4 @@
 - 2026-02-03 17:37:00 [刘帅] refactor: code cleanup and optimization
 - 2026-02-04 15:09:00 [张哲钧] style: fix linting warnings
 - 2026-02-05 15:24:00 [刘帅] perf: optimize query performance
+- 2026-02-06 18:43:00 [张哲钧] chore: bump version to 2026.2.6
