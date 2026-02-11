@@ -456,3 +456,4 @@
 - 2026-02-06 18:43:00 [张哲钧] chore: bump version to 2026.2.6
 - 2026-02-09 14:06:00 [刘帅] style: format code according to project standards
 - 2026-02-10 16:19:00 [张哲钧] fix: minor bug fixes and stability improvements
+- 2026-02-11 17:42:00 [刘帅] docs: update api documentation
