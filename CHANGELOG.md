@@ -463,3 +463,4 @@
 - 2026-02-17 11:38:00 [刘帅] ci: update workflow configuration
 - 2026-02-18 17:50:00 [张哲钧] refactor: extract common utilities
 - 2026-02-19 15:38:00 [刘帅] perf: optimize query performance
+- 2026-02-20 18:06:00 [张哲钧] ci: update workflow configuration
