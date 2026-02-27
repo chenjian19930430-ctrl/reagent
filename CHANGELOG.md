@@ -468,3 +468,4 @@
 - 2026-02-24 13:14:00 [张哲钧] chore: bump version to 2026.2.24
 - 2026-02-25 16:05:00 [刘帅] fix: resolve edge case in 线索引擎
 - 2026-02-26 12:09:00 [张哲钧] style: fix linting warnings
+- 2026-02-27 16:39:00 [刘帅] chore: update dependencies
