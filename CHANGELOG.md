@@ -470,3 +470,4 @@
 - 2026-02-26 12:09:00 [张哲钧] style: fix linting warnings
 - 2026-02-27 16:39:00 [刘帅] chore: update dependencies
 - 2026-03-02 15:30:00 [张哲钧] chore: update config files
+- 2026-03-03 12:29:00 [张哲钧] chore: update config files
