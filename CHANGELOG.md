@@ -475,3 +475,4 @@
 - 2026-03-05 14:16:00 [张哲钧] chore: update dependencies
 - 2026-03-06 09:55:00 [张哲钧] style: fix linting warnings
 - 2026-03-09 11:03:00 [张哲钧] chore: bump version to 2026.3.9
+- 2026-03-10 13:06:00 [张哲钧] docs: update api documentation
