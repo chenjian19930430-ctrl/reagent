@@ -478,3 +478,4 @@
 - 2026-03-10 13:06:00 [张哲钧] docs: update api documentation
 - 2026-03-11 14:17:00 [张哲钧] refactor: extract common utilities
 - 2026-03-12 10:24:00 [张哲钧] refactor: extract common utilities
+- 2026-03-13 16:33:00 [张哲钧] test: integration tests for 客服模块
