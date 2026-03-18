@@ -481,3 +481,4 @@
 - 2026-03-13 16:33:00 [张哲钧] test: integration tests for 客服模块
 - 2026-03-16 16:19:00 [张哲钧] style: fix linting warnings
 - 2026-03-17 11:09:00 [张哲钧] ci: update workflow configuration
+- 2026-03-18 17:11:00 [张哲钧] style: format code according to project standards
