@@ -483,3 +483,4 @@
 - 2026-03-17 11:09:00 [张哲钧] ci: update workflow configuration
 - 2026-03-18 17:11:00 [张哲钧] style: format code according to project standards
 - 2026-03-19 14:23:00 [张哲钧] docs: update api documentation
+- 2026-03-20 11:05:00 [张哲钧] refactor: code cleanup and optimization
