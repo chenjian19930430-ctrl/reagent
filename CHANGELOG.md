@@ -484,3 +484,4 @@
 - 2026-03-18 17:11:00 [张哲钧] style: format code according to project standards
 - 2026-03-19 14:23:00 [张哲钧] docs: update api documentation
 - 2026-03-20 11:05:00 [张哲钧] refactor: code cleanup and optimization
+- 2026-03-23 11:05:00 [张哲钧] fix: resolve edge case in 配置管理
