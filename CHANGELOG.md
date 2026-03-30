@@ -489,3 +489,4 @@
 - 2026-03-25 17:33:00 [张哲钧] fix: minor bug fixes and stability improvements
 - 2026-03-26 12:34:00 [张哲钧] test: integration tests for 部署脚本
 - 2026-03-27 16:07:00 [张哲钧] style: fix linting warnings
+- 2026-03-30 14:07:00 [张哲钧] test: add unit tests for 数据层
