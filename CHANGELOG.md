@@ -493,3 +493,4 @@
 - 2026-03-31 16:02:00 [张哲钧] style: format code according to project standards
 - 2026-04-01 13:17:00 [张哲钧] perf: optimize query performance
 - 2026-04-02 18:40:00 [张哲钧] test: add unit tests for 部署脚本
+- 2026-04-03 14:36:00 [张哲钧] ci: update workflow configuration
