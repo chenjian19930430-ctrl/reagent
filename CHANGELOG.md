@@ -495,3 +495,4 @@
 - 2026-04-02 18:40:00 [张哲钧] test: add unit tests for 部署脚本
 - 2026-04-03 14:36:00 [张哲钧] ci: update workflow configuration
 - 2026-04-06 12:38:00 [张哲钧] chore: update config files
+- 2026-04-07 17:59:00 [张哲钧] style: format code according to project standards
