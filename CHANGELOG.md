@@ -496,3 +496,4 @@
 - 2026-04-03 14:36:00 [张哲钧] ci: update workflow configuration
 - 2026-04-06 12:38:00 [张哲钧] chore: update config files
 - 2026-04-07 17:59:00 [张哲钧] style: format code according to project standards
+- 2026-04-08 10:07:00 [张哲钧] refactor: code cleanup and optimization
