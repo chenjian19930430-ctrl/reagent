@@ -498,3 +498,4 @@
 - 2026-04-07 17:59:00 [张哲钧] style: format code according to project standards
 - 2026-04-08 10:07:00 [张哲钧] refactor: code cleanup and optimization
 - 2026-04-09 18:25:00 [张哲钧] refactor: extract common utilities
+- 2026-04-10 10:17:00 [张哲钧] docs: update api documentation
