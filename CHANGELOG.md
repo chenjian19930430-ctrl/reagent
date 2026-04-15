@@ -501,3 +501,4 @@
 - 2026-04-10 10:17:00 [张哲钧] docs: update api documentation
 - 2026-04-13 11:11:00 [张哲钧] chore: update dependencies
 - 2026-04-14 11:57:00 [张哲钧] perf: optimize query performance
+- 2026-04-15 17:33:00 [张哲钧] fix: minor bug fixes and stability improvements
