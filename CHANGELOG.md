@@ -503,3 +503,4 @@
 - 2026-04-14 11:57:00 [张哲钧] perf: optimize query performance
 - 2026-04-15 17:33:00 [张哲钧] fix: minor bug fixes and stability improvements
 - 2026-04-16 13:27:00 [张哲钧] docs: add inline comments
+- 2026-04-17 11:59:00 [张哲钧] chore: bump version to 2026.4.17
