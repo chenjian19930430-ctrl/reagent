@@ -506,3 +506,4 @@
 - 2026-04-17 11:59:00 [张哲钧] chore: bump version to 2026.4.17
 - 2026-04-20 15:31:00 [张哲钧] refactor: extract common utilities
 - 2026-04-21 10:09:00 [张哲钧] docs: update api documentation
+- 2026-04-22 12:47:00 [张哲钧] test: integration tests for AI文员
