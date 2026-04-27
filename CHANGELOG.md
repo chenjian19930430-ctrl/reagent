@@ -509,3 +509,4 @@
 - 2026-04-22 12:47:00 [张哲钧] test: integration tests for AI文员
 - 2026-04-23 15:23:00 [张哲钧] refactor: code cleanup and optimization
 - 2026-04-24 17:16:00 [张哲钧] refactor: code cleanup and optimization
+- 2026-04-27 17:58:00 [张哲钧] docs: add inline comments
