@@ -512,3 +512,4 @@
 - 2026-04-27 17:58:00 [张哲钧] docs: add inline comments
 - 2026-04-28 17:08:00 [张哲钧] refactor: code cleanup and optimization
 - 2026-04-29 14:37:00 [张哲钧] refactor: code cleanup and optimization
+- 2026-05-01 11:24:00 [张哲钧] refactor: extract common utilities
