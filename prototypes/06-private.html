@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1440, initial-scale=0.8">
+<title>ReAgent · 私域管理</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #070b14; --bg-secondary: #0d1424; --bg-card: #111a2e; --bg-card-hover: #162040;
+    --bg-sidebar: #0a1120; --border: #1a2744; --text-primary: #e8edf5; --text-secondary: #8892a8;
+    --text-dim: #4a5568; --accent: #2563eb; --cyan: #00d4ff; --green: #22c55e; --orange: #f59e0b;
+    --purple: #8b5cf6; --pink: #ec4899;
+    --gradient-main: linear-gradient(135deg, #2563eb, #00d4ff);
+    --gradient-card: linear-gradient(145deg, rgba(17,26,46,0.8), rgba(13,20,36,0.9));
+    --radius: 12px; --radius-sm: 8px;
+  }
+  body { font-family: 'Inter',-apple-system,sans-serif; background: var(--bg-primary); color: var(--text-primary); display: flex; min-height: 100vh; overflow-x: hidden; }
+  .sidebar { width: 240px; min-width: 240px; background: var(--bg-sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; height: 100vh; position: sticky; top: 0; overflow-y: auto; }
+  .sidebar-logo { padding: 24px 20px; border-bottom: 1px solid var(--border); }
+  .sidebar-logo h1 { font-size: 20px; font-weight: 800; background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: -0.5px; }
+  .sidebar-logo span { font-size: 11px; color: var(--text-secondary); display: block; margin-top: 2px; -webkit-text-fill-color: var(--text-secondary); }
+  .sidebar-nav { padding: 12px 0; flex: 1; }
+  .nav-section { padding: 8px 20px 4px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-dim); }
+  .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 20px; cursor: pointer; color: var(--text-secondary); font-size: 13px; font-weight: 500; transition: all 0.2s; border-left: 2px solid transparent; text-decoration: none; }
+  .nav-item:hover { color: var(--text-primary); background: rgba(37,99,235,0.08); }
+  .nav-item.active { color: var(--cyan); border-left-color: var(--cyan); background: rgba(0,212,255,0.06); }
+  .nav-item .badge { margin-left: auto; background: var(--accent); color: #fff; font-size: 10px; padding: 1px 6px; border-radius: 10px; font-weight: 600; }
+  .nav-divider { height: 1px; background: var(--border); margin: 8px 20px; }
+  .main { flex: 1; padding: 24px 32px; overflow-y: auto; height: 100vh; }
+  .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+  .topbar-left h2 { font-size: 22px; font-weight: 700; }
+  .topbar-left p { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+  .card { background: var(--gradient-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; backdrop-filter: blur(10px); margin-bottom: 16px; }
+  .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .card-title { font-size: 14px; font-weight: 600; }
+  .card-action { font-size: 12px; color: var(--cyan); cursor: pointer; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .btn-primary { background: var(--gradient-main); border: none; border-radius: var(--radius-sm); padding: 10px 24px; color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
+  .btn-outline { background: transparent; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 20px; color: var(--text-secondary); font-size: 13px; cursor: pointer; font-family: inherit; }
+  .btn-outline:hover { border-color: var(--accent); color: var(--text-primary); }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 24px; }
+  .stat-card { background: var(--gradient-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; backdrop-filter: blur(10px); }
+  .stat-card .label { font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; }
+  .stat-card .value { font-size: 28px; font-weight: 700; }
+  .stat-card .trend { font-size: 12px; margin-top: 4px; }
+  .trend.up { color: var(--green); }
+  .tab-bar { display: flex; gap: 2px; background: var(--bg-primary); border-radius: var(--radius-sm); padding: 3px; margin-bottom: 16px; }
+  .tab-item { padding: 8px 20px; border-radius: 6px; font-size: 13px; cursor: pointer; color: var(--text-secondary); transition: all 0.2s; }
+  .tab-item.active { background: var(--accent); color: #fff; }
+  .tab-item:hover:not(.active) { color: var(--text-primary); }
+  .agent-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; display: flex; align-items: flex-start; gap: 14px; margin-bottom: 10px; transition: all 0.2s; }
+  .agent-card:hover { border-color: var(--accent); }
+  .agent-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+  .agent-info { flex: 1; }
+  .agent-info .name { font-size: 14px; font-weight: 500; }
+  .agent-info .desc { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+  .agent-info .stats { display: flex; gap: 12px; margin-top: 6px; font-size: 11px; color: var(--text-dim); }
+  .toggle { width: 36px; height: 20px; border-radius: 10px; background: var(--accent); position: relative; cursor: pointer; flex-shrink: 0; }
+  .toggle::after { content:''; position:absolute; width:16px; height:16px; border-radius:50%; background:#fff; top:2px; right:2px; }
+  .toggle.off { background: var(--border); }
+  .toggle.off::after { right: auto; left: 2px; }
+  .tag { padding: 4px 12px; border-radius: 20px; font-size: 12px; cursor: pointer; border: 1px solid var(--border); color: var(--text-secondary); background: transparent; display: inline-block; }
+  .tag.active { border-color: var(--cyan); color: var(--cyan); background: rgba(0,212,255,0.08); }
+  .template-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
+  .template-item .t-icon { font-size: 24px; }
+  .template-item .t-info { flex: 1; }
+  .template-item .t-info .name { font-size: 13px; }
+  .template-item .t-info .desc { font-size: 11px; color: var(--text-dim); }
+  .template-item .t-tag { font-size: 10px; padding: 2px 8px; border-radius: 4px; background: rgba(0,212,255,0.1); color: var(--cyan); }
+</style>
+</head>
+<body>
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <h1>ReAgent</h1>
+    <span>AI 全自动营销平台</span>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-section">总控台</div>
+    <a class="nav-item" href="01-dashboard.html">
+      <span class="icon">⊞</span> AI Cloud 工作台
+    </a>
+    <div class="nav-section">创作区</div>
+    <a class="nav-item" href="02-video.html">
+      <span class="icon">▶</span> 短视频创作
+    </a>
+    <a class="nav-item" href="03-digital-human.html">
+      <span class="icon">👤</span> 数字人创作
+    </a>
+    <a class="nav-item" href="07-mix.html">
+      <span class="icon">✂</span> 短视频混剪
+      <span class="badge">NEW</span>
+    </a>
+    <div class="nav-section">分发区</div>
+    <a class="nav-item" href="04-publish.html">
+      <span class="icon">📤</span> 多平台发布
+    </a>
+    <a class="nav-item" href="06-search.html">
+      <span class="icon">🔍</span> AI 搜索曝光
+    </a>
+    <div class="nav-section">触达区</div>
+    <a class="nav-item" href="05-cs.html">
+      <span class="icon">💬</span> AI 客服
+    </a>
+    <a class="nav-item active" href="06-private.html">
+      <span class="icon">📱</span> 私域管理
+    </a>
+    <div class="nav-divider"></div>
+    <div class="nav-section">数据中心</div>
+    <a class="nav-item" href="08-analytics.html">
+      <span class="icon">📊</span> 数据看板
+    </a>
+  </div>
+</div>
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h2>📱 私域管理 · 微信 & 企微智能体</h2>
+      <p>微信好友运营 · 企业微信客户管理 · 社群自动化 · 智能营销</p>
+    </div>
+    <div class="topbar-right" style="display:flex;gap:12px;">
+      <button class="btn-outline">运营日报</button>
+      <button class="btn-primary">+ 创建营销活动</button>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card"><div class="label">微信好友数</div><div class="value">12,847</div><div class="trend up">↑ 384 本周</div></div>
+    <div class="stat-card"><div class="label">企微客户数</div><div class="value">8,324</div><div class="trend up">↑ 217 本周</div></div>
+    <div class="stat-card"><div class="label">群聊活跃度</div><div class="value">67.3%</div><div class="trend up">↑ 5.2%</div></div>
+    <div class="stat-card"><div class="label">营销转化率</div><div class="value">12.8%</div><div class="trend up">↑ 2.3%</div></div>
+  </div>
+
+  <!-- Platform Tabs -->
+  <div class="tab-bar" style="margin-bottom:20px;">
+    <div class="tab-item active">💚 微信智能体</div>
+    <div class="tab-item">🏢 企微智能体</div>
+  </div>
+
+  <div class="grid-2">
+    <!-- Agent Status -->
+    <div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🤖 智能体运行状态</span>
+          <span class="card-action">配置 →</span>
+        </div>
+        <div class="agent-card">
+          <div class="agent-icon" style="background:rgba(34,197,94,0.1);color:var(--green);">💬</div>
+          <div class="agent-info">
+            <div class="name">消息自动回复</div>
+            <div class="desc">微信好友消息自动智能回复，支持图文、小程序、名片等</div>
+            <div class="stats"><span>今日应答：342 次</span><span>准确率：96.3%</span></div>
+          </div>
+          <div class="toggle"></div>
+        </div>
+        <div class="agent-card">
+          <div class="agent-icon" style="background:rgba(139,92,246,0.1);color:var(--purple);">👥</div>
+          <div class="agent-info">
+            <div class="name">社群运营机器人</div>
+            <div class="desc">自动欢迎语、群发通知、关键词触发、定时消息</div>
+            <div class="stats"><span>管理群聊：23 个</span><span>群成员：8,126 人</span></div>
+          </div>
+          <div class="toggle"></div>
+        </div>
+        <div class="agent-card">
+          <div class="agent-icon" style="background:rgba(245,158,11,0.1);color:var(--orange);">📢</div>
+          <div class="agent-info">
+            <div class="name">智能营销助手</div>
+            <div class="desc">朋友圈自动点赞、节日自动祝福、用户画像标签</div>
+            <div class="stats"><span>触达次数：1,247</span><span>互动率：23.5%</span></div>
+          </div>
+          <div class="toggle off"></div>
+        </div>
+        <div class="agent-card">
+          <div class="agent-icon" style="background:rgba(236,72,153,0.1);color:var(--pink);">🎯</div>
+          <div class="agent-info">
+            <div class="name">客户标签管理</div>
+            <div class="desc">AI 自动打标签，基于聊天内容识别用户兴趣和意向</div>
+            <div class="stats"><span>标签数量：36 个</span><span>标记用户：7,843 人</span></div>
+          </div>
+          <div class="toggle"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Templates & Automation -->
+    <div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📋 营销模板</span>
+          <span class="card-action">+ 新建模板</span>
+        </div>
+        <div class="template-item">
+          <div class="t-icon">🎉</div>
+          <div class="t-info">
+            <div class="name">新品上市通知</div>
+            <div class="desc">触发条件：添加好友 > 自动发送新品手册与优惠券</div>
+          </div>
+          <span class="t-tag">使用 128 次</span>
+        </div>
+        <div class="template-item">
+          <div class="t-icon">🎂</div>
+          <div class="t-info">
+            <div class="name">生日自动祝福</div>
+            <div class="desc">触发条件：客户生日 > 自动发送祝福 + 专属折扣</div>
+          </div>
+          <span class="t-tag">使用 56 次</span>
+        </div>
+        <div class="template-item">
+          <div class="t-icon">📅</div>
+          <div class="t-info">
+            <div class="name">定期回访提醒</div>
+            <div class="desc">触发条件：上次互动 > 7 天 > 自动发送关怀信息</div>
+          </div>
+          <span class="t-tag">使用 89 次</span>
+        </div>
+        <div class="template-item">
+          <div class="t-icon">⚡</div>
+          <div class="t-info">
+            <div class="name">自动化跟单</div>
+            <div class="desc">触发条件：用户咨询价格 > 24h 未下单 > 自动跟进</div>
+          </div>
+          <span class="t-tag">使用 204 次</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📊 私域数据</span>
+          <span class="card-action">详情 →</span>
+        </div>
+        <div style="display:grid;gap:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(26,39,68,0.4);">
+            <span style="font-size:13px;">今日新增好友</span>
+            <span style="font-size:13px;font-weight:600;color:var(--green);">+47</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(26,39,68,0.4);">
+            <span style="font-size:13px;">今日退群</span>
+            <span style="font-size:13px;font-weight:600;color:#ef4444;">-12</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(26,39,68,0.4);">
+            <span style="font-size:13px;">消息总数</span>
+            <span style="font-size:13px;font-weight:600;">2,847</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(26,39,68,0.4);">
+            <span style="font-size:13px;">互动率</span>
+            <span style="font-size:13px;font-weight:600;color:var(--text-primary);">23.5%</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;">
+            <span style="font-size:13px;">客户意向分布</span>
+            <span style="font-size:12px;color:var(--text-dim);">高意向 32% · 中 45% · 低 23%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Conversations -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">💬 最近对话 (微信)</span>
+      <span class="card-action">查看全部 →</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div style="background:var(--bg-card);border-radius:var(--radius-sm);padding:14px;border:1px solid var(--border);">
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+          <span style="font-size:13px;font-weight:500;">王**</span>
+          <span style="font-size:11px;color:var(--text-dim);">5 分钟前</span>
+        </div>
+        <div style="font-size:12px;color:var(--text-secondary);">「你们这个工具试用多久？」</div>
+        <div style="font-size:12px;color:var(--cyan);margin-top:6px;">🤖 AI 已回复：7 天免费试用，点击链接即可...</div>
+        <div style="font-size:11px;color:var(--text-dim);margin-top:4px;">标签：高意向 · 价格敏感 · 2 次互动</div>
+      </div>
+      <div style="background:var(--bg-card);border-radius:var(--radius-sm);padding:14px;border:1px solid var(--border);">
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+          <span style="font-size:13px;font-weight:500;">张** 企业</span>
+          <span style="font-size:11px;color:var(--text-dim);">12 分钟前</span>
+        </div>
+        <div style="font-size:12px;color:var(--text-secondary);「我们公司想批量采购，有优惠吗？」</div>
+        <div style="font-size:12px;color:var(--orange);margin-top:6px;">⚠ 待人工跟进：企微客户 · 批量采购意向</div>
+        <div style="font-size:11px;color:var(--text-dim);margin-top:4px;">标签：VIP客户 · B2B · 决策人</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

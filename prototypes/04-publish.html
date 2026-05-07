@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1440, initial-scale=0.8">
+<title>ReAgent · 多平台一键发布</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #070b14; --bg-secondary: #0d1424; --bg-card: #111a2e; --bg-card-hover: #162040;
+    --bg-sidebar: #0a1120; --border: #1a2744; --text-primary: #e8edf5; --text-secondary: #8892a8;
+    --text-dim: #4a5568; --accent: #2563eb; --cyan: #00d4ff; --green: #22c55e; --orange: #f59e0b;
+    --purple: #8b5cf6; --pink: #ec4899;
+    --gradient-main: linear-gradient(135deg, #2563eb, #00d4ff);
+    --gradient-card: linear-gradient(145deg, rgba(17,26,46,0.8), rgba(13,20,36,0.9));
+    --radius: 12px; --radius-sm: 8px;
+  }
+  body { font-family: 'Inter',-apple-system,sans-serif; background: var(--bg-primary); color: var(--text-primary); display: flex; min-height: 100vh; overflow-x: hidden; }
+  .sidebar { width: 240px; min-width: 240px; background: var(--bg-sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; height: 100vh; position: sticky; top: 0; overflow-y: auto; }
+  .sidebar-logo { padding: 24px 20px; border-bottom: 1px solid var(--border); }
+  .sidebar-logo h1 { font-size: 20px; font-weight: 800; background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: -0.5px; }
+  .sidebar-logo span { font-size: 11px; color: var(--text-secondary); display: block; margin-top: 2px; -webkit-text-fill-color: var(--text-secondary); }
+  .sidebar-nav { padding: 12px 0; flex: 1; }
+  .nav-section { padding: 8px 20px 4px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-dim); }
+  .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 20px; cursor: pointer; color: var(--text-secondary); font-size: 13px; font-weight: 500; transition: all 0.2s; border-left: 2px solid transparent; text-decoration: none; }
+  .nav-item:hover { color: var(--text-primary); background: rgba(37,99,235,0.08); }
+  .nav-item.active { color: var(--cyan); border-left-color: var(--cyan); background: rgba(0,212,255,0.06); }
+  .nav-item .badge { margin-left: auto; background: var(--accent); color: #fff; font-size: 10px; padding: 1px 6px; border-radius: 10px; font-weight: 600; }
+  .nav-divider { height: 1px; background: var(--border); margin: 8px 20px; }
+  .main { flex: 1; padding: 24px 32px; overflow-y: auto; height: 100vh; }
+  .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+  .topbar-left h2 { font-size: 22px; font-weight: 700; }
+  .topbar-left p { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+  .card { background: var(--gradient-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; backdrop-filter: blur(10px); margin-bottom: 16px; }
+  .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .card-title { font-size: 14px; font-weight: 600; }
+  .card-action { font-size: 12px; color: var(--cyan); cursor: pointer; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .btn-primary { background: var(--gradient-main); border: none; border-radius: var(--radius-sm); padding: 10px 24px; color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; transition: opacity 0.2s; }
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-outline { background: transparent; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 20px; color: var(--text-secondary); font-size: 13px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+  .btn-outline:hover { border-color: var(--accent); color: var(--text-primary); }
+  .btn-success { background: linear-gradient(135deg,#22c55e,#16a34a); border: none; border-radius: var(--radius-sm); padding: 10px 24px; color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  .platform-bind { display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; }
+  .pb-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; text-align: center; cursor: pointer; transition: all 0.2s; }
+  .pb-card:hover { border-color: var(--accent); }
+  .pb-card.bound { border-color: rgba(34,197,94,0.3); background: rgba(34,197,94,0.05); }
+  .pb-icon { font-size: 28px; margin-bottom: 8px; }
+  .pb-name { font-size: 13px; font-weight: 500; }
+  .pb-status { font-size: 11px; margin-top: 4px; }
+  .pb-bar { height: 4px; background: var(--border); border-radius: 2px; margin-top: 10px; overflow: hidden; }
+  .pb-bar-fill { height: 100%; border-radius: 2px; }
+  .content-item { display: flex; align-items: center; gap: 14px; padding: 12px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 8px; transition: all 0.2s; }
+  .content-item:hover { border-color: var(--accent); }
+  .content-item.selected { border-color: var(--cyan); }
+  .content-thumb { width: 80px; height: 48px; background: linear-gradient(135deg,#0d1424,#1a2744); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .content-info { flex: 1; }
+  .content-info .title { font-size: 13px; }
+  .content-info .meta { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+  .checkbox { width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 4px; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .checkbox.checked { background: var(--accent); border-color: var(--accent); }
+  .schedule-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 8px; }
+  .schedule-day { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 8px; text-align: center; cursor: pointer; }
+  .schedule-day:hover { border-color: var(--accent); }
+  .schedule-day .dow { font-size: 11px; color: var(--text-dim); }
+  .schedule-day .date { font-size: 16px; font-weight: 600; margin: 4px 0; }
+  .schedule-day .count { font-size: 10px; color: var(--cyan); }
+  .schedule-day.today { border-color: var(--accent); background: rgba(37,99,235,0.08); }
+  .schedule-day.has-post { border-color: rgba(0,212,255,0.2); }
+</style>
+</head>
+<body>
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <h1>ReAgent</h1>
+    <span>AI 全自动营销平台</span>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-section">总控台</div>
+    <a class="nav-item" href="01-dashboard.html">
+      <span class="icon">⊞</span> AI Cloud 工作台
+    </a>
+    <div class="nav-section">创作区</div>
+    <a class="nav-item" href="02-video.html">
+      <span class="icon">▶</span> 短视频创作
+    </a>
+    <a class="nav-item" href="03-digital-human.html">
+      <span class="icon">👤</span> 数字人创作
+    </a>
+    <a class="nav-item" href="07-mix.html">
+      <span class="icon">✂</span> 短视频混剪
+      <span class="badge">NEW</span>
+    </a>
+    <div class="nav-section">分发区</div>
+    <a class="nav-item active" href="04-publish.html">
+      <span class="icon">📤</span> 多平台发布
+    </a>
+    <a class="nav-item" href="06-search.html">
+      <span class="icon">🔍</span> AI 搜索曝光
+    </a>
+    <div class="nav-section">触达区</div>
+    <a class="nav-item" href="05-cs.html">
+      <span class="icon">💬</span> AI 客服
+    </a>
+    <a class="nav-item" href="06-private.html">
+      <span class="icon">📱</span> 私域管理
+    </a>
+    <div class="nav-divider"></div>
+    <div class="nav-section">数据中心</div>
+    <a class="nav-item" href="08-analytics.html">
+      <span class="icon">📊</span> 数据看板
+    </a>
+  </div>
+</div>
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h2>多平台一键发布</h2>
+      <p>抖音 · 快手 · 视频号 · 小红书 · B站 · 一条视频同步分发</p>
+    </div>
+    <div class="topbar-right" style="display:flex;gap:12px;">
+      <button class="btn-outline">发布历史</button>
+      <button class="btn-success">📤 一键发布</button>
+    </div>
+  </div>
+
+  <!-- Platform Bindings -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">🔗 平台绑定 & 发布状态</span>
+      <span class="card-action">绑定新账号 →</span>
+    </div>
+    <div class="platform-bind">
+      <div class="pb-card bound">
+        <div class="pb-icon">🎵</div>
+        <div class="pb-name">抖音</div>
+        <div class="pb-status" style="color:var(--green);">● 已绑定</div>
+        <div class="pb-bar"><div class="pb-bar-fill" style="width:100%;background:var(--green);"></div></div>
+      </div>
+      <div class="pb-card bound">
+        <div class="pb-icon">📺</div>
+        <div class="pb-name">快手</div>
+        <div class="pb-status" style="color:var(--green);">● 已绑定</div>
+        <div class="pb-bar"><div class="pb-bar-fill" style="width:100%;background:var(--green);"></div></div>
+      </div>
+      <div class="pb-card bound">
+        <div class="pb-icon">💚</div>
+        <div class="pb-name">视频号</div>
+        <div class="pb-status" style="color:var(--green);">● 已绑定</div>
+        <div class="pb-bar"><div class="pb-bar-fill" style="width:100%;background:var(--green);"></div></div>
+      </div>
+      <div class="pb-card">
+        <div class="pb-icon">📕</div>
+        <div class="pb-name">小红书</div>
+        <div class="pb-status" style="color:var(--orange);">◌ 待授权</div>
+        <div class="pb-bar"><div class="pb-bar-fill" style="width:0%;background:var(--orange);"></div></div>
+      </div>
+      <div class="pb-card bound">
+        <div class="pb-icon">🅱</div>
+        <div class="pb-name">B站</div>
+        <div class="pb-status" style="color:var(--green);">● 已绑定</div>
+        <div class="pb-bar"><div class="pb-bar-fill" style="width:100%;background:var(--green);"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <!-- Content Selection -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">🎬 选择发布内容</span>
+        <span class="card-action">选择全部</span>
+      </div>
+      <div class="content-item selected">
+        <div class="checkbox checked">✓</div>
+        <div class="content-thumb">🎬</div>
+        <div class="content-info">
+          <div class="title">品牌宣传片 · 科技蓝调</div>
+          <div class="meta">00:30 · Sora · 横屏 16:9</div>
+        </div>
+        <span style="font-size:11px;color:var(--text-dim);">2 分钟前</span>
+      </div>
+      <div class="content-item selected">
+        <div class="checkbox checked">✓</div>
+        <div class="content-thumb">🎬</div>
+        <div class="content-info">
+          <div class="title">母亲节温情短片</div>
+          <div class="meta">01:00 · Synthes · 竖屏 9:16</div>
+        </div>
+        <span style="font-size:11px;color:var(--text-dim);">32 分钟前</span>
+      </div>
+      <div class="content-item">
+        <div class="checkbox"></div>
+        <div class="content-thumb">👤</div>
+        <div class="content-info">
+          <div class="title">数字人讲解 · 产品功能介绍</div>
+          <div class="meta">02:15 · 商务精英 · 磁性男声</div>
+        </div>
+        <span style="font-size:11px;color:var(--text-dim);">1 小时前</span>
+      </div>
+      <div class="content-item">
+        <div class="checkbox"></div>
+        <div class="content-thumb">🎬</div>
+        <div class="content-info">
+          <div class="title">产品开箱测评短视频</div>
+          <div class="meta">00:45 · Sora · 横屏 16:9</div>
+        </div>
+        <span style="font-size:11px;color:var(--text-dim);">1.5 小时前</span>
+      </div>
+    </div>
+
+    <!-- Publish Settings -->
+    <div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">⚙️ 发布设置</span>
+          <span class="card-action">保存为默认</span>
+        </div>
+        <div style="display:grid;gap:14px;">
+          <div><label style="font-size:12px;color:var(--text-secondary);display:block;margin-bottom:6px;">发布方式</label>
+            <div style="display:flex;gap:8px;">
+              <span class="tag active">立即发布</span>
+              <span class="tag">定时发布</span>
+              <span class="tag">草稿箱</span>
+            </div>
+          </div>
+          <div><label style="font-size:12px;color:var(--text-secondary);display:block;margin-bottom:6px;">发布平台</label>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;">
+              <span class="tag active">🎵 抖音</span>
+              <span class="tag active">📺 快手</span>
+              <span class="tag active">💚 视频号</span>
+              <span class="tag">📕 小红书</span>
+              <span class="tag active">🅱 B站</span>
+            </div>
+          </div>
+          <div><label style="font-size:12px;color:var(--text-secondary);display:block;margin-bottom:6px;">标题</label>
+            <input type="text" value="ReAgent AI 智能运营平台 — 品牌首发" style="width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;color:var(--text-primary);font-size:13px;font-family:inherit;outline:none;">
+          </div>
+          <div><label style="font-size:12px;color:var(--text-secondary);display:block;margin-bottom:6px;">话题标签</label>
+            <input type="text" value="#AI智能 #短视频运营 #ReAgent #内容创作" style="width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;color:var(--text-primary);font-size:13px;font-family:inherit;outline:none;">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📅 发布日历</span>
+          <span class="card-action">排期管理 →</span>
+        </div>
+        <div class="schedule-grid">
+          <div class="schedule-day"><div class="dow">一</div><div class="date">4</div></div>
+          <div class="schedule-day"><div class="dow">二</div><div class="date">5</div><div class="count">2 条</div></div>
+          <div class="schedule-day"><div class="dow">三</div><div class="date">6</div><div class="count">1 条</div></div>
+          <div class="schedule-day today"><div class="dow">四</div><div class="date">7</div><div class="count">3 条</div></div>
+          <div class="schedule-day has-post"><div class="dow">五</div><div class="date">8</div></div>
+          <div class="schedule-day"><div class="dow">六</div><div class="date">9</div></div>
+          <div class="schedule-day"><div class="dow">日</div><div class="date">10</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

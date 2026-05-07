@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1440, initial-scale=0.8">
+<title>ReAgent · 短视频创作</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #070b14;
+    --bg-secondary: #0d1424;
+    --bg-card: #111a2e;
+    --bg-card-hover: #162040;
+    --bg-sidebar: #0a1120;
+    --border: #1a2744;
+    --text-primary: #e8edf5;
+    --text-secondary: #8892a8;
+    --text-dim: #4a5568;
+    --accent: #2563eb;
+    --cyan: #00d4ff;
+    --green: #22c55e;
+    --orange: #f59e0b;
+    --purple: #8b5cf6;
+    --pink: #ec4899;
+    --gradient-main: linear-gradient(135deg, #2563eb, #00d4ff);
+    --gradient-card: linear-gradient(145deg, rgba(17,26,46,0.8), rgba(13,20,36,0.9));
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+  body { font-family: 'Inter',-apple-system,sans-serif; background: var(--bg-primary); color: var(--text-primary); display: flex; min-height: 100vh; overflow-x: hidden; }
+  .sidebar { width: 240px; min-width: 240px; background: var(--bg-sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; height: 100vh; position: sticky; top: 0; overflow-y: auto; }
+  .sidebar-logo { padding: 24px 20px; border-bottom: 1px solid var(--border); }
+  .sidebar-logo h1 { font-size: 20px; font-weight: 800; background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: -0.5px; }
+  .sidebar-logo span { font-size: 11px; color: var(--text-secondary); display: block; margin-top: 2px; -webkit-text-fill-color: var(--text-secondary); }
+  .sidebar-nav { padding: 12px 0; flex: 1; }
+  .nav-section { padding: 8px 20px 4px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-dim); }
+  .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 20px; cursor: pointer; color: var(--text-secondary); font-size: 13px; font-weight: 500; transition: all 0.2s; border-left: 2px solid transparent; text-decoration: none; }
+  .nav-item .icon { width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .nav-item:hover { color: var(--text-primary); background: rgba(37,99,235,0.08); }
+  .nav-item.active { color: var(--cyan); border-left-color: var(--cyan); background: rgba(0,212,255,0.06); }
+  .nav-item .badge { margin-left: auto; background: var(--accent); color: #fff; font-size: 10px; padding: 1px 6px; border-radius: 10px; font-weight: 600; }
+  .nav-divider { height: 1px; background: var(--border); margin: 8px 20px; }
+  .main { flex: 1; padding: 24px 32px; overflow-y: auto; height: 100vh; }
+  .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+  .topbar-left h2 { font-size: 22px; font-weight: 700; }
+  .topbar-left p { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+  .card { background: var(--gradient-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; backdrop-filter: blur(10px); margin-bottom: 16px; }
+  .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .card-title { font-size: 14px; font-weight: 600; }
+  .card-action { font-size: 12px; color: var(--cyan); cursor: pointer; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  /* Generator Tab */
+  .gen-tabs { display: flex; gap: 4px; background: var(--bg-primary); border-radius: var(--radius-sm); padding: 4px; margin-bottom: 20px; }
+  .gen-tab { flex: 1; padding: 10px 16px; text-align: center; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; color: var(--text-secondary); transition: all 0.2s; }
+  .gen-tab.active { background: var(--accent); color: #fff; }
+  .gen-tab:hover:not(.active) { color: var(--text-primary); }
+  .input-group { display: grid; gap: 12px; }
+  .input-group label { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
+  .input-group textarea { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px; color: var(--text-primary); font-size: 13px; font-family: inherit; resize: vertical; min-height: 80px; width: 100%; outline: none; }
+  .input-group textarea:focus { border-color: var(--accent); }
+  .input-group input { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 12px; color: var(--text-primary); font-size: 13px; font-family: inherit; width: 100%; outline: none; }
+  .input-group input:focus { border-color: var(--accent); }
+  .btn-primary { background: var(--gradient-main); border: none; border-radius: var(--radius-sm); padding: 10px 24px; color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; transition: opacity 0.2s; }
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-outline { background: transparent; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 20px; color: var(--text-secondary); font-size: 13px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+  .btn-outline:hover { border-color: var(--accent); color: var(--text-primary); }
+  .tag-select { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag { padding: 6px 14px; border-radius: 20px; font-size: 12px; cursor: pointer; border: 1px solid var(--border); color: var(--text-secondary); background: transparent; transition: all 0.2s; }
+  .tag:hover { border-color: var(--accent); color: var(--text-primary); }
+  .tag.active { border-color: var(--cyan); color: var(--cyan); background: rgba(0,212,255,0.08); }
+  /* Output Preview */
+  .preview-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+  .preview-card { background: var(--bg-card); border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border); cursor: pointer; transition: all 0.2s; }
+  .preview-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .preview-thumb { width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, #0d1424, #1a2744); display: flex; align-items: center; justify-content: center; position: relative; }
+  .preview-thumb .play-btn { width: 48px; height: 48px; border-radius: 50%; background: rgba(37,99,235,0.8); display: flex; align-items: center; justify-content: center; font-size: 18px; color: #fff; }
+  .preview-info { padding: 10px 12px; }
+  .preview-info .name { font-size: 13px; }
+  .preview-info .meta { font-size: 11px; color: var(--text-dim); margin-top: 2px; display: flex; justify-content: space-between; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  .engine-badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.2); border-radius: 20px; font-size: 11px; color: var(--cyan); }
+</style>
+</head>
+<body>
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <h1>ReAgent</h1>
+    <span>AI 全自动营销平台</span>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-section">总控台</div>
+    <a class="nav-item" href="01-dashboard.html">
+      <span class="icon">⊞</span> AI Cloud 工作台
+    </a>
+    <div class="nav-section">创作区</div>
+    <a class="nav-item active" href="02-video.html">
+      <span class="icon">▶</span> 短视频创作
+    </a>
+    <a class="nav-item" href="03-digital-human.html">
+      <span class="icon">👤</span> 数字人创作
+    </a>
+    <a class="nav-item" href="07-mix.html">
+      <span class="icon">✂</span> 短视频混剪
+      <span class="badge">NEW</span>
+    </a>
+    <div class="nav-section">分发区</div>
+    <a class="nav-item" href="04-publish.html">
+      <span class="icon">📤</span> 多平台发布
+    </a>
+    <a class="nav-item" href="06-search.html">
+      <span class="icon">🔍</span> AI 搜索曝光
+    </a>
+    <div class="nav-section">触达区</div>
+    <a class="nav-item" href="05-cs.html">
+      <span class="icon">💬</span> AI 客服
+    </a>
+    <a class="nav-item" href="06-private.html">
+      <span class="icon">📱</span> 私域管理
+    </a>
+    <div class="nav-divider"></div>
+    <div class="nav-section">数据中心</div>
+    <a class="nav-item" href="08-analytics.html">
+      <span class="icon">📊</span> 数据看板
+    </a>
+  </div>
+</div>
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h2>短视频创作</h2>
+      <p>Sora · Veo · Synthes 三大引擎 · 文生视频 / 图生视频一键出片</p>
+    </div>
+    <div class="topbar-right" style="display:flex;gap:12px;">
+      <button class="btn-outline">历史创作</button>
+      <button class="btn-primary">+ 新建创作</button>
+    </div>
+  </div>
+
+  <!-- Generator -->
+  <div class="card">
+    <div class="gen-tabs">
+      <div class="gen-tab active">📝 文生视频</div>
+      <div class="gen-tab">🖼 图生视频</div>
+      <div class="gen-tab">🎬 短视频混剪</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div class="input-group">
+        <label>视频描述</label>
+        <textarea placeholder="描述你想要的视频画面，越详细效果越好...&#10;&#10;例如：清晨的城市街道，阳光透过高楼间隙洒下，一位年轻女性穿着白色连衣裙走过斑马线，镜头跟随她的脚步推进，温暖的色调，电影质感。">品牌发布会预告，科技感蓝色主调，镜头从太空俯视地球缓慢推进到城市夜景，光影粒子环绕，30秒时长， cinematic 风格</textarea>
+        <div style="display:flex;gap:12px;align-items:center;">
+          <div style="flex:1;">
+            <label style="display:block;margin-bottom:4px;">风格选择</label>
+            <div class="tag-select">
+              <span class="tag active">电影感</span>
+              <span class="tag">动漫风</span>
+              <span class="tag">写实</span>
+              <span class="tag">3D 渲染</span>
+              <span class="tag">水墨风</span>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;margin-top:8px;">
+          <div style="flex:1;">
+            <label style="display:block;margin-bottom:4px;">比例</label>
+            <select style="width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;color:var(--text-primary);font-size:13px;font-family:inherit;outline:none;">
+              <option>16:9 (横屏)</option>
+              <option>9:16 (竖屏)</option>
+              <option>1:1 (方形)</option>
+              <option>4:3</option>
+            </select>
+          </div>
+          <div style="flex:1;">
+            <label style="display:block;margin-bottom:4px;">时长</label>
+            <select style="width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;color:var(--text-primary);font-size:13px;font-family:inherit;outline:none;">
+              <option>15 秒</option>
+              <option selected>30 秒</option>
+              <option>60 秒</option>
+              <option>120 秒</option>
+            </select>
+          </div>
+          <div style="flex:1;">
+            <label style="display:block;margin-bottom:4px;">引擎</label>
+            <select style="width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;color:var(--text-primary);font-size:13px;font-family:inherit;outline:none;">
+              <option>Sora (推荐)</option>
+              <option>Veo 2</option>
+              <option>Synthes</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;margin-top:12px;">
+          <button class="btn-primary">✨ 生成视频</button>
+          <button class="btn-outline">保存草稿</button>
+          <span class="engine-badge">⚡ Sora 极速模式</span>
+        </div>
+      </div>
+      <div style="background:var(--bg-card);border-radius:var(--radius-sm);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:300px;">
+        <div style="width:80%;aspect-ratio:16/9;background:linear-gradient(135deg,#0d1424,#162040);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px dashed var(--border);">
+          <div style="font-size:48px;margin-bottom:12px;">🎬</div>
+          <div style="font-size:14px;color:var(--text-secondary);">视频预览窗口</div>
+          <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">点击"生成"后预览效果</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Outputs -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">📁 近期的创作</span>
+      <span class="card-action">查看全部 →</span>
+    </div>
+    <div class="preview-grid">
+      <div class="preview-card">
+        <div class="preview-thumb">
+          <div class="play-btn">▶</div>
+          <div style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.6);padding:2px 8px;border-radius:4px;font-size:10px;">00:30</div>
+        </div>
+        <div class="preview-info">
+          <div class="name">品牌宣传片 · 科技蓝调</div>
+          <div class="meta"><span>Sora</span><span>2 分钟前</span></div>
+        </div>
+      </div>
+      <div class="preview-card">
+        <div class="preview-thumb">
+          <div class="play-btn">▶</div>
+          <div style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.6);padding:2px 8px;border-radius:4px;font-size:10px;">00:15</div>
+        </div>
+        <div class="preview-info">
+          <div class="name">产品功能演示 · 动画解说</div>
+          <div class="meta"><span>Veo 2</span><span>15 分钟前</span></div>
+        </div>
+      </div>
+      <div class="preview-card">
+        <div class="preview-thumb">
+          <div class="play-btn">▶</div>
+          <div style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.6);padding:2px 8px;border-radius:4px;font-size:10px;">01:00</div>
+        </div>
+        <div class="preview-info">
+          <div class="name">母亲节温情短片</div>
+          <div class="meta"><span>Synthes</span><span>32 分钟前</span></div>
+        </div>
+      </div>
+      <div class="preview-card">
+        <div class="preview-thumb">
+          <div class="play-btn">▶</div>
+          <div style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.6);padding:2px 8px;border-radius:4px;font-size:10px;">00:45</div>
+        </div>
+        <div class="preview-info">
+          <div class="name">产品开箱测评</div>
+          <div class="meta"><span>Sora</span><span>1 小时前</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

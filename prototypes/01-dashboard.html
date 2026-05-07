@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1440, initial-scale=0.8">
+<title>ReAgent · AI Cloud 工作台</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #070b14;
+    --bg-secondary: #0d1424;
+    --bg-card: #111a2e;
+    --bg-card-hover: #162040;
+    --bg-sidebar: #0a1120;
+    --border: #1a2744;
+    --border-active: #2563eb;
+    --text-primary: #e8edf5;
+    --text-secondary: #8892a8;
+    --text-dim: #4a5568;
+    --accent: #2563eb;
+    --accent-glow: rgba(37,99,235,0.2);
+    --cyan: #00d4ff;
+    --green: #22c55e;
+    --orange: #f59e0b;
+    --purple: #8b5cf6;
+    --pink: #ec4899;
+    --gradient-main: linear-gradient(135deg, #2563eb, #00d4ff);
+    --gradient-card: linear-gradient(145deg, rgba(17,26,46,0.8), rgba(13,20,36,0.9));
+    --shadow-card: 0 4px 24px rgba(0,0,0,0.3);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    display: flex;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  /* Sidebar */
+  .sidebar {
+    width: 240px;
+    min-width: 240px;
+    background: var(--bg-sidebar);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+  }
+  .sidebar-logo {
+    padding: 24px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-logo h1 {
+    font-size: 20px;
+    font-weight: 800;
+    background: var(--gradient-main);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.5px;
+  }
+  .sidebar-logo span {
+    font-size: 11px;
+    color: var(--text-secondary);
+    display: block;
+    margin-top: 2px;
+    -webkit-text-fill-color: var(--text-secondary);
+  }
+  .sidebar-nav {
+    padding: 12px 0;
+    flex: 1;
+  }
+  .nav-section { padding: 8px 20px 4px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-dim); }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 20px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+    border-left: 2px solid transparent;
+    text-decoration: none;
+  }
+  .nav-item .icon { width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .nav-item:hover { color: var(--text-primary); background: rgba(37,99,235,0.08); }
+  .nav-item.active { color: var(--cyan); border-left-color: var(--cyan); background: rgba(0,212,255,0.06); }
+  .nav-item .badge {
+    margin-left: auto;
+    background: var(--accent);
+    color: #fff;
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+  .nav-divider { height: 1px; background: var(--border); margin: 8px 20px; }
+  /* Main */
+  .main { flex: 1; padding: 24px 32px; overflow-y: auto; height: 100vh; }
+  /* Top Bar */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  .topbar-left h2 { font-size: 22px; font-weight: 700; }
+  .topbar-left p { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+  .topbar-right { display: flex; align-items: center; gap: 16px; }
+  .search-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 8px 14px;
+    width: 240px;
+  }
+  .search-box input {
+    background: none; border: none; outline: none; color: var(--text-primary);
+    font-size: 13px; width: 100%; font-family: inherit;
+  }
+  .search-box input::placeholder { color: var(--text-dim); }
+  .platform-status {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .platform-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    display: inline-block;
+  }
+  .platform-dot.online { background: var(--green); box-shadow: 0 0 6px var(--green); }
+  .platform-dot.offline { background: var(--text-dim); }
+  .platform-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+  .user-avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--gradient-main);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; color: #fff;
+    cursor: pointer;
+  }
+  /* Stats Row */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .stat-card {
+    background: var(--gradient-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    backdrop-filter: blur(10px);
+  }
+  .stat-card .label { font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; }
+  .stat-card .value { font-size: 28px; font-weight: 700; }
+  .stat-card .trend {
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  .trend.up { color: var(--green); }
+  .trend.down { color: #ef4444; }
+  /* Grid */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .card {
+    background: var(--gradient-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    backdrop-filter: blur(10px);
+  }
+  .card-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 16px;
+  }
+  .card-title { font-size: 14px; font-weight: 600; }
+  .card-action { font-size: 12px; color: var(--cyan); cursor: pointer; }
+  /* Quick Actions */
+  .quick-actions {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .qa-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .qa-item:hover { border-color: var(--accent); background: var(--bg-card-hover); }
+  .qa-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 10px;
+    font-size: 18px;
+  }
+  .qa-item .name { font-size: 13px; font-weight: 500; }
+  .qa-item .desc { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+  /* Recent Tasks */
+  .task-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(26,39,68,0.5);
+  }
+  .task-item:last-child { border-bottom: none; }
+  .task-status {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+  .task-status.done { background: var(--green); }
+  .task-status.running { background: var(--cyan); animation: pulse 1.5s infinite; }
+  .task-status.waiting { background: var(--orange); }
+  .task-status.failed { background: #ef4444; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .task-info { flex: 1; }
+  .task-info .name { font-size: 13px; }
+  .task-info .time { font-size: 11px; color: var(--text-dim); margin-top: 1px; }
+  .task-tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(37,99,235,0.15);
+    color: var(--cyan);
+  }
+  /* Platform Status Grid */
+  .platform-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+  }
+  .platform-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px;
+    text-align: center;
+  }
+  .platform-card .pname { font-size: 12px; font-weight: 500; margin-bottom: 4px; }
+  .platform-card .pstatus { font-size: 11px; }
+  .pstatus.connected { color: var(--green); }
+  .pstatus.disconnected { color: var(--text-dim); }
+  .pstatus.pending { color: var(--orange); }
+  /* Chart placeholder */
+  .chart-area {
+    height: 180px;
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    padding-top: 20px;
+  }
+  .bar {
+    flex: 1;
+    background: var(--gradient-main);
+    border-radius: 3px 3px 0 0;
+    min-height: 10px;
+    transition: height 0.3s;
+    opacity: 0.7;
+  }
+  .bar:nth-child(odd) { opacity: 0.5; }
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  /* Decorations */
+  .glow-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+  }
+  /* Mega Button */
+  .mega-btn {
+    display: block;
+    width: 100%;
+    padding: 24px 32px;
+    background: linear-gradient(135deg, #2563eb 0%, #00d4ff 50%, #8b5cf6 100%);
+    border: none;
+    border-radius: var(--radius);
+    color: #fff;
+    font-size: 20px;
+    font-weight: 800;
+    font-family: inherit;
+    cursor: pointer;
+    text-align: center;
+    margin-bottom: 24px;
+    transition: all 0.3s;
+    box-shadow: 0 0 30px rgba(37,99,235,0.3), 0 8px 32px rgba(0,0,0,0.4);
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 1px;
+  }
+  .mega-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 50px rgba(37,99,235,0.5), 0 12px 40px rgba(0,0,0,0.5);
+  }
+  .mega-btn:active {
+    transform: translateY(0);
+  }
+  .mega-btn .sub {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0.85;
+    margin-top: 6px;
+    letter-spacing: 0;
+  }
+  .mega-btn .shine {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+    animation: shine 3s ease-in-out infinite;
+  }
+  @keyframes shine {
+    0%,100% { transform: translate(-30%, -30%); }
+    50% { transform: translate(30%, 30%); }
+  }
+  /* Automation Pipeline */
+  .pipeline {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 24px;
+    overflow-x: auto;
+    padding: 20px 24px;
+    background: var(--gradient-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .pipeline::-webkit-scrollbar { height: 3px; }
+  .pipeline-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    min-width: 90px;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+    transition: all 0.3s;
+  }
+  .pipeline-step .step-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    background: var(--bg-card);
+    border: 2px solid var(--border);
+  }
+  .pipeline-step .step-label {
+    font-size: 10px;
+    color: var(--text-secondary);
+    text-align: center;
+    white-space: nowrap;
+    font-weight: 500;
+  }
+  .pipeline-step.done .step-icon {
+    border-color: var(--green);
+    background: rgba(34,197,94,0.15);
+    color: var(--green);
+  }
+  .pipeline-step.active .step-icon {
+    border-color: var(--cyan);
+    background: rgba(0,212,255,0.15);
+    color: var(--cyan);
+    box-shadow: 0 0 12px rgba(0,212,255,0.3);
+    animation: pulse-border 1.5s infinite;
+  }
+  @keyframes pulse-border {
+    0%,100% { box-shadow: 0 0 8px rgba(0,212,255,0.2); }
+    50% { box-shadow: 0 0 20px rgba(0,212,255,0.5); }
+  }
+  .pipeline-step.waiting .step-icon {
+    border-color: var(--text-dim);
+    color: var(--text-dim);
+    opacity: 0.5;
+  }
+  .pipeline-step.active .step-label {
+    color: var(--cyan);
+    font-weight: 600;
+  }
+  .pipeline-step.done .step-label {
+    color: var(--green);
+  }
+  .pipeline-arrow {
+    color: var(--text-dim);
+    font-size: 14px;
+    flex-shrink: 0;
+    min-width: 20px;
+    text-align: center;
+  }
+  .pipeline-step.done + .pipeline-arrow { color: var(--green); }
+  .pipeline-step.active + .pipeline-arrow { color: var(--cyan); }
+</style>
+</head>
+<body>
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <h1>ReAgent</h1>
+    <span>AI 全自动营销平台</span>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-section">总控台</div>
+    <a class="nav-item active" href="01-dashboard.html">
+      <span class="icon">⊞</span> AI Cloud 工作台
+    </a>
+    <div class="nav-section">创作区</div>
+    <a class="nav-item" href="02-video.html">
+      <span class="icon">▶</span> 短视频创作
+    </a>
+    <a class="nav-item" href="03-digital-human.html">
+      <span class="icon">👤</span> 数字人创作
+    </a>
+    <a class="nav-item" href="07-mix.html">
+      <span class="icon">✂</span> 短视频混剪
+      <span class="badge">NEW</span>
+    </a>
+    <div class="nav-section">分发区</div>
+    <a class="nav-item" href="04-publish.html">
+      <span class="icon">📤</span> 多平台发布
+    </a>
+    <a class="nav-item" href="06-search.html">
+      <span class="icon">🔍</span> AI 搜索曝光
+    </a>
+    <div class="nav-section">触达区</div>
+    <a class="nav-item" href="05-cs.html">
+      <span class="icon">💬</span> AI 客服
+    </a>
+    <a class="nav-item" href="06-private.html">
+      <span class="icon">📱</span> 私域管理
+    </a>
+    <div class="nav-divider"></div>
+    <div class="nav-section">数据中心</div>
+    <a class="nav-item" href="08-analytics.html">
+      <span class="icon">📊</span> 数据看板
+    </a>
+  </div>
+</div>
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h2>AI Cloud 工作台</h2>
+      <p>一站式智能运营中枢 · 掌控全域业务</p>
+    </div>
+    <div class="topbar-right">
+      <div class="search-box">
+        <span style="color:var(--text-dim);font-size:14px;">⌕</span>
+        <input type="text" placeholder="搜索功能或任务...">
+      </div>
+      <div class="platform-status">
+        <div class="platform-item"><span class="platform-dot online"></span>抖音</div>
+        <div class="platform-item"><span class="platform-dot online"></span>微信</div>
+        <div class="platform-item"><span class="platform-dot online"></span>企微</div>
+        <div class="platform-item"><span class="platform-dot online"></span>小红书</div>
+      </div>
+      <div class="user-avatar">皇</div>
+    </div>
+  </div>
+
+  <!-- 🔥 Mega Button: One-click Launch -->
+  <button class="mega-btn">
+    <div class="shine"></div>
+    🚀 一键启动全自动营销
+    <span class="sub">从内容创作 → 多平台发布 → AI互动触达 → 私域转化的完整自动化链路</span>
+  </button>
+
+  <!-- Automation Pipeline -->
+  <div class="pipeline">
+    <div class="pipeline-step done">
+      <div class="step-icon">🎯</div>
+      <div class="step-label">对标爆款</div>
+    </div>
+    <div class="pipeline-arrow">→</div>
+    <div class="pipeline-step done">
+      <div class="step-icon">✂</div>
+      <div class="step-label">自动剪辑</div>
+    </div>
+    <div class="pipeline-arrow">→</div>
+    <div class="pipeline-step active">
+      <div class="step-icon">📤</div>
+      <div class="step-label">多平台发布</div>
+    </div>
+    <div class="pipeline-arrow">→</div>
+    <div class="pipeline-step waiting">
+      <div class="step-icon">💬</div>
+      <div class="step-label">评论曝光</div>
+    </div>
+    <div class="pipeline-arrow">→</div>
+    <div class="pipeline-step waiting">
+      <div class="step-icon">✉</div>
+      <div class="step-label">自动私信</div>
+    </div>
+    <div class="pipeline-arrow">→</div>
+    <div class="pipeline-step waiting">
+      <div class="step-icon">📱</div>
+      <div class="step-label">私域留资</div>
+    </div>
+    <div class="pipeline-arrow">→</div>
+    <div class="pipeline-step waiting">
+      <div class="step-icon">🤖</div>
+      <div class="step-label">7×24h客服</div>
+    </div>
+    <div class="pipeline-arrow">→</div>
+    <div class="pipeline-step waiting">
+      <div class="step-icon">💰</div>
+      <div class="step-label">成交</div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="label">今日视频产出</div>
+      <div class="value">24</div>
+      <div class="trend up">↑ 12% 较昨日</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">AI 客服会话</div>
+      <div class="value">1,284</div>
+      <div class="trend up">↑ 8.3% 较昨日</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">多平台曝光量</div>
+      <div class="value">53.2K</div>
+      <div class="trend up">↑ 23% 较昨日</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">待处理任务</div>
+      <div class="value">7</div>
+      <div class="trend down">↓ 3 较昨日</div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="card" style="margin-bottom:24px;">
+    <div class="card-header">
+      <span class="card-title">⚡ 快捷操作 · 一键调用 39 项高频功能</span>
+      <span class="card-action">查看全部 →</span>
+    </div>
+    <div class="quick-actions">
+      <div class="qa-item">
+        <div class="qa-icon" style="background:rgba(37,99,235,0.15);color:var(--cyan);">▶</div>
+        <div class="name">文生视频</div>
+        <div class="desc">Sora / Veo 引擎</div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-icon" style="background:rgba(139,92,246,0.15);color:var(--purple);">🎙</div>
+        <div class="name">AI 声音克隆</div>
+        <div class="desc">声音复刻与合成</div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-icon" style="background:rgba(34,197,94,0.15);color:var(--green);">👤</div>
+        <div class="name">数字人出镜</div>
+        <div class="desc">无需拍摄出镜</div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-icon" style="background:rgba(245,158,11,0.15);color:var(--orange);">📤</div>
+        <div class="name">一键发布</div>
+        <div class="desc">全平台同步</div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-icon" style="background:rgba(236,72,153,0.15);color:var(--pink);">💬</div>
+        <div class="name">AI 客服</div>
+        <div class="desc">24h 值守</div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-icon" style="background:rgba(0,212,255,0.15);color:var(--cyan);">🔍</div>
+        <div class="name">搜索曝光</div>
+        <div class="desc">智优智能体</div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-icon" style="background:rgba(139,92,246,0.15);color:var(--purple);">📱</div>
+        <div class="name">私域运营</div>
+        <div class="desc">微信/企微智能体</div>
+      </div>
+      <<div class="qa-item">
+        <div class="qa-icon" style="background:rgba(34,197,94,0.15);color:var(--green);">📊</div>
+        <div class="name">数据看板</div>
+        <div class="desc">全维度分析</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <!-- Platform Status -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">🔗 平台连接状态</span>
+        <span class="card-action">管理 →</span>
+      </div>
+      <div class="platform-grid">
+        <div class="platform-card">
+          <div style="font-size:24px;margin-bottom:6px;">🎵</div>
+          <div class="pname">抖音</div>
+          <div class="pstatus connected">● 已连接</div>
+        </div>
+        <div class="platform-card">
+          <div style="font-size:24px;margin-bottom:6px;">📺</div>
+          <div class="pname">快手</div>
+          <div class="pstatus connected">● 已连接</div>
+        </div>
+        <div class="platform-card">
+          <div style="font-size:24px;margin-bottom:6px;">💚</div>
+          <div class="pname">视频号</div>
+          <div class="pstatus connected">● 已连接</div>
+        </div>
+        <div class="platform-card">
+          <div style="font-size:24px;margin-bottom:6px;">📕</div>
+          <div class="pname">小红书</div>
+          <div class="pstatus pending">◌ 待授权</div>
+        </div>
+        <div class="platform-card">
+          <div style="font-size:24px;margin-bottom:6px;">🅱</div>
+          <div class="pname">B站</div>
+          <div class="pstatus connected">● 已连接</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Tasks -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">📋 最近任务</span>
+        <span class="card-action">全部 →</span>
+      </div>
+      <div class="task-item">
+        <span class="task-status done"></span>
+        <div class="task-info">
+          <div class="name">品牌产品视频 · 文生视频</div>
+          <div class="time">2 分钟前 · 已完成</div>
+        </div>
+        <span class="task-tag">抖音</span>
+      </div>
+      <div class="task-item">
+        <span class="task-status running"></span>
+        <div class="task-info">
+          <div class="name">数字人直播 · 智能回复脚本</div>
+          <div class="time">进行中 · 预计 8 分钟</div>
+        </div>
+        <span class="task-tag">数字人</span>
+      </div>
+      <div class="task-item">
+        <span class="task-status waiting"></span>
+        <div class="task-info">
+          <div class="name">多平台同步发布 · 3 条视频</div>
+          <div class="time">排队中 · 前序 2 个任务</div>
+        </div>
+        <span class="task-tag">发布</span>
+      </div>
+      <div class="task-item">
+        <span class="task-status running"></span>
+        <div class="task-info">
+          <div class="name">搜索曝光优化 · 关键词投放</div>
+          <div class="time">进行中 · 已曝光 2.3K</div>
+        </div>
+        <span class="task-tag">搜索</span>
+      </div>
+      <div class="task-item">
+        <span class="task-status done"></span>
+        <div class="task-info">
+          <div class="name">AI 客服话术库更新</div>
+          <div class="time">15 分钟前 · 已完成</div>
+        </div>
+        <span class="task-tag">客服</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <!-- Content Performance -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">📈 近7日内容表现</span>
+        <span class="card-action">详情 →</span>
+      </div>
+      <div class="chart-area">
+        <div class="bar" style="height:40px;"></div>
+        <div class="bar" style="height:65px;"></div>
+        <div class="bar" style="height:50px;"></div>
+        <div class="bar" style="height:80px;"></div>
+        <div class="bar" style="height:95px;"></div>
+        <div class="bar" style="height:70px;"></div>
+        <div class="bar" style="height:110px;"></div>
+        <div class="bar" style="height:85px;"></div>
+        <div class="bar" style="height:60px;"></div>
+        <div class="bar" style="height:100px;"></div>
+        <div class="bar" style="height:45px;"></div>
+        <div class="bar" style="height:75px;"></div>
+        <div class="bar" style="height:90px;"></div>
+        <div class="bar" style="height:55px;"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-dim);margin-top:8px;">
+        <span>4/30</span><span>5/1</span><span>5/2</span><span>5/3</span><span>5/4</span><span>5/5</span><span>今天</span>
+      </div>
+    </div>
+
+    <!-- AI Insights -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">🤖 AI 智能建议</span>
+        <span class="card-action">更多 →</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="background:var(--bg-card);border-radius:var(--radius-sm);padding:14px;border-left:3px solid var(--cyan);">
+          <div style="font-size:13px;font-weight:500;">追热点建议</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">"母亲节"话题热度上升 230%，建议今日产出 3 条相关短视频，匹配数字人温情出镜。</div>
+          <div style="font-size:11px;color:var(--cyan);margin-top:6px;">预计曝光增量：+45%</div>
+        </div>
+        <div style="background:var(--bg-card);border-radius:var(--radius-sm);padding:14px;border-left:3px solid var(--orange);">
+          <div style="font-size:13px;font-weight:500;">客服优化提醒</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">抖音客服 3 条未回复超 2h，建议启用智能兜底话术，避免客户流失。</div>
+          <div style="font-size:11px;color:var(--orange);margin-top:6px;">影响客户：12 人</div>
+        </div>
+        <div style="background:var(--bg-card);border-radius:var(--radius-sm);padding:14px;border-left:3px solid var(--purple);">
+          <div style="font-size:13px;font-weight:500;">发布排期建议</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">小红书晚 8-10 点转化率最高，建议调整发布策略至黄金时段。</div>
+          <div style="font-size:11px;color:var(--purple);margin-top:6px;">预估点击率提升：+28%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

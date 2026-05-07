@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1440, initial-scale=0.8">
+<title>ReAgent · 数字人创作</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #070b14;
+    --bg-secondary: #0d1424;
+    --bg-card: #111a2e;
+    --bg-card-hover: #162040;
+    --bg-sidebar: #0a1120;
+    --border: #1a2744;
+    --text-primary: #e8edf5;
+    --text-secondary: #8892a8;
+    --text-dim: #4a5568;
+    --accent: #2563eb;
+    --cyan: #00d4ff;
+    --green: #22c55e;
+    --orange: #f59e0b;
+    --purple: #8b5cf6;
+    --pink: #ec4899;
+    --gradient-main: linear-gradient(135deg, #2563eb, #00d4ff);
+    --gradient-card: linear-gradient(145deg, rgba(17,26,46,0.8), rgba(13,20,36,0.9));
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+  body { font-family: 'Inter',-apple-system,sans-serif; background: var(--bg-primary); color: var(--text-primary); display: flex; min-height: 100vh; overflow-x: hidden; }
+  .sidebar { width: 240px; min-width: 240px; background: var(--bg-sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; height: 100vh; position: sticky; top: 0; overflow-y: auto; }
+  .sidebar-logo { padding: 24px 20px; border-bottom: 1px solid var(--border); }
+  .sidebar-logo h1 { font-size: 20px; font-weight: 800; background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: -0.5px; }
+  .sidebar-logo span { font-size: 11px; color: var(--text-secondary); display: block; margin-top: 2px; -webkit-text-fill-color: var(--text-secondary); }
+  .sidebar-nav { padding: 12px 0; flex: 1; }
+  .nav-section { padding: 8px 20px 4px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-dim); }
+  .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 20px; cursor: pointer; color: var(--text-secondary); font-size: 13px; font-weight: 500; transition: all 0.2s; border-left: 2px solid transparent; text-decoration: none; }
+  .nav-item:hover { color: var(--text-primary); background: rgba(37,99,235,0.08); }
+  .nav-item.active { color: var(--cyan); border-left-color: var(--cyan); background: rgba(0,212,255,0.06); }
+  .nav-item .badge { margin-left: auto; background: var(--accent); color: #fff; font-size: 10px; padding: 1px 6px; border-radius: 10px; font-weight: 600; }
+  .nav-divider { height: 1px; background: var(--border); margin: 8px 20px; }
+  .main { flex: 1; padding: 24px 32px; overflow-y: auto; height: 100vh; }
+  .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+  .topbar-left h2 { font-size: 22px; font-weight: 700; }
+  .topbar-left p { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+  .card { background: var(--gradient-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; backdrop-filter: blur(10px); margin-bottom: 16px; }
+  .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .card-title { font-size: 14px; font-weight: 600; }
+  .card-action { font-size: 12px; color: var(--cyan); cursor: pointer; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+  .btn-primary { background: var(--gradient-main); border: none; border-radius: var(--radius-sm); padding: 10px 24px; color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; transition: opacity 0.2s; }
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-outline { background: transparent; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 20px; color: var(--text-secondary); font-size: 13px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+  .btn-outline:hover { border-color: var(--accent); color: var(--text-primary); }
+  .tag-select { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag { padding: 6px 14px; border-radius: 20px; font-size: 12px; cursor: pointer; border: 1px solid var(--border); color: var(--text-secondary); background: transparent; transition: all 0.2s; }
+  .tag:hover { border-color: var(--accent); color: var(--text-primary); }
+  .tag.active { border-color: var(--cyan); color: var(--cyan); background: rgba(0,212,255,0.08); }
+
+  .digital-human-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+  .dh-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; cursor: pointer; transition: all 0.2s; }
+  .dh-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .dh-card.selected { border-color: var(--cyan); box-shadow: 0 0 16px rgba(0,212,255,0.15); }
+  .dh-avatar { width: 100%; aspect-ratio: 3/4; background: linear-gradient(135deg, #0d1424, #1a2744); display: flex; align-items: center; justify-content: center; position: relative; }
+  .dh-avatar .emoji { font-size: 40px; opacity: 0.8; }
+  .dh-info { padding: 10px 12px; }
+  .dh-info .name { font-size: 13px; }
+  .dh-info .style { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+  .input-group { margin-bottom: 12px; }
+  .input-group label { display: block; font-size: 12px; color: var(--text-secondary); font-weight: 500; margin-bottom: 6px; }
+  .input-group textarea { width:100%; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px; color: var(--text-primary); font-size: 13px; font-family: inherit; resize: vertical; min-height: 80px; outline: none; }
+  .input-group textarea:focus { border-color: var(--accent); }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  .voice-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; display: flex; align-items: center; gap: 14px; cursor: pointer; transition: all 0.2s; }
+  .voice-card:hover { border-color: var(--accent); }
+  .voice-card.selected { border-color: var(--cyan); }
+  .voice-icon { width: 36px; height: 36px; border-radius: 50%; background: rgba(0,212,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 16px; }
+</style>
+</head>
+<body>
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <h1>ReAgent</h1>
+    <span>AI 全自动营销平台</span>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-section">总控台</div>
+    <a class="nav-item" href="01-dashboard.html">
+      <span class="icon">⊞</span> AI Cloud 工作台
+    </a>
+    <div class="nav-section">创作区</div>
+    <a class="nav-item" href="02-video.html">
+      <span class="icon">▶</span> 短视频创作
+    </a>
+    <a class="nav-item active" href="03-digital-human.html">
+      <span class="icon">👤</span> 数字人创作
+    </a>
+    <a class="nav-item" href="07-mix.html">
+      <span class="icon">✂</span> 短视频混剪
+      <span class="badge">NEW</span>
+    </a>
+    <div class="nav-section">分发区</div>
+    <a class="nav-item" href="04-publish.html">
+      <span class="icon">📤</span> 多平台发布
+    </a>
+    <a class="nav-item" href="06-search.html">
+      <span class="icon">🔍</span> AI 搜索曝光
+    </a>
+    <div class="nav-section">触达区</div>
+    <a class="nav-item" href="05-cs.html">
+      <span class="icon">💬</span> AI 客服
+    </a>
+    <a class="nav-item" href="06-private.html">
+      <span class="icon">📱</span> 私域管理
+    </a>
+    <div class="nav-divider"></div>
+    <div class="nav-section">数据中心</div>
+    <a class="nav-item" href="08-analytics.html">
+      <span class="icon">📊</span> 数据看板
+    </a>
+  </div>
+</div>
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h2>AI 数字人 + 声音克隆</h2>
+      <p>无需拍摄出镜 · AI 数字人 + AI 声音克隆 · 追爆智能体自动追热点</p>
+    </div>
+    <div class="topbar-right" style="display:flex;gap:12px;">
+      <button class="btn-outline">追爆智能体</button>
+      <button class="btn-primary">🎬 生成数字人视频</button>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <!-- Left: Script + Voice -->
+    <div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📝 脚本编辑</span>
+          <span class="card-action">追爆智能体 →</span>
+        </div>
+        <div class="input-group">
+          <label>数字人口播文案</label>
+          <textarea style="min-height:140px;">大家好，欢迎来到 ReAgent AI 智能运营平台！
+
+今天给大家分享一个短视频运营的秘诀：如何用 AI 一天产出 100 条高质量短视频。
+
+无需拍摄、无需出镜、无需专业剪辑，ReAgent 替你全部搞定。
+
+从文案到视频再到发布，全流程 AI 自动化。点击下方链接，立即体验！</textarea>
+        </div>
+        <div style="display:flex;gap:12px;align-items:center;margin-top:12px;">
+          <button class="btn-outline">✨ AI 优化文案</button>
+          <button class="btn-outline">🔥 追热点</button>
+          <span style="font-size:12px;color:var(--text-dim);">当前热点：母亲节 / 618 预热 / 夏日营销</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🎙 AI 声音选择</span>
+          <span class="card-action">声音克隆 →</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div class="voice-card selected">
+            <div class="voice-icon">🔊</div>
+            <div><div style="font-size:13px;">磁性男声 - 专业</div><div style="font-size:11px;color:var(--text-dim);">推荐电商/品牌</div></div>
+          </div>
+          <div class="voice-card">
+            <div class="voice-icon">🔊</div>
+            <div><div style="font-size:13px;">温柔女声 - 亲切</div><div style="font-size:11px;color:var(--text-dim);">推荐生活/情感</div></div>
+          </div>
+          <div class="voice-card">
+            <div class="voice-icon">🔊</div>
+            <div><div style="font-size:13px;">活力少女 - 青春</div><div style="font-size:11px;color:var(--text-dim);">推荐美妆/穿搭</div></div>
+          </div>
+          <div class="voice-card">
+            <div class="voice-icon" style="background:rgba(245,158,11,0.1);color:var(--orange);">🎙</div>
+            <div><div style="font-size:13px;">克隆声音</div><div style="font-size:11px;color:var(--orange);">需上传 30s 样本</div></div>
+          </div>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:8px;">
+          <div class="tag">语速：正常</div>
+          <div class="tag">语调：平稳</div>
+          <div class="tag">情感：热情</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Digital Human Preview -->
+    <div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">👤 选择数字人形象</span>
+          <span class="card-action">形象管理 →</span>
+        </div>
+        <div class="digital-human-grid">
+          <div class="dh-card selected">
+            <div class="dh-avatar"><span class="emoji">👨‍💼</span></div>
+            <div class="dh-info"><div class="name">商务精英</div><div class="style">正装 · 专业</div></div>
+          </div>
+          <div class="dh-card">
+            <div class="dh-avatar"><span class="emoji">👩‍💼</span></div>
+            <div class="dh-info"><div class="name">知性白领</div><div class="style">职业 · 干练</div></div>
+          </div>
+          <div class="dh-card">
+            <div class="dh-avatar"><span class="emoji">👨‍🎤</span></div>
+            <div class="dh-info"><div class="name">潮流达人</div><div class="style">时尚 · 活力</div></div>
+          </div>
+          <div class="dh-card">
+            <div class="dh-avatar"><span class="emoji">👩‍🏫</span></div>
+            <div class="dh-info"><div class="name">知性讲师</div><div class="style">亲切 · 可信</div></div>
+          </div>
+          <div class="dh-card">
+            <div class="dh-avatar"><span class="emoji">👨‍🔬</span></div>
+            <div class="dh-info"><div class="name">科技专家</div><div class="style">极客 · 专业</div></div>
+          </div>
+          <div class="dh-card">
+            <div class="dh-avatar"><span class="emoji">👩‍🎨</span></div>
+            <div class="dh-info"><div class="name">创意达人</div><div class="style">艺术 · 个性</div></div>
+          </div>
+          <div class="dh-card">
+            <div class="dh-avatar"><span class="emoji">🧑‍🌾</span></div>
+            <div class="dh-info"><div class="name">邻家小哥</div><div class="style">亲和 · 自然</div></div>
+          </div>
+          <div class="dh-card" style="border-color:var(--orange);border-style:dashed;">
+            <div class="dh-avatar" style="background:rgba(245,158,11,0.05);"><span class="emoji" style="font-size:28px;">➕</span></div>
+            <div class="dh-info"><div class="name" style="color:var(--orange);">上传自定义</div><div class="style">照片/视频生成</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preview window -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🎬 预览</span>
+          <span class="card-action">全屏 →</span>
+        </div>
+        <div style="width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#0a1120,#1a2744);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid var(--border);position:relative;">
+          <div style="font-size:64px;margin-bottom:8px;">👨‍💼</div>
+          <div style="font-size:14px;color:var(--text-secondary);">商务精英 · 磁性男声</div>
+          <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">点击播放预览效果</div>
+          <div style="position:absolute;bottom:16px;left:16px;right:16px;display:flex;align-items:center;gap:12px;">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;">▶</div>
+            <div style="flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden;">
+              <div style="width:0%;height:100%;background:var(--gradient-main);border-radius:2px;"></div>
+            </div>
+            <span style="font-size:11px;color:var(--text-dim);">00:00 / 01:30</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

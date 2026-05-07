@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1440, initial-scale=0.8">
+<title>ReAgent · 数据看板</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #070b14; --bg-secondary: #0d1424; --bg-card: #111a2e; --bg-card-hover: #162040;
+    --bg-sidebar: #0a1120; --border: #1a2744; --text-primary: #e8edf5; --text-secondary: #8892a8;
+    --text-dim: #4a5568; --accent: #2563eb; --cyan: #00d4ff; --green: #22c55e; --orange: #f59e0b;
+    --purple: #8b5cf6; --pink: #ec4899;
+    --gradient-main: linear-gradient(135deg, #2563eb, #00d4ff);
+    --gradient-card: linear-gradient(145deg, rgba(17,26,46,0.8), rgba(13,20,36,0.9));
+    --radius: 12px; --radius-sm: 8px;
+  }
+  body { font-family: 'Inter',-apple-system,sans-serif; background: var(--bg-primary); color: var(--text-primary); display: flex; min-height: 100vh; overflow-x: hidden; }
+  .sidebar { width: 240px; min-width: 240px; background: var(--bg-sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; height: 100vh; position: sticky; top: 0; overflow-y: auto; }
+  .sidebar-logo { padding: 24px 20px; border-bottom: 1px solid var(--border); }
+  .sidebar-logo h1 { font-size: 20px; font-weight: 800; background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: -0.5px; }
+  .sidebar-logo span { font-size: 11px; color: var(--text-secondary); display: block; margin-top: 2px; -webkit-text-fill-color: var(--text-secondary); }
+  .sidebar-nav { padding: 12px 0; flex: 1; }
+  .nav-section { padding: 8px 20px 4px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-dim); }
+  .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 20px; cursor: pointer; color: var(--text-secondary); font-size: 13px; font-weight: 500; transition: all 0.2s; border-left: 2px solid transparent; text-decoration: none; }
+  .nav-item:hover { color: var(--text-primary); background: rgba(37,99,235,0.08); }
+  .nav-item.active { color: var(--cyan); border-left-color: var(--cyan); background: rgba(0,212,255,0.06); }
+  .nav-item .badge { margin-left: auto; background: var(--accent); color: #fff; font-size: 10px; padding: 1px 6px; border-radius: 10px; font-weight: 600; }
+  .nav-divider { height: 1px; background: var(--border); margin: 8px 20px; }
+  .main { flex: 1; padding: 24px 32px; overflow-y: auto; height: 100vh; }
+  .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+  .topbar-left h2 { font-size: 22px; font-weight: 700; }
+  .topbar-left p { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+  .card { background: var(--gradient-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; backdrop-filter: blur(10px); margin-bottom: 16px; }
+  .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .card-title { font-size: 14px; font-weight: 600; }
+  .card-action { font-size: 12px; color: var(--cyan); cursor: pointer; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+  .btn-outline { background: transparent; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 20px; color: var(--text-secondary); font-size: 13px; cursor: pointer; font-family: inherit; }
+  .btn-outline:hover { border-color: var(--accent); color: var(--text-primary); }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 24px; }
+  .stat-card { background: var(--gradient-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; backdrop-filter: blur(10px); }
+  .stat-card .label { font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; }
+  .stat-card .value { font-size: 28px; font-weight: 700; }
+  .stat-card .sub { font-size: 13px; color: var(--text-secondary); }
+  .stat-card .trend { font-size: 12px; margin-top: 4px; }
+  .trend.up { color: var(--green); }
+  .trend.down { color: #ef4444; }
+  .tab-bar { display: flex; gap: 2px; background: var(--bg-primary); border-radius: var(--radius-sm); padding: 3px; margin-bottom: 16px; }
+  .tab-item { padding: 8px 20px; border-radius: 6px; font-size: 13px; cursor: pointer; color: var(--text-secondary); transition: all 0.2s; }
+  .tab-item.active { background: var(--accent); color: #fff; }
+  .tab-item:hover:not(.active) { color: var(--text-primary); }
+  .chart-row { display:flex; gap:8px; align-items:flex-end; height:120px; }
+  .bar { flex:1; border-radius:3px 3px 0 0; min-height:4px; }
+  .donut { width:80px; height:80px; border-radius:50%; position:relative; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .donut-inner { width:56px; height:56px; border-radius:50%; background:var(--bg-card); display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; }
+  .metric-row { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid rgba(26,39,68,0.4); font-size:13px; }
+  .metric-row:last-child { border-bottom:none; }
+  /* ROI Funnel */
+  .roi-funnel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding: 0 10px;
+  }
+  .funnel-stage {
+    width: 100%;
+    text-align: center;
+    position: relative;
+    padding: 14px 0;
+    background: var(--bg-card);
+    border: 1px solid rgba(26,39,68,0.5);
+  }
+  .funnel-stage:first-child {
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  }
+  .funnel-stage:last-child {
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  }
+  .funnel-stage + .funnel-stage {
+    border-top: none;
+  }
+  .funnel-stage .fvalue {
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .funnel-stage .flabel {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+  }
+  .funnel-stage .frate {
+    font-size: 11px;
+    display: inline-block;
+    padding: 1px 8px;
+    border-radius: 4px;
+    margin-top: 4px;
+  }
+  .funnel-stage .farrow {
+    font-size: 14px;
+    color: var(--text-dim);
+    display: block;
+    padding: 2px 0;
+  }
+  .funnel-stage.exposure { border-left: 3px solid var(--cyan); }
+  .funnel-stage.exposure .fvalue { color: var(--cyan); }
+  .funnel-stage.dm { border-left: 3px solid var(--accent); }
+  .funnel-stage.dm .fvalue { color: var(--accent); }
+  .funnel-stage.friend { border-left: 3px solid var(--green); }
+  .funnel-stage.friend .fvalue { color: var(--green); }
+  .funnel-stage.deal { border-left: 3px solid var(--orange); }
+  .funnel-stage.deal .fvalue { color: var(--orange); }
+  .funnel-stage.deal { background: rgba(245,158,11,0.06); }
+</style>
+</head>
+<body>
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <h1>ReAgent</h1>
+    <span>AI 全自动营销平台</span>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-section">总控台</div>
+    <a class="nav-item" href="01-dashboard.html">
+      <span class="icon">⊞</span> AI Cloud 工作台
+    </a>
+    <div class="nav-section">创作区</div>
+    <a class="nav-item" href="02-video.html">
+      <span class="icon">▶</span> 短视频创作
+    </a>
+    <a class="nav-item" href="03-digital-human.html">
+      <span class="icon">👤</span> 数字人创作
+    </a>
+    <a class="nav-item" href="07-mix.html">
+      <span class="icon">✂</span> 短视频混剪
+      <span class="badge">NEW</span>
+    </a>
+    <div class="nav-section">分发区</div>
+    <a class="nav-item" href="04-publish.html">
+      <span class="icon">📤</span> 多平台发布
+    </a>
+    <a class="nav-item" href="06-search.html">
+      <span class="icon">🔍</span> AI 搜索曝光
+    </a>
+    <div class="nav-section">触达区</div>
+    <a class="nav-item" href="05-cs.html">
+      <span class="icon">💬</span> AI 客服
+    </a>
+    <a class="nav-item" href="06-private.html">
+      <span class="icon">📱</span> 私域管理
+    </a>
+    <div class="nav-divider"></div>
+    <div class="nav-section">数据中心</div>
+    <a class="nav-item active" href="08-analytics.html">
+      <span class="icon">📊</span> 数据看板
+    </a>
+  </div>
+</div>
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h2>📊 数据看板</h2>
+      <p>全维度数据分析 · 实时监控 · AI 智能洞察</p>
+    </div>
+    <div class="topbar-right" style="display:flex;gap:12px;">
+      <div class="tab-bar" style="margin-bottom:0;">
+        <div class="tab-item active">今日</div>
+        <div class="tab-item">7日</div>
+        <div class="tab-item">30日</div>
+        <div class="tab-item">自定义</div>
+      </div>
+      <button class="btn-outline">📥 导出报表</button>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card"><div class="label">总曝光量</div><div class="value">386.2K</div><div class="trend up">↑ 23.5% 较上周</div></div>
+    <div class="stat-card"><div class="label">总播放量</div><div class="value">142.8K</div><div class="trend up">↑ 18.2%</div></div>
+    <div class="stat-card"><div class="label">总互动量</div><div class="value">23.6K</div><div class="trend up">↑ 31.7%</div></div>
+    <div class="stat-card"><div class="label">转化数</div><div class="value">1,847</div><div class="trend up">↑ 12.4%</div></div>
+  </div>
+
+  <div class="grid-2">
+    <!-- Content Performance Chart -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">📈 内容表现趋势</span>
+        <span class="card-action">选择维度 →</span>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:16px;">
+        <span class="tab-item active" style="padding:4px 14px;font-size:12px;border-radius:20px;border:1px solid var(--cyan);color:var(--cyan);background:rgba(0,212,255,0.06);">曝光量</span>
+        <span class="tab-item" style="padding:4px 14px;font-size:12px;border-radius:20px;color:var(--text-secondary);">播放量</span>
+        <span class="tab-item" style="padding:4px 14px;font-size:12px;border-radius:20px;color:var(--text-secondary);">互动量</span>
+      </div>
+      <div class="chart-row">
+        <div class="bar" style="height:24%;background:linear-gradient(180deg,var(--cyan),var(--accent));"></div>
+        <div class="bar" style="height:40%;background:linear-gradient(180deg,var(--cyan),var(--accent));"></div>
+        <div class="bar" style="height:28%;background:linear-gradient(180deg,var(--cyan),var(--accent));"></div>
+        <div class="bar" style="height:55%;background:linear-gradient(180deg,var(--cyan),var(--accent));"></div>
+        <div class="bar" style="height:70%;background:linear-gradient(180deg,var(--cyan),var(--accent));"></div>
+        <div class="bar" style="height:48%;background:linear-gradient(180deg,var(--cyan),var(--accent));"></div>
+        <div class="bar" style="height:85%;background:linear-gradient(180deg,var(--cyan),var(--accent));"></div>
+        <div class="bar" style="height:62%;background:linear-gradient(180deg,var(--cyan),var(--accent));"></div>
+        <div class="bar" style="height:38%;background:linear-gradient(180deg,var(--cyan),var(--accent));"></div>
+        <div class="bar" style="height:76%;background:linear-gradient(180deg,var(--cyan),var(--accent));"></div>
+        <div class="bar" style="height:30%;background:linear-gradient(180deg,var(--cyan),var(--accent));"></div>
+        <div class="bar" style="height:52%;background:linear-gradient(180deg,var(--cyan),var(--accent));"></div>
+        <div class="bar" style="height:72%;background:linear-gradient(180deg,var(--cyan),var(--accent));"></div>
+        <div class="bar" style="height:42%;background:linear-gradient(180deg,var(--cyan),var(--accent));"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-dim);margin-top:8px;">
+        <span>4/23</span><span>4/25</span><span>4/27</span><span>4/29</span><span>5/1</span><span>5/3</span><span>今天</span>
+      </div>
+    </div>
+
+    <!-- Platform Comparison -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">📊 分平台数据</span>
+        <span class="card-action">详情 →</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;">
+            <span>🎵 抖音</span><span style="color:var(--text-secondary);">145.3K 播放 · 8.2K 互动</span>
+          </div>
+          <div style="height:8px;background:var(--border);border-radius:4px;overflow:hidden;">
+            <div style="width:100%;height:100%;background:linear-gradient(90deg,var(--green),var(--cyan));border-radius:4px;"></div>
+          </div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;">
+            <span>📕 小红书</span><span style="color:var(--text-secondary);">62.1K 播放 · 5.6K 互动</span>
+          </div>
+          <div style="height:8px;background:var(--border);border-radius:4px;overflow:hidden;">
+            <div style="width:42%;height:100%;background:linear-gradient(90deg,var(--pink),var(--orange));border-radius:4px;"></div>
+          </div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;">
+            <span>💚 视频号</span><span style="color:var(--text-secondary);">48.6K 播放 · 3.2K 互动</span>
+          </div>
+          <div style="height:8px;background:var(--border);border-radius:4px;overflow:hidden;">
+            <div style="width:33%;height:100%;background:linear-gradient(90deg,var(--green),var(--accent));border-radius:4px;"></div>
+          </div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;">
+            <span>📺 快手</span><span style="color:var(--text-secondary);">36.8K 播放 · 2.9K 互动</span>
+          </div>
+          <div style="height:8px;background:var(--border);border-radius:4px;overflow:hidden;">
+            <div style="width:25%;height:100%;background:linear-gradient(90deg,var(--accent),var(--purple));border-radius:4px;"></div>
+          </div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;">
+            <span>🅱 B站</span><span style="color:var(--text-secondary);">28.4K 播放 · 3.6K 互动</span>
+          </div>
+          <div style="height:8px;background:var(--border);border-radius:4px;overflow:hidden;">
+            <div style="width:19%;height:100%;background:linear-gradient(90deg,var(--pink),var(--accent));border-radius:4px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROI Funnel Section -->
+  <div class="card" style="margin-bottom:24px;">
+    <div class="card-header">
+      <span class="card-title">💰 ROI 转化漏斗</span>
+      <span class="card-action" style="display:flex;gap:8px;">
+        <span style="font-size:11px;color:var(--text-dim);">今日数据</span>
+        <span>查看更多 →</span>
+      </span>
+    </div>
+    <div class="grid-2" style="margin-bottom:0;">
+      <div class="roi-funnel">
+        <div class="funnel-stage exposure">
+          <div class="fvalue">386.2K</div>
+          <div class="flabel">💥 总曝光</div>
+          <div class="frate" style="background:rgba(0,212,255,0.1);color:var(--cyan);">100%</div>
+          <span class="farrow">▼</span>
+        </div>
+        <div class="funnel-stage dm">
+          <div class="fvalue">8,547</div>
+          <div class="flabel">✉ 私信触达</div>
+          <div class="frate" style="background:rgba(37,99,235,0.1);color:var(--accent);">2.21%</div>
+          <span class="farrow">▼</span>
+        </div>
+        <div class="funnel-stage friend">
+          <div class="fvalue">1,247</div>
+          <div class="flabel">➕ 加好友</div>
+          <div class="frate" style="background:rgba(34,197,94,0.1);color:var(--green);">14.6%</div>
+          <span class="farrow">▼</span>
+        </div>
+        <div class="funnel-stage deal">
+          <div class="fvalue">386</div>
+          <div class="flabel">💰 成交</div>
+          <div class="frate" style="background:rgba(245,158,11,0.1);color:var(--orange);">30.9%</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center;gap:20px;padding:0 16px;">
+        <div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-bottom:6px;">曝光→私信转化率</div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="font-size:32px;font-weight:700;color:var(--cyan);">2.21%</span>
+            <span style="font-size:12px;color:var(--green);">↑ 0.37% 较上周</span>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-bottom:6px;">私信→加好友转化率</div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="font-size:32px;font-weight:700;color:var(--green);">14.6%</span>
+            <span style="font-size:12px;color:var(--green);">↑ 2.1% 较上周</span>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-bottom:6px;">加好友→成交转化率</div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="font-size:32px;font-weight:700;color:var(--orange);">30.9%</span>
+            <span style="font-size:12px;color:var(--green);">↑ 5.6% 较上周</span>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-bottom:6px;">综合 ROI</div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="font-size:28px;font-weight:700;color:var(--orange);">1:8.3</span>
+            <span style="font-size:12px;color:var(--green);">↑ 1.2 较上周</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <!-- Content Source -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">🎬 内容来源占比</span>
+        <span class="card-action">详情 →</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:20px;">
+        <div class="donut" style="background:conic-gradient(var(--cyan) 0% 45%, var(--accent) 45% 72%, var(--purple) 72% 88%, var(--green) 88% 100%);">
+          <div class="donut-inner">100%</div>
+        </div>
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;">
+            <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--cyan);margin-right:6px;"></span>文生视频</span><span>45%</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;">
+            <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--accent);margin-right:6px;"></span>数字人</span><span>27%</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;">
+            <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--purple);margin-right:6px;"></span>混剪</span><span>16%</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;">
+            <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--green);margin-right:6px;"></span>图生视频</span><span>12%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Service Stats -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">💬 AI 客服数据</span>
+        <span class="card-action">详情 →</span>
+      </div>
+      <div style="display:grid;gap:10px;">
+        <div class="metric-row">
+          <span>总会话数</span>
+          <span style="font-weight:600;">1,284</span>
+        </div>
+        <div class="metric-row">
+          <span>自动解决率</span>
+          <span style="font-weight:600;color:var(--green);">94.2%</span>
+        </div>
+        <div class="metric-row">
+          <span>平均响应时长</span>
+          <span style="font-weight:600;color:var(--cyan);">1.8s</span>
+        </div>
+        <div class="metric-row">
+          <span>转人工率</span>
+          <span style="font-weight:600;">5.8%</span>
+        </div>
+        <div class="metric-row">
+          <span>客户满意度</span>
+          <span style="font-weight:600;color:var(--green);">4.8/5.0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Private Domain -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">📱 私域数据</span>
+        <span class="card-action">详情 →</span>
+      </div>
+      <div style="display:grid;gap:10px;">
+        <div class="metric-row">
+          <span>微信好友数</span>
+          <span style="font-weight:600;">12,847</span>
+        </div>
+        <div class="metric-row">
+          <span>企微客户数</span>
+          <span style="font-weight:600;">8,324</span>
+        </div>
+        <div class="metric-row">
+          <span>群聊活跃度</span>
+          <span style="font-weight:600;color:var(--green);">67.3%</span>
+        </div>
+        <div class="metric-row">
+          <span>营销转化率</span>
+          <span style="font-weight:600;color:var(--green);">12.8%</span>
+        </div>
+        <div class="metric-row">
+          <span>好友增长率</span>
+          <span style="font-weight:600;color:var(--orange);">+3.2%/周</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Top List -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">🏆 内容 Top 10</span>
+      <span class="card-action">查看全部 →</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div style="display:flex;align-items:center;gap:12px;background:var(--bg-card);padding:10px;border-radius:var(--radius-sm);border:1px solid var(--border);">
+        <span style="font-size:14px;font-weight:700;color:var(--orange);width:24px;">1</span>
+        <div style="width:56px;height:32px;background:linear-gradient(135deg,#0d1424,#1a2744);border-radius:4px;flex-shrink:0;"></div>
+        <div style="flex:1;"><div style="font-size:12px;">品牌宣传片 · 科技蓝调</div><div style="font-size:10px;color:var(--text-dim);">播放 32.1K 互动 2.3K</div></div>
+        <span style="font-size:11px;color:var(--green);">↑ 45%</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;background:var(--bg-card);padding:10px;border-radius:var(--radius-sm);border:1px solid var(--border);">
+        <span style="font-size:14px;font-weight:700;color:var(--text-secondary);width:24px;">2</span>
+        <div style="width:56px;height:32px;background:linear-gradient(135deg,#0d1424,#1a2744);border-radius:4px;flex-shrink:0;"></div>
+        <div style="flex:1;"><div style="font-size:12px;">数字人讲解 · 产品功能演示</div><div style="font-size:10px;color:var(--text-dim);">播放 28.6K 互动 1.8K</div></div>
+        <span style="font-size:11px;color:var(--green);">↑ 32%</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;background:var(--bg-card);padding:10px;border-radius:var(--radius-sm);border:1px solid var(--border);">
+        <span style="font-size:14px;font-weight:700;color:var(--text-secondary);width:24px;">3</span>
+        <div style="width:56px;height:32px;background:linear-gradient(135deg,#0d1424,#1a2744);border-radius:4px;flex-shrink:0;"></div>
+        <div style="flex:1;"><div style="font-size:12px;">母亲节温情短片</div><div style="font-size:10px;color:var(--text-dim);">播放 24.2K 互动 3.1K</div></div>
+        <span style="font-size:11px;color:var(--green);">↑ 68%</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;background:var(--bg-card);padding:10px;border-radius:var(--radius-sm);border:1px solid var(--border);">
+        <span style="font-size:14px;font-weight:700;color:var(--text-secondary);width:24px;">4</span>
+        <div style="width:56px;height:32px;background:linear-gradient(135deg,#0d1424,#1a2744);border-radius:4px;flex-shrink:0;"></div>
+        <div style="flex:1;"><div style="font-size:12px;">产品开箱测评</div><div style="font-size:10px;color:var(--text-dim);">播放 18.9K 互动 1.2K</div></div>
+        <span style="font-size:11px;color:var(--orange);">↑ 12%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Insights -->
+  <div class="grid-2">
+    <div class="card" style="border-left:3px solid var(--cyan);">
+      <div class="card-header">
+        <span class="card-title">🤖 AI 智能洞察 · 内容策略建议</span>
+        <span class="card-action">更多 →</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);">
+        <div style="background:var(--bg-card);padding:12px;border-radius:var(--radius-sm);margin-bottom:8px;">
+          <div style="color:var(--cyan);font-weight:500;">🔍 发现高互动内容模式</div>
+          <div style="margin-top:4px;">"科技蓝调"风格视频互动率高出平均 62%，建议提升该风格内容占比至 40%</div>
+        </div>
+        <div style="background:var(--bg-card);padding:12px;border-radius:var(--radius-sm);margin-bottom:8px;">
+          <div style="color:var(--orange);font-weight:500;">⏰ 最佳发布时间</div>
+          <div style="margin-top:4px;">抖音 18:00-21:00 播放量最高，小红书 20:00-23:00 互动率最优</div>
+        </div>
+        <div style="background:var(--bg-card);padding:12px;border-radius:var(--radius-sm);">
+          <div style="color:var(--green);font-weight:500;">📈 增长飞轮启动</div>
+          <div style="margin-top:4px;">视频量 ↑23%带动曝光 ↑35%，建议将日产出从 24 条提升至 40 条</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--purple);">
+      <div class="card-header">
+        <span class="card-title">📋 数据导出 & 报告</span>
+        <span class="card-action">创建报告 →</span>
+      </div>
+      <div style="display:grid;gap:10px;">
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;display:flex;align-items:center;gap:14px;cursor:pointer;">
+          <div style="font-size:24px;">📄</div>
+          <div><div style="font-size:13px;">日报 · 今日运营数据</div><div style="font-size:11px;color:var(--text-dim);">最后更新：今天 23:00</div></div>
+          <span style="margin-left:auto;font-size:11px;color:var(--cyan);">下载 →</span>
+        </div>
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;display:flex;align-items:center;gap:14px;cursor:pointer;">
+          <div style="font-size:24px;">📊</div>
+          <div><div style="font-size:13px;">周报 · 本周表现总结</div><div style="font-size:11px;color:var(--text-dim);">生成中... 预计 5 分钟</div></div>
+          <span style="margin-left:auto;font-size:11px;color:var(--orange);">生成中 ◌</span>
+        </div>
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;display:flex;align-items:center;gap:14px;cursor:pointer;">
+          <div style="font-size:24px;">📈</div>
+          <div><div style="font-size:13px;">竞品对比分析报告</div><div style="font-size:11px;color:var(--text-dim);">上月对比 · 5 个竞品</div></div>
+          <span style="margin-left:auto;font-size:11px;color:var(--cyan);">下载 →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

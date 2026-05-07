@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReAgent · AI 自动化营销平台 · 原型</title>
+<style>
+  :root {
+    --primary: #4f46e5; --primary-light: #818cf8; --primary-dark: #3730a3;
+    --bg: #0f172a; --bg-card: #1e293b; --bg-sidebar: #1e293b;
+    --text: #f1f5f9; --text-secondary: #94a3b8; --border: #334155;
+    --success: #22c55e; --warning: #eab308; --danger: #ef4444; --info: #3b82f6;
+    --sidebar-width: 240px; --header-height: 64px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans SC",sans-serif; background:var(--bg); color:var(--text); }
+  .app { display:flex; min-height:100vh; }
+  .sidebar { width:var(--sidebar-width); background:var(--bg-sidebar); border-right:1px solid var(--border); display:flex; flex-direction:column; position:fixed; top:0; left:0; height:100vh; z-index:100; }
+  .main { margin-left:var(--sidebar-width); flex:1; display:flex; flex-direction:column; }
+  .header { height:var(--header-height); border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; padding:0 24px; background:var(--bg-card); position:sticky; top:0; z-index:50; }
+  .content { flex:1; padding:24px; overflow-y:auto; }
+  .logo { padding:20px 20px 16px; border-bottom:1px solid var(--border); }
+  .logo h1 { font-size:20px; font-weight:700; color:var(--primary-light); }
+  .logo span { font-size:12px; color:var(--text-secondary); }
+  .nav { padding:12px 0; flex:1; }
+  .nav-item { display:flex; align-items:center; gap:12px; padding:10px 20px; color:var(--text-secondary); cursor:pointer; transition:all .15s; font-size:14px; border-left:3px solid transparent; }
+  .nav-item:hover { background:rgba(79,70,229,0.08); color:var(--text); }
+  .nav-item.active { background:rgba(79,70,229,0.12); color:var(--primary-light); border-left-color:var(--primary-light); font-weight:600; }
+  .nav-item .icon { width:20px; text-align:center; font-size:16px; }
+  .nav-section { padding:16px 20px 6px; font-size:11px; text-transform:uppercase; color:var(--text-secondary); letter-spacing:1px; opacity:.6; }
+  .header-left { display:flex; align-items:center; gap:16px; }
+  .header-left h2 { font-size:18px; font-weight:600; }
+  .badge { font-size:11px; padding:2px 8px; border-radius:4px; background:rgba(79,70,229,0.15); color:var(--primary-light); font-weight:500; }
+  .header-right { display:flex; align-items:center; gap:16px; }
+  .avatar { width:32px; height:32px; border-radius:50%; background:var(--primary); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:600; }
+  .card { background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:16px; }
+  .card-title { font-size:14px; font-weight:600; margin-bottom:16px; color:var(--text); }
+  .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin-bottom:24px; }
+  .stat-card { background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:20px; }
+  .stat-label { font-size:13px; color:var(--text-secondary); margin-bottom:8px; }
+  .stat-value { font-size:28px; font-weight:700; }
+  .stat-change { font-size:12px; margin-top:6px; }
+  .stat-change.up { color:var(--success); } .stat-change.down { color:var(--danger); }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { text-align:left; padding:10px 12px; color:var(--text-secondary); font-weight:500; border-bottom:1px solid var(--border); font-size:12px; text-transform:uppercase; }
+  td { padding:10px 12px; border-bottom:1px solid rgba(51,65,85,0.5); }
+  tr:hover td { background:rgba(79,70,229,0.04); }
+  .status { display:inline-flex; align-items:center; gap:6px; font-size:12px; padding:3px 10px; border-radius:20px; font-weight:500; }
+  .status.active { background:rgba(34,197,94,0.12); color:var(--success); } .status::before { content:''; width:6px; height:6px; border-radius:50%; }
+  .status.active::before { background:var(--success); }
+  .status.pending { background:rgba(234,179,8,0.12); color:var(--warning); } .status.pending::before { background:var(--warning); }
+  .status.standby { background:rgba(59,130,246,0.12); color:var(--info); } .status.standby::before { background:var(--info); }
+  .status.error { background:rgba(239,68,68,0.12); color:var(--danger); } .status.error::before { background:var(--danger); }
+  .chart-bar { display:flex; align-items:end; gap:8px; height:160px; padding-top:8px; }
+  .chart-col { flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; }
+  .chart-col .bar { width:100%; border-radius:4px 4px 0 0; min-height:4px; background:linear-gradient(180deg,var(--primary-light),var(--primary)); }
+  .chart-col .label { font-size:11px; color:var(--text-secondary); }
+  .page-indicator { display:flex; align-items:center; gap:8px; margin-bottom:16px; font-size:13px; color:var(--text-secondary); }
+  .page-indicator .current { color:var(--text); font-weight:500; }
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:900px){ .two-col { grid-template-columns:1fr; } }
+  .input-group { margin-bottom:16px; }
+  .input-group label { display:block; font-size:13px; color:var(--text-secondary); margin-bottom:6px; }
+  .input-group input,.input-group select,.input-group textarea { width:100%; padding:8px 12px; background:var(--bg); border:1px solid var(--border); border-radius:8px; color:var(--text); font-size:13px; outline:none; font-family:inherit; }
+  .input-group input:focus,.input-group select:focus,.input-group textarea:focus { border-color:var(--primary); }
+  .input-group textarea { min-height:80px; resize:vertical; }
+  .btn { display:inline-flex; align-items:center; gap:6px; padding:8px 16px; border:none; border-radius:8px; font-size:13px; font-weight:500; cursor:pointer; transition:all .15s; }
+  .btn-primary { background:var(--primary); color:white; } .btn-primary:hover { background:var(--primary-dark); }
+  .btn-outline { background:transparent; border:1px solid var(--border); color:var(--text); } .btn-outline:hover { border-color:var(--text-secondary); }
+  .btn-sm { padding:5px 10px; font-size:12px; }
+  .tag { display:inline-flex; font-size:11px; padding:2px 8px; border-radius:4px; background:rgba(79,70,229,0.1); color:var(--primary-light); }
+  .tag.green { background:rgba(34,197,94,0.1); color:var(--success); }
+  .tag.yellow { background:rgba(234,179,8,0.1); color:var(--warning); }
+  .tag.blue { background:rgba(59,130,246,0.1); color:var(--info); }
+  .tag.red { background:rgba(239,68,68,0.1); color:var(--danger); }
+  .screen { display:none; } .screen.active { display:block; }
+  .pipeline { display:flex; gap:12px; align-items:flex-start; flex-wrap:wrap; }
+  .pipe-step { flex:1; min-width:160px; background:var(--bg-card); border:1px solid var(--border); border-radius:10px; padding:14px; }
+  .pipe-step .step-num { font-size:11px; color:var(--text-secondary); margin-bottom:4px; }
+  .pipe-step .step-name { font-size:14px; font-weight:600; margin-bottom:4px; }
+  .pipe-step .step-desc { font-size:12px; color:var(--text-secondary); }
+  .pipe-arrow { display:flex; align-items:center; color:var(--text-secondary); font-size:18px; padding-top:20px; }
+  .agent-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px; }
+  .agent-card { background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:16px; }
+  .agent-card .agent-header { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+  .agent-card .agent-icon { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; }
+  .agent-card .agent-name { font-weight:600; font-size:14px; }
+  .agent-card .agent-desc { font-size:12px; color:var(--text-secondary); margin-bottom:10px; }
+  .agent-card .agent-meta { display:flex; justify-content:space-between; font-size:12px; color:var(--text-secondary); }
+  .toast { position:fixed; bottom:32px; right:32px; background:var(--bg-card); border:1px solid var(--border); border-radius:10px; padding:12px 20px; font-size:13px; z-index:1000; box-shadow:0 8px 32px rgba(0,0,0,.4); display:none; }
+  .toast.show { display:flex; align-items:center; gap:8px; }
+  .proto-note { margin-top:32px; padding:12px; border-top:1px solid var(--border); font-size:12px; color:var(--text-secondary); text-align:center; }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="logo"><h1>⚡ ReAgent</h1><span>AI 自动化营销平台 · v0.9</span></div>
+    <nav class="nav">
+      <div class="nav-section">概览</div>
+      <div class="nav-item active" data-screen="dashboard" onclick="switchScreen('dashboard')"><span class="icon">📊</span> 数据看板</div>
+      <div class="nav-section">内容管理</div>
+      <div class="nav-item" data-screen="content" onclick="switchScreen('content')"><span class="icon">📝</span> 内容生成</div>
+      <div class="nav-item" data-screen="video" onclick="switchScreen('video')"><span class="icon">🎬</span> 短视频引擎</div>
+      <div class="nav-section">客户运营</div>
+      <div class="nav-item" data-screen="profiles" onclick="switchScreen('profiles')"><span class="icon">👥</span> 用户画像</div>
+      <div class="nav-item" data-screen="leads" onclick="switchScreen('leads')"><span class="icon">🎯</span> 线索挖掘</div>
+      <div class="nav-item" data-screen="service" onclick="switchScreen('service')"><span class="icon">💬</span> AI 客服</div>
+      <div class="nav-section">自动化</div>
+      <div class="nav-item" data-screen="automation" onclick="switchScreen('automation')"><span class="icon">⚙️</span> 规则配置</div>
+      <div class="nav-item" data-screen="agents" onclick="switchScreen('agents')"><span class="icon">🤖</span> 智能体管理</div>
+      <div class="nav-section">系统</div>
+      <div class="nav-item" data-screen="settings" onclick="switchScreen('settings')"><span class="icon">🔧</span> 系统设置</div>
+    </nav>
+  </aside>
+
+  <div class="main">
+    <header class="header">
+      <div class="header-left"><h2 id="pageTitle">数据看板</h2><span class="badge">系统运行中</span></div>
+      <div class="header-right"><span style="font-size:13px;color:var(--text-secondary)">管理员</span><span style="font-size:13px;color:var(--text-secondary)" id="clock"></span><div class="avatar">AD</div></div>
+    </header>
+    <div class="content">
+
+    <!-- DASHBOARD -->
+    <div class="screen active" id="screen-dashboard">
+      <div class="page-indicator"><span>概览</span> / <span class="current">数据看板</span></div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-label">活跃用户</div><div class="stat-value">1,284</div><div class="stat-change up">↑ 12.5% 较上月</div></div>
+        <div class="stat-card"><div class="stat-label">内容生成（本月）</div><div class="stat-value">3,742</div><div class="stat-change up">↑ 23.8%</div></div>
+        <div class="stat-card"><div class="stat-label">线索转化率</div><div class="stat-value">8.6%</div><div class="stat-change up">↑ 2.1pp</div></div>
+        <div class="stat-card"><div class="stat-label">API 调用成本</div><div class="stat-value">¥3,280</div><div class="stat-change down">↓ 5.2%</div></div>
+      </div>
+      <div class="two-col">
+        <div class="card">
+          <div class="card-title">📈 内容产出趋势（近7日）</div>
+          <div class="chart-bar" id="contentChart"></div>
+        </div>
+        <div class="card">
+          <div class="card-title">🤖 AI 智能体负载</div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;align-items:center;gap:12px"><span style="width:80px;font-size:13px">内容</span><div style="flex:1;height:8px;background:var(--bg);border-radius:4px;overflow:hidden"><div style="width:85%;height:100%;background:var(--primary-light);border-radius:4px"></div></div><span style="font-size:13px;font-weight:500">85%</span></div>
+            <div style="display:flex;align-items:center;gap:12px"><span style="width:80px;font-size:13px">视频</span><div style="flex:1;height:8px;background:var(--bg);border-radius:4px;overflow:hidden"><div style="width:62%;height:100%;background:var(--info);border-radius:4px"></div></div><span style="font-size:13px;font-weight:500">62%</span></div>
+            <div style="display:flex;align-items:center;gap:12px"><span style="width:80px;font-size:13px">客服</span><div style="flex:1;height:8px;background:var(--bg);border-radius:4px;overflow:hidden"><div style="width:91%;height:100%;background:var(--success);border-radius:4px"></div></div><span style="font-size:13px;font-weight:500">91%</span></div>
+            <div style="display:flex;align-items:center;gap:12px"><span style="width:80px;font-size:13px">线索</span><div style="flex:1;height:8px;background:var(--bg);border-radius:4px;overflow:hidden"><div style="width:73%;height:100%;background:var(--warning);border-radius:4px"></div></div><span style="font-size:13px;font-weight:500">73%</span></div>
+            <div style="display:flex;align-items:center;gap:12px"><span style="width:80px;font-size:13px">编程</span><div style="flex:1;height:8px;background:var(--bg);border-radius:4px;overflow:hidden"><div style="width:40%;height:100%;background:var(--danger);border-radius:4px"></div></div><span style="font-size:13px;font-weight:500">40%</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">📋 任务调度</div>
+        <table><thead><tr><th>任务</th><th>智能体</th><th>状态</th><th>用时</th><th>时间</th></tr></thead>
+        <tbody>
+          <tr><td>双十一落地页文案</td><td>内容</td><td><span class="status active">已完成</span></td><td>12s</td><td>14:23</td></tr>
+          <tr><td>新品介绍短视频</td><td>视频</td><td><span class="status active">已完成</span></td><td>45s</td><td>14:18</td></tr>
+          <tr><td>深圳区域线索评分</td><td>线索</td><td><span class="status pending">处理中</span></td><td>—</td><td>14:32</td></tr>
+          <tr><td>客服会话归档</td><td>客服</td><td><span class="status standby">排队中</span></td><td>—</td><td>14:28</td></tr>
+          <tr><td>批量产品描述</td><td>内容</td><td><span class="status active">已完成</span></td><td>8s</td><td>14:15</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="screen" id="screen-content">
+      <div class="page-indicator"><span>内容管理</span> / <span class="current">内容生成</span></div>
+      <div class="two-col">
+        <div class="card">
+          <div class="card-title">✍️ 文案生成</div>
+          <div class="input-group"><label>内容类型</label><select><option>推广文案</option><option>产品描述</option><option>落地页文案</option><option>短信模板</option><option>邮件正文</option></select></div>
+          <div class="input-group"><label>主题 / 关键词</label><input type="text" value="春季新品推广"></div>
+          <div class="input-group"><label>品牌调性</label><select><option>专业严谨</option><option>年轻活力</option><option selected>简洁现代</option><option>温馨亲和</option></select></div>
+          <div class="input-group"><label>额外要求</label><textarea>适用于微信公众号，800字以内，突出「限时优惠」</textarea></div>
+          <button class="btn btn-primary" onclick="showToast('✨ AI 正在生成文案…')">✨ 生成内容</button>
+          <button class="btn btn-outline" style="margin-left:8px">📋 保存为模板</button>
+        </div>
+        <div>
+          <div class="card">
+            <div class="card-title">📄 生成结果</div>
+            <div style="background:var(--bg);border-radius:8px;padding:16px;font-size:13px;line-height:1.8;color:var(--text-secondary)">点击「生成内容」后，AI 生成的结果将显示在此处。支持一键复制、调整语气、二次润色。</div>
+          </div>
+          <div class="card">
+            <div class="card-title">📚 近期文案</div>
+            <table><thead><tr><th>标题</th><th>类型</th><th>日期</th><th></th></tr></thead>
+            <tbody>
+              <tr><td>双十一早鸟计划</td><td><span class="tag">推广</span></td><td>今日</td><td><button class="btn btn-sm btn-outline">查看</button></td></tr>
+              <tr><td>新品上市预热</td><td><span class="tag green">落地页</span></td><td>昨日</td><td><button class="btn btn-sm btn-outline">查看</button></td></tr>
+              <tr><td>客户感谢信模板</td><td><span class="tag blue">邮件</span></td><td>3天前</td><td><button class="btn btn-sm btn-outline">查看</button></td></tr>
+            </tbody></table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIDEO -->
+    <div class="screen" id="screen-video">
+      <div class="page-indicator"><span>内容管理</span> / <span class="current">短视频引擎</span></div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-label">本月产出</div><div class="stat-value">86</div><div class="stat-change up">↑ 12</div></div>
+        <div class="stat-card"><div class="stat-label">总播放量</div><div class="stat-value">24.3K</div><div class="stat-change up">↑ 18%</div></div>
+        <div class="stat-card"><div class="stat-label">平均完播率</div><div class="stat-value">67%</div><div class="stat-change up">↑ 5pp</div></div>
+        <div class="stat-card"><div class="stat-label">待分发</div><div class="stat-value">12</div></div>
+      </div>
+      <div class="card">
+        <div class="card-title">🎬 新建视频任务</div>
+        <div class="two-col">
+          <div class="input-group"><label>文案来源</label><select><option>AI 自动生成</option><option>手动输入</option><option>导入文章</option></select></div>
+          <div class="input-group"><label>背景模板</label><select><option>产品展示</option><option>知识讲解</option><option>企业宣传</option><option>纯色简约</option></select></div>
+          <div class="input-group"><label>配音音色</label><select><option>专业男声</option><option>温柔女声</option><option>活泼女声</option><option>沉稳男声</option></select></div>
+          <div class="input-group"><label>字幕样式</label><select><option>标准底部</option><option>动态跟随</option><option>无字幕</option></select></div>
+        </div>
+        <button class="btn btn-primary" onclick="showToast('🎬 视频任务已提交，预计3分钟完成')">🎬 生成视频</button>
+      </div>
+      <div class="card">
+        <div class="card-title">📹 近期视频</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px">
+          <div style="background:var(--bg);border-radius:8px;padding:12px;text-align:center"><div style="font-size:32px;margin-bottom:8px">🎥</div><div style="font-size:13px;font-weight:500">新品功能介绍</div><div style="font-size:11px;color:var(--text-secondary)">45s · 今日</div><span class="tag green">已分发</span></div>
+          <div style="background:var(--bg);border-radius:8px;padding:12px;text-align:center"><div style="font-size:32px;margin-bottom:8px">🎥</div><div style="font-size:13px;font-weight:500">行业趋势解读</div><div style="font-size:11px;color:var(--text-secondary)">90s · 昨日</div><span class="tag yellow">审核中</span></div>
+          <div style="background:var(--bg);border-radius:8px;padding:12px;text-align:center"><div style="font-size:32px;margin-bottom:8px">🎥</div><div style="font-size:13px;font-weight:500">客户案例分享</div><div style="font-size:11px;color:var(--text-secondary)">60s · 2天前</div><span class="tag green">已分发</span></div>
+          <div style="background:var(--bg);border-radius:8px;padding:12px;text-align:center"><div style="font-size:32px;margin-bottom:8px">🎥</div><div style="font-size:13px;font-weight:500">产品对比测评</div><div style="font-size:11px;color:var(--text-secondary)">120s · 3天前</div><span class="tag green">已分发</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFILES -->
+    <div class="screen" id="screen-profiles">
+      <div class="page-indicator"><span>客户运营</span> / <span class="current">用户画像</span></div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-label">总用户数</div><div class="stat-value">12,847</div><div class="stat-change up">↑ 384 本月新增</div></div>
+        <div class="stat-card"><div class="stat-label">活跃分群</div><div class="stat-value">8</div></div>
+        <div class="stat-card"><div class="stat-label">高价值用户</div><div class="stat-value">1,240</div><div class="stat-change up">↑ 9.8%</div></div>
+        <div class="stat-card"><div class="stat-label">沉睡用户</div><div class="stat-value">3,562</div><div class="stat-change down">↓ 3.2%</div></div>
+      </div>
+      <div class="two-col">
+        <div class="card">
+          <div class="card-title">👥 分群列表</div>
+          <table><thead><tr><th>分群名称</th><th>人数</th><th>规则</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>高活跃付费用户</td><td>842</td><td>消费>¥500 · 近30天活跃</td><td><button class="btn btn-sm btn-outline">查看</button></td></tr>
+            <tr><td>近期流失预警</td><td>1,203</td><td>近7天未登录</td><td><button class="btn btn-sm btn-outline">查看</button></td></tr>
+            <tr><td>新注册用户</td><td>2,456</td><td>注册<30天</td><td><button class="btn btn-sm btn-outline">查看</button></td></tr>
+            <tr><td>高意向线索</td><td>384</td><td>评分>80 · 未转化</td><td><button class="btn btn-sm btn-outline">查看</button></td></tr>
+          </tbody></table>
+        </div>
+        <div class="card">
+          <div class="card-title">📊 用户年龄分布</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;gap:12px"><span style="width:60px;font-size:13px">18-24</span><div style="flex:1;height:10px;background:var(--bg);border-radius:4px;overflow:hidden"><div style="width:18%;height:100%;background:var(--primary-light);border-radius:4px"></div></div><span style="font-size:12px;color:var(--text-secondary)">18%</span></div>
+            <div style="display:flex;align-items:center;gap:12px"><span style="width:60px;font-size:13px">25-34</span><div style="flex:1;height:10px;background:var(--bg);border-radius:4px;overflow:hidden"><div style="width:42%;height:100%;background:var(--primary);border-radius:4px"></div></div><span style="font-size:12px;color:var(--text-secondary)">42%</span></div>
+            <div style="display:flex;align-items:center;gap:12px"><span style="width:60px;font-size:13px">35-44</span><div style="flex:1;height:10px;background:var(--bg);border-radius:4px;overflow:hidden"><div style="width:28%;height:100%;background:var(--info);border-radius:4px"></div></div><span style="font-size:12px;color:var(--text-secondary)">28%</span></div>
+            <div style="display:flex;align-items:center;gap:12px"><span style="width:60px;font-size:13px">45+</span><div style="flex:1;height:10px;background:var(--bg);border-radius:4px;overflow:hidden"><div style="width:12%;height:100%;background:var(--warning);border-radius:4px"></div></div><span style="font-size:12px;color:var(--text-secondary)">12%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEADS -->
+    <div class="screen" id="screen-leads">
+      <div class="page-indicator"><span>客户运营</span> / <span class="current">线索挖掘</span></div>
+      <div class="card">
+        <div class="card-title">🎯 线索评分引擎</div>
+        <div class="pipeline">
+          <div class="pipe-step"><div class="step-num">步骤 1</div><div class="step-name">📥 数据采集</div><div class="step-desc">多渠道线索自动汇集</div></div>
+          <div class="pipe-arrow">→</div>
+          <div class="pipe-step"><div class="step-num">步骤 2</div><div class="step-name">📊 AI 评分</div><div class="step-desc">多维特征智能评分（0-100）</div></div>
+          <div class="pipe-arrow">→</div>
+          <div class="pipe-step"><div class="step-num">步骤 3</div><div class="step-name">🔁 自动跟进</div><div class="step-desc">高评分线索触发跟进流程</div></div>
+          <div class="pipe-arrow">→</div>
+          <div class="pipe-step"><div class="step-num">步骤 4</div><div class="step-name">📈 转化分析</div><div class="step-desc">评分结果与转化率对比优化</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">📋 待处理线索</div>
+        <table><thead><tr><th>线索</th><th>来源</th><th>评分</th><th>状态</th><th></th></tr></thead>
+        <tbody>
+          <tr><td>深圳某科技公司</td><td>官网表单</td><td><span class="tag green">92</span></td><td><span class="status pending">待跟进</span></td><td><button class="btn btn-sm btn-primary">跟进</button></td></tr>
+          <tr><td>广州电商商家</td><td>公众号</td><td><span class="tag">76</span></td><td><span class="status standby">评分中</span></td><td><button class="btn btn-sm btn-outline">详情</button></td></tr>
+          <tr><td>上海品牌代理</td><td>线下展会</td><td><span class="tag green">85</span></td><td><span class="status active">已联系</span></td><td><button class="btn btn-sm btn-outline">详情</button></td></tr>
+          <tr><td>北京初创团队</td><td>推荐</td><td><span class="tag yellow">58</span></td><td><span class="status standby">观察中</span></td><td><button class="btn btn-sm btn-outline">详情</button></td></tr>
+        </tbody></table>
+      </div>
+    </div>
+
+    <!-- SERVICE -->
+    <div class="screen" id="screen-service">
+      <div class="page-indicator"><span>客户运营</span> / <span class="current">AI 客服</span></div>
+
+      <div class="two-col">
+        <div class="card">
+          <div class="card-title">💬 实时对话</div>
+          <div style="background:var(--bg);border-radius:8px;padding:16px;height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;font-size:13px;">
+            <div style="display:flex;gap:8px;align-items:start"><div style="width:28px;height:28px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">🤖</div><div style="background:var(--bg-card);padding:8px 12px;border-radius:8px;max-width:80%">您好！我是 ReAgent AI 客服，请问有什么可以帮您？</div></div>
+            <div style="display:flex;gap:8px;align-items:start;justify-content:flex-end"><div style="background:var(--primary);padding:8px 12px;border-radius:8px;max-width:80%;color:white">我想了解一下你们的营销自动化平台</div><div style="width:28px;height:28px;border-radius:50%;background:var(--success);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;color:white">U</div></div>
+            <div style="display:flex;gap:8px;align-items:start"><div style="width:28px;height:28px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">🤖</div><div style="background:var(--bg-card);padding:8px 12px;border-radius:8px;max-width:80%">当然可以！ReAgent 提供内容生成、视频制作、客户运营、AI客服、线索挖掘等一站式营销能力。请问您最关心哪个功能？</div></div>
+            <div style="display:flex;gap:8px;align-items:start;justify-content:flex-end"><div style="background:var(--primary);padding:8px 12px;border-radius:8px;max-width:80%;color:white">成本和部署方式？</div><div style="width:28px;height:28px;border-radius:50%;background:var(--success);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;color:white">U</div></div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:12px">
+            <input type="text" style="flex:1;padding:8px 12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;outline:none" placeholder="输入消息…">
+            <button class="btn btn-primary" onclick="showToast('💬 消息已发送')">发送</button>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <div class="card-title">📊 客服概览</div>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--text-secondary)">今日会话</span><span style="font-weight:600">47</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--text-secondary)">满意率</span><span style="font-weight:600;color:var(--success)">94%</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--text-secondary)">平均响应</span><span style="font-weight:600">1.2s</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--text-secondary)">自动解决率</span><span style="font-weight:600">78%</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">🔄 转人工</div>
+            <table><thead><tr><th>会话</th><th>原因</th><th>等待</th></tr></thead>
+            <tbody>
+              <tr><td>投诉退款</td><td>自动无法处理</td><td>2min</td></tr>
+              <tr><td>定制需求</td><td>超出知识库</td><td>1min</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AUTOMATION -->
+    <div class="screen" id="screen-automation">
+      <div class="page-indicator"><span>自动化</span> / <span class="current">规则配置</span></div>
+      <div class="two-col">
+        <div class="card">
+          <div class="card-title">➕ 新建自动化规则</div>
+          <div class="input-group"><label>规则名称</label><input type="text" placeholder="例如：高评分线索自动跟进"></div>
+          <div class="input-group"><label>触发条件</label><select><option>线索评分 ≥ 80</option><option>新用户注册</option><option>用户30天未活跃</option><option>内容生成完成</option></select></div>
+          <div class="input-group"><label>执行动作</label><select><option>发送跟进通知</option><option>自动分配销售</option><option>触发短信/邮件</option><option>创建跟进任务</option></select></div>
+          <div class="input-group"><label>执行时间</label><select><option>立即执行</option><option>延迟30分钟</option><option>定时（指定时间）</option></select></div>
+          <button class="btn btn-primary">✅ 保存规则</button>
+        </div>
+        <div class="card">
+          <div class="card-title">📋 已有规则</div>
+          <table><thead><tr><th>规则</th><th>触发</th><th>动作</th><th>状态</th></tr></thead>
+          <tbody>
+            <tr><td>高评分线索跟进</td><td>评分≥80</td><td>分配销售</td><td><span class="status active">启用</span></td></tr>
+            <tr><td>新用户欢迎流程</td><td>注册完成</td><td>发送欢迎邮件</td><td><span class="status active">启用</span></td></tr>
+            <tr><td>活跃度预警</td><td>7天未登录</td><td>触发提醒</td><td><span class="status standby">暂停</span></td></tr>
+            <tr><td>内容批量发布</td><td>审核通过</td><td>自动分发</td><td><span class="status active">启用</span></td></tr>
+          </tbody></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- AGENTS -->
+    <div class="screen" id="screen-agents">
+      <div class="page-indicator"><span>自动化</span> / <span class="current">智能体管理</span></div>
+      <div class="agent-grid">
+        <div class="agent-card">
+          <div class="agent-header"><div class="agent-icon" style="background:rgba(79,70,229,0.15)">📝</div><div class="agent-name">内容智能体</div></div>
+          <div class="agent-desc">文案生成、内容优化、多语言翻译、模板管理</div>
+          <div class="agent-meta"><span>状态: <span class="status active">运行中</span></span><span>任务: 12</span></div>
+        </div>
+        <div class="agent-card">
+          <div class="agent-header"><div class="agent-icon" style="background:rgba(59,130,246,0.15)">🎬</div><div class="agent-name">视频智能体</div></div>
+          <div class="agent-desc">短视频自动剪辑、配音、字幕、多平台分发</div>
+          <div class="agent-meta"><span>状态: <span class="status active">运行中</span></span><span>任务: 5</span></div>
+        </div>
+        <div class="agent-card">
+          <div class="agent-header"><div class="agent-icon" style="background:rgba(34,197,94,0.15)">💬</div><div class="agent-name">客服智能体</div></div>
+          <div class="agent-desc">智能对话、知识库问答、转人工、情感分析</div>
+          <div class="agent-meta"><span>状态: <span class="status active">运行中</span></span><span>任务: 47</span></div>
+        </div>
+        <div class="agent-card">
+          <div class="agent-header"><div class="agent-icon" style="background:rgba(234,179,8,0.15)">🎯</div><div class="agent-name">线索智能体</div></div>
+          <div class="agent-desc">线索评分、分类、跟进提醒、转化预测</div>
+          <div class="agent-meta"><span>状态: <span class="status active">运行中</span></span><span>任务: 8</span></div>
+        </div>
+        <div class="agent-card">
+          <div class="agent-header"><div class="agent-icon" style="background:rgba(239,68,68,0.15)">🤖</div><div class="agent-name">编程智能体</div></div>
+          <div class="agent-desc">代码辅助生成、审查、自动补全、文档生成</div>
+          <div class="agent-meta"><span>状态: <span class="status standby">待机</span></span><span>任务: 1</span></div>
+        </div>
+        <div class="agent-card">
+          <div class="agent-header"><div class="agent-icon" style="background:rgba(139,92,246,0.15)">🌐</div><div class="agent-name">浏览器智能体</div></div>
+          <div class="agent-desc">数据抓取、网页填报、RPA 流程自动化</div>
+          <div class="agent-meta"><span>状态: <span class="status standby">待机</span></span><span>任务: 2</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="screen" id="screen-settings">
+      <div class="page-indicator"><span>系统</span> / <span class="current">系统设置</span></div>
+      <div class="two-col">
+        <div class="card">
+          <div class="card-title">🔑 API 配置</div>
+          <div class="input-group"><label>LLM API Base URL</label><input type="text" value="https://api.deepseek.com/v1"></div>
+          <div class="input-group"><label>模型</label><input type="text" value="deepseek-chat"></div>
+          <div class="input-group"><label>API Key</label><input type="password" value="sk-xxxxxxxxxxxxxxxx"></div>
+          <button class="btn btn-primary">测试连接</button>
+          <button class="btn btn-outline" style="margin-left:8px">保存</button>
+        </div>
+        <div>
+          <div class="card">
+            <div class="card-title">👥 成员管理</div>
+            <table><thead><tr><th>姓名</th><th>角色</th><th>状态</th></tr></thead>
+            <tbody>
+              <tr><td>管理员</td><td>超级管理员</td><td><span class="status active">在线</span></td></tr>
+              <tr><td>运营专员</td><td>内容管理</td><td><span class="status active">在线</span></td></tr>
+              <tr><td>客服主管</td><td>客服管理</td><td><span class="status standby">离线</span></td></tr>
+            </tbody></table>
+          </div>
+          <div class="card">
+            <div class="card-title">📊 用量统计</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;justify-content:space-between;font-size:13px"><span>本月 LLM 调用</span><span>124,580 次</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px"><span>已用 Token</span><span>45.2M</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px"><span>存储用量</span><span>12.8 GB</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </div><!-- /content -->
+
+    <div class="toast" id="toast"></div>
+
+    <div class="proto-note">🏮 ReAgent 交互原型 · 礼部制 · 2026-05-06</div>
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<script>
+function switchScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  document.querySelector('[data-screen="'+id+'"]').classList.add('active');
+  const titles = {dashboard:'数据看板',content:'内容生成',video:'短视频引擎',profiles:'用户画像',leads:'线索挖掘',service:'AI 客服',automation:'规则配置',agents:'智能体管理',settings:'系统设置'};
+  document.getElementById('pageTitle').textContent = titles[id] || id;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// Chart
+(function(){
+  const data = [{l:'周一',v:42},{l:'周二',v:38},{l:'周三',v:65},{l:'周四',v:52},{l:'周五',v:78},{l:'周六',v:45},{l:'周日',v:60}];
+  const max = Math.max(...data.map(d => d.v));
+  const c = document.getElementById('contentChart');
+  c.innerHTML = data.map(d => '<div class="chart-col"><div class="bar" style="height:'+(d.v/max*140)+'px"></div><div class="label">'+d.l+'</div></div>').join('');
+})();
+
+// Clock
+(function(){
+  function u(){document.getElementById('clock').textContent=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});}
+  u();setInterval(u,1000);
+})();
+</script>
+</body>
+</html>
