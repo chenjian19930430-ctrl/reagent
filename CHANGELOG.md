@@ -515,3 +515,4 @@
 - 2026-05-01 11:24:00 [张哲钧] refactor: extract common utilities
 - 2026-05-05 12:23:00 [张哲钧] chore: update dependencies
 - 2026-05-07 10:25:00 [张哲钧] test: add unit tests for 文档
+- 2026-05-08 13:38:00 [张哲钧] refactor: extract common utilities
