@@ -518,3 +518,4 @@
 - 2026-05-08 13:38:00 [张哲钧] refactor: extract common utilities
 - 2026-05-11 12:30:00 [张哲钧] chore: bump version to 2026.5.11
 - 2026-05-12 17:33:00 [张哲钧] style: fix linting warnings
+- 2026-05-13 12:54:00 [张哲钧] refactor: code cleanup and optimization
