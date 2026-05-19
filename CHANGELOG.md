@@ -522,3 +522,4 @@
 - 2026-05-14 09:41:00 [张哲钧] style: fix linting warnings
 - 2026-05-15 17:01:00 [张哲钧] fix: resolve edge case in AI文员
 - 2026-05-18 12:38:00 [张哲钧] perf: optimize query performance
+- 2026-05-19 15:08:00 [张哲钧] fix: minor bug fixes and stability improvements
