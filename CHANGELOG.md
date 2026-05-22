@@ -525,3 +525,4 @@
 - 2026-05-19 15:08:00 [张哲钧] fix: minor bug fixes and stability improvements
 - 2026-05-20 16:40:00 [张哲钧] chore: update config files
 - 2026-05-21 11:11:00 [张哲钧] test: add unit tests for LLM客户端
+- 2026-05-22 11:57:00 [张哲钧] ci: update workflow configuration
