@@ -527,3 +527,4 @@
 - 2026-05-21 11:11:00 [张哲钧] test: add unit tests for LLM客户端
 - 2026-05-22 11:57:00 [张哲钧] ci: update workflow configuration
 - 2026-05-25 09:03:00 [张哲钧] chore: update dependencies
+- 2026-05-26 14:35:00 [张哲钧] test: add unit tests for LLM客户端
