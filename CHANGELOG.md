@@ -529,3 +529,4 @@
 - 2026-05-25 09:03:00 [张哲钧] chore: update dependencies
 - 2026-05-26 14:35:00 [张哲钧] test: add unit tests for LLM客户端
 - 2026-05-27 15:04:00 [张哲钧] docs: update api documentation
+- 2026-05-28 11:18:00 [张哲钧] refactor: extract common utilities
