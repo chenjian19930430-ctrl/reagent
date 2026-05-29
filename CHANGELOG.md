@@ -530,3 +530,4 @@
 - 2026-05-26 14:35:00 [张哲钧] test: add unit tests for LLM客户端
 - 2026-05-27 15:04:00 [张哲钧] docs: update api documentation
 - 2026-05-28 11:18:00 [张哲钧] refactor: extract common utilities
+- 2026-05-29 18:12:00 [张哲钧] perf: optimize query performance
